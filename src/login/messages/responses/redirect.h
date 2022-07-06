@@ -4,16 +4,14 @@
 
 #include <cstdint>
 
-#include "transport/binarybuffer.h"
-#include "transport/string.h"
-
 #include "model/gameserver.h"
+#include "transport/binarybuffer.h"
 
-namespace Messages::Responses {
+namespace Login::Messages::Responses {
 struct Redirect {
   static const uint16_t type = 0x04;
 
-  uint32_t session;
+  uint32_t session{};
   Model::GameServer server;
 
   void serialize(BinaryBuffer &buffer) {
@@ -26,6 +24,6 @@ struct Redirect {
   }
 };
 
-}// namespace Messages::Responses
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_MESSAGES_RESPONSES_REDIRECT_H

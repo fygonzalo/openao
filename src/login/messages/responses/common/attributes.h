@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include "transport/binarybuffer.h"
 
-namespace Messages::Responses {
+namespace Login::Messages::Responses {
 void serialize(BinaryBuffer &buffer, Model::Attributes &a) {
   buffer.write(a.gender);
   buffer.write(a.hair_style);
@@ -13,6 +13,6 @@ void serialize(BinaryBuffer &buffer, Model::Attributes &a) {
   buffer.write(a.hair_color);
   buffer.write(a.skin_color);
 }
-}// namespace Messages::Responses
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_MESSAGES_RESPONSES_COMMON_ATTRIBUTES_H

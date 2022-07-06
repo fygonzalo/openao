@@ -1,20 +1,20 @@
 
-#ifndef OPENAO_LOGIN_H
-#define OPENAO_LOGIN_H
+#ifndef OPENAO_LOGIN_SYSTEM_H
+#define OPENAO_LOGIN_SYSTEM_H
 
 #include "transport/message.h"
 #include "transport/system.h"
 #include <asio.hpp>
 
+#include "login/messages/responses/redirect.h"
 #include "messages/requests/auth.h"
-#include "messages/responses/redirect.h"
 #include "model/gameserver.h"
 #include "services/account.h"
 
-
-class LoginSystem : public System {
+namespace Login {
+class System : public ::System {
 public:
-  LoginSystem(Services::Account &as) : as_(as){};
+  System(Services::Account &as) : as_(as){};
 
   awaitable<void> handle(MessageStream stream) override {
     Message message = co_await stream.read();
@@ -39,5 +39,6 @@ public:
 private:
   Services::Account &as_;
 };
+}// namespace Login
 
-#endif// OPENAO_LOGIN_H
+#endif// OPENAO_LOGIN_SYSTEM_H

@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include "transport/binarybuffer.h"
 
-namespace Messages::Responses {
+namespace Login::Messages::Responses {
 void serialize(BinaryBuffer &buffer, Model::Equipment &e) {
   buffer.write(e.head);
   buffer.write(e.body);
@@ -16,6 +16,6 @@ void serialize(BinaryBuffer &buffer, Model::Equipment &e) {
   buffer.write(e.back);
   buffer.write(e.ride);
 }
-}// namespace Messages::Responses
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_MESSAGES_RESPONSES_COMMON_EQUIPMENT_H

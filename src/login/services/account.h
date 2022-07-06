@@ -3,13 +3,15 @@
 #define OPENAO_SERVICES_ACCOUNT_H
 
 
-#include "messages/responses/charinfo.h"
+#include "login/messages/requests/auth.h"
+#include "login/messages/responses/charinfo.h"
 
 #include "repositories/iaccount.h"
 #include "repositories/icharacter.h"
+
 #include "transport/messagestream.h"
 
-namespace Services {
+namespace Login::Services {
 class Account {
 public:
   Account(Repositories::IAccount &iaccount,
@@ -17,7 +19,7 @@ public:
       : iaccount_(iaccount), icharacter_(icharacter){};
 
   awaitable<void> authenticate(MessageStream &stream,
-                               Messages::Requests::Auth &request) {
+                               Login::Messages::Requests::Auth &request) {
     auto account = iaccount_.find_account_by_username_password(
             request.username, request.password);
 

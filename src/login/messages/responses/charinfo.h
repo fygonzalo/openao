@@ -6,13 +6,13 @@
 #include "model/branches.h"
 #include "model/characters.h"
 
-#include "messages/responses/common/attributes.h"
-#include "messages/responses/common/branches.h"
-#include "messages/responses/common/equipment.h"
+#include "login/messages/responses/common/attributes.h"
+#include "login/messages/responses/common/branches.h"
+#include "login/messages/responses/common/equipment.h"
 
 #include "transport/binarybuffer.h"
 
-namespace Messages::Responses {
+namespace Login::Messages::Responses {
 class CharInfo {
 public:
   static const uint16_t type = 0x00;
@@ -33,7 +33,7 @@ public:
     buffer.write(cc_.skills);
     buffer.write(a_.slots);
 
-    Messages::Responses::serialize(buffer, bb_);
+    Login::Messages::Responses::serialize(buffer, bb_);
   }
 
 private:
@@ -41,7 +41,7 @@ private:
     buffer.write(c.index);
     buffer.write(c.level);
     buffer.write(c.faction);
-    Messages::Responses::serialize(buffer, c.attributes);
+    Login::Messages::Responses::serialize(buffer, c.attributes);
     buffer.write(c.stage);
     buffer.set(0, 4);
     buffer.write(c.shape);
@@ -50,7 +50,7 @@ private:
     buffer.write(c.name);
     buffer.write(a_.id);
     buffer.write(a_.username);
-    Messages::Responses::serialize(buffer, c.equipment);
+    Login::Messages::Responses::serialize(buffer, c.equipment);
     serialize(buffer, c.stats);
     buffer.write(c.title);
     buffer.set(0, 4);
@@ -67,6 +67,6 @@ private:
   Model::Characters &cc_;
   Model::Branches &bb_;
 };
-}// namespace Messages::Responses
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_CHARINFO_H

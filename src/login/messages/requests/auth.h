@@ -1,11 +1,11 @@
 
-#ifndef OPENAO_MESSAGES_REQUESTS_AUTH_H
-#define OPENAO_MESSAGES_REQUESTS_AUTH_H
+#ifndef OPENAO_LOGIN_MESSAGES_REQUESTS_AUTH_H
+#define OPENAO_LOGIN_MESSAGES_REQUESTS_AUTH_H
 
 #include "transport/string.h"
 #include <string>
 
-namespace Messages::Requests {
+namespace Login::Messages::Requests {
 
 struct Auth {
   static const uint16_t type = 0x02;
@@ -18,6 +18,6 @@ struct Auth {
     buffer.read(password);
   }
 };
-}// namespace Messages::Requests
+}// namespace Login::Messages::Requests
 
-#endif// OPENAO_MESSAGES_REQUESTS_AUTH_H
+#endif// OPENAO_LOGIN_MESSAGES_REQUESTS_AUTH_H
