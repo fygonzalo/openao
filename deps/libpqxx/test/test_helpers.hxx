@@ -160,7 +160,7 @@ struct failure_to_fail
 
 namespace internal
 {
-/// Syntactic placeholder: require (and accept) semicolon after block.
+/// Syntactic placeholder: require (and handle) semicolon after block.
 inline void end_of_statement() {}
 } // namespace internal
 

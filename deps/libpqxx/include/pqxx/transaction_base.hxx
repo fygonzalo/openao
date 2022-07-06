@@ -249,7 +249,7 @@ public:
    * it can help libpqxx produce more helpful error messages, making problems
    * in your code easier to debug.
    *
-   * Many of the execution functions used to accept a `desc` argument, a
+   * Many of the execution functions used to handle a `desc` argument, a
    * human-readable description of the statement for use in error messages.
    * This could make failures easier to debug.  Future versions will use
    * C++20's `std::source_location` to identify the failing statement.
