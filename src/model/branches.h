@@ -8,13 +8,12 @@
 #include <vector>
 
 namespace Model {
-  struct Branches {
-    Branches() {};
-    Branches(std::vector<uint32_t> s) : statuses(std::move(s)) {};
+struct Branches {
+  Branches(){};
+  Branches(std::vector<uint32_t> s) : statuses(std::move(s)){};
 
-    std::vector<uint32_t> statuses;
-
-  };
+  std::vector<uint32_t> statuses;
+};
 }// namespace Model
 
 #endif// OPENAO_BRANCHES_H

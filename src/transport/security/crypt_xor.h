@@ -23,18 +23,17 @@ protected:
   void process(const char *src, char *dst, int len) {
 
     int key_len = key_.size();
-    int *key_ptr = (int *)key_.data();
+    int *key_ptr = (int *) key_.data();
 
-    int *src_ptr = (int *)src;
-    int *dst_ptr = (int *)dst;
+    int *src_ptr = (int *) src;
+    int *dst_ptr = (int *) dst;
 
     for (int i = 0; i < len >> 2; i++) {
-      *(dst_ptr + i) =
-          *(src_ptr + i) ^ *(key_ptr + (i & ((key_len >> 2) - 1)));
+      *(dst_ptr + i) = *(src_ptr + i) ^ *(key_ptr + (i & ((key_len >> 2) - 1)));
     }
   }
 
   std::vector<char> key_;
 };
 
-#endif // OPENAO_TRANSPORT_SECURITY_CRYPT_XOR_H
+#endif// OPENAO_TRANSPORT_SECURITY_CRYPT_XOR_H

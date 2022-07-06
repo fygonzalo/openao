@@ -2,8 +2,8 @@
 #ifndef OPENAO_SYSTEM_H
 #define OPENAO_SYSTEM_H
 
-#include <asio.hpp>
 #include "transport/messagestream.h"
+#include <asio.hpp>
 
 using asio::awaitable;
 

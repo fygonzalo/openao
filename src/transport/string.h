@@ -21,31 +21,26 @@ public:
   };
 
   // Would be nice to have static assertion on the size
-  String& operator= (const std::string string) {
+  String &operator=(const std::string string) {
     int size = string.size();
 
-    if (size > size_)
-      size = size_;
+    if (size > size_) size = size_;
 
     memcpy(value_.data(), string.data(), size);
   }
 
   template<std::size_t N>
-  String& operator= (const char src[N]) {
+  String &operator=(const char src[N]) {
     memcpy(value_.data(), src, N);
   }
 
-  operator std::string() const {
-    return value_;
-  }
+  operator std::string() const { return value_; }
 
-  void serialize(BinaryBuffer& buffer) {
+  void serialize(BinaryBuffer &buffer) {
     buffer.write(value_.data(), size_ + 1);
   }
 
-  void deserialize(BinaryBuffer& buffer) {
-    buffer.read(value_);
-  }
+  void deserialize(BinaryBuffer &buffer) { buffer.read(value_); }
 
 private:
   int size_ = 0;

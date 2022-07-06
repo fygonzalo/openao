@@ -36,8 +36,9 @@ public:
 
   awaitable<void> listen() {
     for (;;) {
-      MessageStream stream{ctx_, CipherSet({0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00})};
+      MessageStream stream{ctx_, CipherSet({0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                            0x00, 0x00, 0x00, 0x00})};
       co_await acceptor_.async_accept(stream.socket(), use_awaitable);
       co_await stream.init();
       co_spawn(ctx_, system_.handle(std::move(stream)), detached);
@@ -48,7 +49,7 @@ private:
   io_context ctx_;
   tcp::acceptor acceptor_;
 
-  System& system_;
+  System &system_;
 };
 
 

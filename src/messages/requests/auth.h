@@ -8,17 +8,17 @@
 
 namespace Messages::Requests {
 
-  struct Auth {
-    static const RequestType type = RequestType::AUTH;
+struct Auth {
+  static const RequestType type = RequestType::AUTH;
 
-    String username{20};
-    String password{32};
+  String username{20};
+  String password{32};
 
-    void deserialize(BinaryBuffer& buffer) {
-      buffer.read(username);
-      buffer.read(password);
-    }
-  };
-}
+  void deserialize(BinaryBuffer &buffer) {
+    buffer.read(username);
+    buffer.read(password);
+  }
+};
+}// namespace Messages::Requests
 
 #endif// OPENAO_MESSAGES_REQUESTS_AUTH_H

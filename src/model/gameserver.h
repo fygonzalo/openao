@@ -3,10 +3,10 @@
 #define OPENAO_GAMESERVER_H
 #include "transport/string.h"
 namespace Model {
-  struct GameServer {
-    String ip{15};
-    uint16_t port;
-  };
-}
+struct GameServer {
+  String ip{15};
+  uint16_t port;
+};
+}// namespace Model
 
 #endif// OPENAO_GAMESERVER_H

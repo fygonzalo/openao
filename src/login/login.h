@@ -2,9 +2,9 @@
 #ifndef OPENAO_LOGIN_H
 #define OPENAO_LOGIN_H
 
-#include <asio.hpp>
-#include "transport/system.h"
 #include "transport/message.h"
+#include "transport/system.h"
+#include <asio.hpp>
 
 #include "messages/requests/auth.h"
 #include "messages/responses/redirect.h"
@@ -14,7 +14,7 @@
 
 class LoginSystem : public System {
 public:
-  LoginSystem(Services::Account& as) : as_(as) {};
+  LoginSystem(Services::Account &as) : as_(as){};
 
   awaitable<void> handle(MessageStream stream) override {
     Message message = co_await stream.read();
@@ -37,7 +37,7 @@ public:
   }
 
 private:
-  Services::Account& as_;
+  Services::Account &as_;
 };
 
 #endif// OPENAO_LOGIN_H

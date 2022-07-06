@@ -27,7 +27,7 @@ using asio::ip::tcp;
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : ctx_(ctx),socket_(ctx), cipher_(std::move(cipher)){};
+      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)){};
 
   tcp::socket &socket() { return socket_; }
 
@@ -36,9 +36,7 @@ public:
     socket_.close();
   }
 
-  asio::any_io_executor get_executor() {
-    return socket_.get_executor();
-  }
+  asio::any_io_executor get_executor() { return socket_.get_executor(); }
 
   awaitable<void> init() {
     BinaryBuffer packet;
