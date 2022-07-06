@@ -84,19 +84,17 @@ public:
   void write(int16_t value) { write_(value); }
   void write(int32_t value) { write_(value); }
   void set(char c, int len) {
-    if (len_ + len > buffer_.size())
-      throw "Unable to exceed buffer size";
+    if (len_ + len > buffer_.size()) throw "Unable to exceed buffer size";
 
     memset(buffer_.data() + len_, c, len);
     len_ += len;
   }
-  void write(std::string &var) { write(var.data(), var.size() + 1, len_ ); };
+  void write(std::string &var) { write(var.data(), var.size() + 1, len_); };
 
   template<typename T, size_t N>
   void write(std::array<T, N> &values) {
     int a = values.size();
-    for (T &t : values )
-      write(t);
+    for (T &t: values) write(t);
   }
 
 
@@ -106,7 +104,10 @@ public:
   void read(int8_t &var) { read_(var); }
   void read(int16_t &var) { read_(var); }
   void read(int32_t &var) { read_(var); }
-  void read(std::string &var) { read_(var.data(), var.size()); }
+  void read(std::string &var) {
+    read_(var.data(), var.size());
+    len_ += 1;
+  }
 
 
   template<class T>

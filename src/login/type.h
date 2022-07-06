@@ -10,6 +10,7 @@ enum class RequestType : uint16_t {
 
 enum class ResponseType : uint16_t {
   AUTH = 0x00,
+  REDIRECT = 0x04,
 };
 
 #endif// OPENAO_TYPE_H

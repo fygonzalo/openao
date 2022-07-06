@@ -4,20 +4,20 @@
 #include <cstdint>
 #include <vector>
 
-#include <boost/asio.hpp>
+#include <asio.hpp>
 
 #include "ciphersuite.h"
 #include "packetheader.h"
 #include "transport/checksum.h"
 
-using boost::asio::async_read;
-using boost::asio::async_write;
-using boost::asio::awaitable;
-using boost::asio::buffer;
-using boost::asio::const_buffer;
-using boost::asio::io_context;
-using boost::asio::use_awaitable;
-using boost::asio::ip::tcp;
+using asio::async_read;
+using asio::async_write;
+using asio::awaitable;
+using asio::buffer;
+using asio::const_buffer;
+using asio::io_context;
+using asio::use_awaitable;
+using asio::ip::tcp;
 
 #include "transport/binarybuffer.h"
 #include "transport/ciphersuite.h"
@@ -27,13 +27,17 @@ using boost::asio::ip::tcp;
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : socket_(ctx), cipher_(std::move(cipher)){};
+      : ctx_(ctx),socket_(ctx), cipher_(std::move(cipher)){};
 
   tcp::socket &socket() { return socket_; }
 
   void close() {
-    socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+    socket_.shutdown(asio::ip::tcp::socket::shutdown_both);
     socket_.close();
+  }
+
+  asio::any_io_executor get_executor() {
+    return socket_.get_executor();
   }
 
   awaitable<void> init() {
@@ -117,6 +121,8 @@ public:
 
 private:
   CipherSet cipher_;
+
+  io_context &ctx_;
   tcp::socket socket_;
 
   BinaryBuffer read_buffer_;

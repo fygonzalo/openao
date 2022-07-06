@@ -35,8 +35,16 @@ public:
     memcpy(value_.data(), src, N);
   }
 
+  operator std::string() const {
+    return value_;
+  }
+
   void serialize(BinaryBuffer& buffer) {
     buffer.write(value_.data(), size_ + 1);
+  }
+
+  void deserialize(BinaryBuffer& buffer) {
+    buffer.read(value_);
   }
 
 private:
