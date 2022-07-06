@@ -2,35 +2,15 @@
 #ifndef OPENAO_CHARACTER_H
 #define OPENAO_CHARACTER_H
 
+#include "attributes.h"
+#include "equipment.h"
+#include "stats.h"
 #include "transport/binarybuffer.h"
 #include "transport/string.h"
 
 #include <cstdint>
 
 namespace Model {
-struct Attributes {
-  uint8_t gender;
-  uint8_t hair_style;
-  uint8_t height;
-  uint8_t hair_color;
-  uint8_t skin_color;
-};
-
-struct Equipment {
-  uint32_t head;
-  uint32_t body;
-  uint32_t main_hand;
-  uint32_t off_hand;
-  uint32_t hand;
-  uint32_t feet;
-  uint32_t back;
-  uint32_t ride;
-};
-
-struct Stats {
-  uint32_t hp_current;
-  uint32_t mp_current;
-};
 
 struct Character {
   uint8_t index = 0;
@@ -46,6 +26,7 @@ struct Character {
   Equipment equipment;
   Stats stats;
   String title{12, ""};
+
 };
 }// namespace Model
 
