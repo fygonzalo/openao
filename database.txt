@@ -1,0 +1,118 @@
+Account {
+  id: INT
+  username: VARCHAR(16)
+  password: VARCHAR(16)
+  slots: INT
+  enabled: BOOL
+  banned: BOOL
+}
+
+Character {
+  id: INT
+  account_id: INT FOREIGN KEY Account(id)
+  name: VARCHAR(16)
+  title: VARCHAR(12)
+  birthday: DATE
+  blood: INT
+}
+
+Attributes {
+  character_id: INT FOREIGN KEY Character(id)
+  gender: INT
+  height: INT
+  hair_style: INT
+  hair_color: INT
+  skin_color: INT
+}
+
+# Is a table or should be extracted from inventory ?
+Equipment {
+  character_id: INT FOREIGN KEY Character(id)
+  head: INT
+  body: INT
+  right_hand: INT
+  left_hand: INT
+  gloves: INT
+  feet: INT
+  back: INT
+  ride: INT
+}
+
+Leveling {
+  character_id: INT FOREIGN KEY Character(id)
+  level_experience: INT
+  rank_credits: INT
+}
+
+
+# Contra: diffacil de entender, no se puede forzar NOT NULL
+# Pro: hay forma de leer solo los skills activos
+Skills {
+  character_id: INT FOREIGN KEY Character(id)
+  skill_id: INT FOREIGN KEY
+  level: INT
+  experience: INT
+  enabled: BOOL
+}
+
+Stats {
+  character_id: INT FOREIGN KEY Character(id)
+  
+  hp_current: INT
+  hp_total: INT
+  mp_current: INT
+  mp_total: INT
+  sp_current: SHORT
+  sp_total: SHORT
+  
+  weight_current: INT
+  weight_total: INT
+  
+  movement_speed: INT
+  
+  attack_base: INT
+  attack_right: INT
+  attack_left: INT
+  defense_base: INT
+  defense_total: INT
+  spell_attack_base: INT
+  spell_attack_total: INT
+  spell_defense_base: INT
+  spell_defense_total: INT
+  
+  rigor_base: SHORT
+  rigor_total: SHORT
+  agility_base: SHORT
+  agility_total: SHORT
+  critical_base: SHORT
+  critical_total: SHORT
+  stamina_base: SHORT
+  stamina_total: SHORT
+  soul_base: SHORT
+  soul_total: SHORT
+  
+  thunder_defense: SHORT
+  thunder_attack: SHORT
+  fire_defense: SHORT
+  fire_attack: SHORT
+  ice_defense: SHORT
+  ice_attack: SHORT
+  rotten_defense: SHORT
+  rotten_attack: SHORT 
+}
+
+Slot {
+  id: INT
+  character_id: INT FOREIGN KEY Character(id)
+  slot_number: INT
+  item_id: INT
+  quantity: INT
+  
+  # OPTIONAL DATA
+  owner_id: INT FOREIGN KEY Character(id)
+  hardiness: INT
+  rest: INT
+  flags: INT
+  upgrades: INT
+}
+

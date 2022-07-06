@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - runningAs:
+    username: liquibase
+
+  - changeSet:
+      id: 1
+      author: fygonzalo
+      changes:
+        - loadData:
+            file: db/seed/account.csv
+            tableName: account
+  - changeSet:
+      id: 2
+      author: fygonzalo
+      changes:
+        - loadData:
+            file: db/seed/character.csv
+            tableName: character
