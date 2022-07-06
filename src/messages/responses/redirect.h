@@ -7,12 +7,11 @@
 #include "transport/binarybuffer.h"
 #include "transport/string.h"
 
-#include "login/type.h"
 #include "model/gameserver.h"
 
 namespace Messages::Responses {
 struct Redirect {
-  static const ResponseType type = ResponseType::REDIRECT;
+  static const uint16_t type = 0x04;
 
   uint32_t session;
   Model::GameServer server;

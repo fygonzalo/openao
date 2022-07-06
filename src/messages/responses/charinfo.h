@@ -10,13 +10,12 @@
 #include "messages/responses/common/branches.h"
 #include "messages/responses/common/equipment.h"
 
-#include "login/type.h"
 #include "transport/binarybuffer.h"
 
 namespace Messages::Responses {
 class CharInfo {
 public:
-  static const ResponseType type = ResponseType::AUTH;
+  static const uint16_t type = 0x00;
 
   CharInfo(Model::Account &a, Model::Characters &cc, Model::Branches &bb)
       : a_(a), cc_(cc), bb_(bb) {}
