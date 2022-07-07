@@ -2,7 +2,7 @@
 #ifndef OPENAO_BRANCHES_H
 #define OPENAO_BRANCHES_H
 
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 #include <cstdint>
 #include <utility>
 #include <vector>

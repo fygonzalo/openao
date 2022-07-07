@@ -19,15 +19,15 @@ using asio::io_context;
 using asio::use_awaitable;
 using asio::ip::tcp;
 
-#include "transport/binarybuffer.h"
 #include "transport/ciphersuite.h"
 #include "transport/message.h"
+#include "utils/binarybuffer.h"
 
 
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)){};
+      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)){}
 
   tcp::socket &socket() { return socket_; }
 

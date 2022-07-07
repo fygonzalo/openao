@@ -5,14 +5,18 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: fygonzalo
+      runOnChange: true
       changes:
-        - loadData:
+        - loadUpdateData:
             file: db/seed/account.csv
             tableName: account
+            primaryKey: id
   - changeSet:
       id: 2
       author: fygonzalo
+      runOnChange: true
       changes:
-        - loadData:
+        - loadUpdateData:
             file: db/seed/character.csv
             tableName: character
+            primaryKey: id

@@ -40,6 +40,6 @@ private:
   Repositories::ICharacter &icharacter_;
   // std::vector<Client>& players;
 };
-}// namespace Services
+}// namespace Login::Services
 
 #endif// OPENAO_SERVICES_ACCOUNT_H

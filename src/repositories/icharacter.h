@@ -9,6 +9,8 @@
 namespace Repositories {
 class ICharacter {
 public:
+  virtual ~ICharacter() {}
+
   virtual Model::Characters get_characters_by_account(uint32_t account_id) = 0;
 };
 

@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "transport/binarybuffer.h"
 #include "transport/packetheader.h"
+#include "utils/binarybuffer.h"
 
 TEST(PacketHeader, Serialization) {
   BinaryBuffer buffer;

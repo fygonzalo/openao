@@ -5,8 +5,8 @@
 #include "attributes.h"
 #include "equipment.h"
 #include "stats.h"
-#include "transport/binarybuffer.h"
-#include "transport/string.h"
+#include "utils/binarybuffer.h"
+#include "utils/string.h"
 
 #include <cstdint>
 
@@ -26,7 +26,6 @@ struct Character {
   Equipment equipment;
   Stats stats;
   String title{12, ""};
-
 };
 }// namespace Model
 

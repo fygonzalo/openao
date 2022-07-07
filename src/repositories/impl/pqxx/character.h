@@ -37,7 +37,7 @@ public:
     for (int i = 0; i < results.size(); i++) {
       pqxx::row r = results[i];
 
-      Model::Character &c = characters.characters[0];
+      Model::Character &c = characters.characters[i];
       c.index = r["index"].as<int>();
       c.level = r["level"].as<int>();
       c.faction = r["faction"].as<int>();
@@ -51,8 +51,8 @@ public:
       c.stats.mp_current = r["mp_current"].as<int>();
       c.title = r["title"].as<std::string>();
 
-      characters.hps[0] = r["hp_total"].as<int>();
-      characters.mps[0] = r["mp_total"].as<int>();
+      characters.hps[i] = r["hp_total"].as<int>();
+      characters.mps[i] = r["mp_total"].as<int>();
     };
 
     return characters;

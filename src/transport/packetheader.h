@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 
 class PacketHeader {
 public:

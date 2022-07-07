@@ -3,7 +3,7 @@
 #define OPENAO_MESSAGES_RESPONSES_COMMON_BRANCHES_H
 
 #include "model/branches.h"
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 
 namespace Login::Messages::Responses {
 void serialize(BinaryBuffer &buffer, Model::Branches &bb) {

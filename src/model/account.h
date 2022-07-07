@@ -2,7 +2,7 @@
 #ifndef OPENAO_ACCOUNT_H
 #define OPENAO_ACCOUNT_H
 
-#include "transport/string.h"
+#include "utils/string.h"
 #include <string>
 
 namespace Model {

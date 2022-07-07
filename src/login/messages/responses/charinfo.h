@@ -10,7 +10,7 @@
 #include "login/messages/responses/common/branches.h"
 #include "login/messages/responses/common/equipment.h"
 
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 
 namespace Login::Messages::Responses {
 class CharInfo {

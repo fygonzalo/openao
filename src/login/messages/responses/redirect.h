@@ -5,7 +5,7 @@
 #include <cstdint>
 
 #include "model/gameserver.h"
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 
 namespace Login::Messages::Responses {
 struct Redirect {

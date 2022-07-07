@@ -2,7 +2,7 @@
 #ifndef OPENAO_MESSAGE_H
 #define OPENAO_MESSAGE_H
 
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 #include <cstdint>
 
 struct Message {

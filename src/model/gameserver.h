@@ -1,7 +1,7 @@
 
 #ifndef OPENAO_GAMESERVER_H
 #define OPENAO_GAMESERVER_H
-#include "transport/string.h"
+#include "utils/string.h"
 namespace Model {
 struct GameServer {
   String ip{15};

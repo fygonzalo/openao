@@ -4,7 +4,7 @@
 
 #include <utility>
 
-#include "transport/binarybuffer.h"
+#include "utils/binarybuffer.h"
 
 class CipherSet {
 public:

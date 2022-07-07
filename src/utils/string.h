@@ -18,7 +18,7 @@ public:
     value_.resize(size);
     size_ = size;
     memcpy(value_.data(), str, N);
-  };
+  }
 
   // Would be nice to have static assertion on the size
   void operator=(const std::string string) {
