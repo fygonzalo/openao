@@ -12,3 +12,6 @@ start:
 
 seed:
 	liquibase --headless=true --username=admin --password=admin --changelog-file="db/seed/db.changelog-seed.yaml" --url "jdbc:postgresql://localhost:5432/openao" update
+
+clang-format:
+	find src/ -regex '.*\.\(cpp\|h\|hpp\|cc\|cxx\)' -exec clang-format --style=file:.clang-format -i {} \;
