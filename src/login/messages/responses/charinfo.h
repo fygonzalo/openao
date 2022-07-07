@@ -6,9 +6,9 @@
 #include "model/branches.h"
 #include "model/characters.h"
 
-#include "login/messages/responses/common/attributes.h"
-#include "login/messages/responses/common/branches.h"
-#include "login/messages/responses/common/equipment.h"
+#include "serialization/binary/attributes.h"
+#include "serialization/binary/branches.h"
+#include "serialization/binary/equipment.h"
 
 #include "utils/binarybuffer.h"
 
@@ -33,7 +33,7 @@ public:
     buffer.write(cc_.skills);
     buffer.write(a_.slots);
 
-    Login::Messages::Responses::serialize(buffer, bb_);
+    Serialization::Binary::serialize(buffer, bb_);
   }
 
 private:
@@ -41,7 +41,7 @@ private:
     buffer.write(c.index);
     buffer.write(c.level);
     buffer.write(c.faction);
-    Login::Messages::Responses::serialize(buffer, c.attributes);
+    Serialization::Binary::serialize(buffer, c.attributes);
     buffer.write(c.stage);
     buffer.set(0, 4);
     buffer.write(c.shape);
@@ -50,7 +50,7 @@ private:
     buffer.write(c.name);
     buffer.write(a_.id);
     buffer.write(a_.username);
-    Login::Messages::Responses::serialize(buffer, c.equipment);
+    Serialization::Binary::serialize(buffer, c.equipment);
     serialize(buffer, c.stats);
     buffer.write(c.title);
     buffer.set(0, 4);

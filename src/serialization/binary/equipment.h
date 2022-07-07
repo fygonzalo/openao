@@ -1,11 +1,11 @@
 
-#ifndef OPENAO_MESSAGES_RESPONSES_COMMON_EQUIPMENT_H
-#define OPENAO_MESSAGES_RESPONSES_COMMON_EQUIPMENT_H
+#ifndef OPENAO_SERIALIZATION_BINARY_EQUIPMENT_H
+#define OPENAO_SERIALIZATION_BINARY_EQUIPMENT_H
 
 #include "model/character.h"
 #include "utils/binarybuffer.h"
 
-namespace Login::Messages::Responses {
+namespace Serialization::Binary {
 void serialize(BinaryBuffer &buffer, Model::Equipment &e) {
   buffer.write(e.head);
   buffer.write(e.body);
@@ -16,6 +16,6 @@ void serialize(BinaryBuffer &buffer, Model::Equipment &e) {
   buffer.write(e.back);
   buffer.write(e.ride);
 }
-}// namespace Login::Messages::Responses
+}// namespace Serialization::Binary
 
-#endif// OPENAO_MESSAGES_RESPONSES_COMMON_EQUIPMENT_H
+#endif// OPENAO_SERIALIZATION_BINARY_EQUIPMENT_H
