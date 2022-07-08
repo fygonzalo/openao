@@ -5,7 +5,7 @@
 #include "utils/binarybuffer.h"
 #include <array>
 #include <cstdint>
-namespace Game {
+namespace Game::Messages::Requests {
 struct Auth {
   static const uint16_t type = 0x02;
 

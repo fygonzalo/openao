@@ -3,7 +3,6 @@
 #define OPENAO_LOGIN_SYSTEM_H
 
 #include "transport/message.h"
-#include "transport/system.h"
 #include <asio.hpp>
 
 #include "login/messages/responses/redirect.h"
@@ -12,11 +11,11 @@
 #include "services/account.h"
 
 namespace Login {
-class System : public ::System {
+class System  {
 public:
   System(Services::Account &as) : as_(as){};
 
-  awaitable<void> handle(MessageStream stream) override {
+  awaitable<void> accept(MessageStream stream) {
     Message message = co_await stream.read();
     if (message.header.type != 0x02) stream.close();
 

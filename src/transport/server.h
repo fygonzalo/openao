@@ -9,7 +9,7 @@
 #include <asio.hpp>
 
 
-#include "transport/system.h"
+#include "transport/messagestream.h"
 
 #include "repositories/iaccount.h"
 #include "repositories/icharacter.h"
@@ -22,6 +22,7 @@ using asio::use_awaitable;
 using asio::ip::tcp;
 
 
+template <typename System>
 class Server {
 
 public:
@@ -41,7 +42,7 @@ public:
                                             0x00, 0x00, 0x00, 0x00})};
       co_await acceptor_.async_accept(stream.socket(), use_awaitable);
       co_await stream.init();
-      co_spawn(ctx_, system_.handle(std::move(stream)), detached);
+      co_spawn(ctx_, system_.accept(std::move(stream)), detached);
     }
   }
 

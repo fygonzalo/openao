@@ -3,19 +3,17 @@
 #define OPENAO_GAME_SYSTEM_H
 
 #include "game/messages/requests/auth.h"
-#include "transport/system.h"
 
 
 namespace Game {
-class System : public ::System {
+class System {
 public:
-  awaitable<void> handle(MessageStream stream) override {
-    std::cout << "Player joined game server" << std::endl;
+  awaitable<void> accept(MessageStream stream) {
     Message message = co_await stream.read();
     if (message.header.type != 0x02)
       stream.close();
 
-    auto auth = message.read<Auth>();
+    auto auth = message.read<Game::Messages::Requests::Auth>();
     if (auth.session != 1)
       stream.close();
 
