@@ -15,10 +15,10 @@ make --directory build
 
 ## Goals
 
-- Build having the listed requirements with a single command.
-- Run a develop build with a single command.
-- Configure using files.
-- Centralized management.
+- Build having the listed requirements with a single command
+- Run a develop build with a single command
+- Configuration as code
+- Centralized management
 - Easy to upgrade
 
 ## Contribute
