@@ -24,7 +24,7 @@ public:
 
     Model::GameServer gm;
     gm.ip = "127.0.0.1";
-    gm.port = 31001;
+    gm.port = 30001;
 
     Messages::Responses::Redirect gameserver;
     gameserver.session = 1;

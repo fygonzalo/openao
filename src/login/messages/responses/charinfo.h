@@ -6,9 +6,9 @@
 #include "model/branches.h"
 #include "model/characters.h"
 
-#include "serialization/binary/attributes.h"
-#include "serialization/binary/branches.h"
-#include "serialization/binary/equipment.h"
+#include "serialization/attributes.h"
+#include "serialization/branches.h"
+#include "serialization/equipment.h"
 
 #include "utils/binarybuffer.h"
 
@@ -20,47 +20,51 @@ public:
   CharInfo(Model::Account &a, Model::Characters &cc, Model::Branches &bb)
       : a_(a), cc_(cc), bb_(bb) {}
 
-  void serialize(BinaryBuffer &buffer) {
-    buffer.write((uint16_t) 0);
-    buffer.write((uint8_t) 0);
+  template <typename Archive>
+  void serialize(Archive& archive) {
+    archive.write((uint16_t) 0);
+    archive.write((uint8_t) 0);
 
-    for (auto &c: cc_.characters) { serialize(buffer, c); }
-    buffer.write(cc_.birthday_months);
-    buffer.write(cc_.birthday_days);
-    buffer.write(cc_.bloods);
-    buffer.write(cc_.hps);
-    buffer.write(cc_.mps);
-    buffer.write(cc_.skills);
-    buffer.write(a_.slots);
+    for (auto &c: cc_.characters) { serialize(archive, c); }
+    archive.write(cc_.birthday_months);
+    archive.write(cc_.birthday_days);
+    archive.write(cc_.bloods);
+    archive.write(cc_.hps);
+    archive.write(cc_.mps);
+    archive.write(cc_.skills);
+    archive.write(a_.slots);
 
-    Serialization::Binary::serialize(buffer, bb_);
+    Serialization::serialize(archive, bb_);
   }
 
 private:
-  void serialize(BinaryBuffer &buffer, Model::Character &c) {
-    buffer.write(c.index);
-    buffer.write(c.level);
-    buffer.write(c.faction);
-    Serialization::Binary::serialize(buffer, c.attributes);
-    buffer.write(c.stage);
-    buffer.set(0, 4);
-    buffer.write(c.shape);
-    buffer.set(0, 8);
-    buffer.write(c.id);
-    buffer.write(c.name);
-    buffer.write(a_.id);
-    buffer.write(a_.username);
-    Serialization::Binary::serialize(buffer, c.equipment);
-    serialize(buffer, c.stats);
-    buffer.write(c.title);
-    buffer.set(0, 4);
+
+  template <typename Archive>
+  void serialize(Archive &archive, Model::Character &c) {
+    archive.write(c.index);
+    archive.write(c.level);
+    archive.write(c.faction);
+    Serialization::serialize(archive, c.attributes);
+    archive.write(c.stage);
+    archive.set(0, 4);
+    archive.write(c.shape);
+    archive.set(0, 8);
+    archive.write(c.id);
+    archive.write(c.name);
+    archive.write(a_.id);
+    archive.write(a_.username);
+    Serialization::serialize(archive, c.equipment);
+    serialize(archive, c.stats);
+    archive.write(c.title);
+    archive.set(0, 4);
   }
 
-  void serialize(BinaryBuffer &buffer, Model::Stats &s) {
-    buffer.write(s.hp_current);
-    buffer.set(0, 4);
-    buffer.write(s.mp_current);
-    buffer.set(0, 4);
+  template <typename Archive>
+  void serialize(Archive &archive, Model::Stats &s) {
+    archive.write(s.hp_current);
+    archive.set(0, 4);
+    archive.write(s.mp_current);
+    archive.set(0, 4);
   }
 
   Model::Account &a_;

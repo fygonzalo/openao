@@ -15,12 +15,13 @@ struct Auth {
   uint32_t stage;
   uint32_t session;
 
-  void deserialize(BinaryBuffer& buffer) {
-    buffer.read(interface);
-    buffer.read(account_id);
-    buffer.read(character_id);
-    buffer.read(stage);
-    buffer.read(session);
+  template <typename Archive>
+  void deserialize(Archive& archive) {
+    archive.read(interface);
+    archive.read(account_id);
+    archive.read(character_id);
+    archive.read(stage);
+    archive.read(session);
   }
 };
 }

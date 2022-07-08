@@ -14,13 +14,14 @@ struct Redirect {
   uint32_t session{};
   Model::GameServer server;
 
-  void serialize(BinaryBuffer &buffer) {
-    buffer.set(0, 2);
-    buffer.write(session);
-    buffer.set(1, 1);
-    buffer.write(server.ip);
-    buffer.write(server.port);
-    buffer.set(0, 5);
+  template <typename Archive>
+  void serialize(Archive &archive) {
+    archive.set(0, 2);
+    archive.write(session);
+    archive.set(1, 1);
+    archive.write(server.ip);
+    archive.write(server.port);
+    archive.set(0, 5);
   }
 };
 

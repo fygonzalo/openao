@@ -13,9 +13,10 @@ struct Auth {
   String username{20};
   String password{32};
 
-  void deserialize(BinaryBuffer &buffer) {
-    buffer.read(username);
-    buffer.read(password);
+  template <typename Archive>
+  void deserialize(Archive& archive) {
+    archive.read(username);
+    archive.read(password);
   }
 };
 }// namespace Login::Messages::Requests
