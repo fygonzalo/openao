@@ -15,7 +15,7 @@ make --directory build
 
 ## Goals
 
-- Build having the listed requirements with a single command
+- Build with a single command
 - Run a develop build with a single command
 - Configuration as code
 - Centralized management
