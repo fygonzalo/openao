@@ -11,7 +11,7 @@ public:
   BinaryBuffer() { buffer_.resize(65536); }
 
   int size() const { return len_; }
-  bool eof() const { return off_ <= len_; }
+  bool eof() const { return off_ >= len_; }
 
   const char *data() { return buffer_.data(); }
 
@@ -108,6 +108,17 @@ public:
     read_(var.data(), var.size());
     len_ += 1;
   }
+  void skip(int n) {
+    off_ += n;
+  }
+
+  // TODO: Test this
+  template <typename T,std::size_t N>
+  void read(std::array<T, N>& var) {
+    memcpy(var.data(), buffer_.data(), sizeof(T) * N);
+    off_ += sizeof(T) * N;
+  }
+
 
 
   template<class T>
@@ -170,7 +181,8 @@ private:
   }
 
 
-private:
+
+
   int off_ = 0;
   int len_ = 0;
   std::vector<char> buffer_;

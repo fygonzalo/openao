@@ -25,8 +25,7 @@ public:
 private:
   void update_key(int len) {
     uint *key_ptr = (uint *) key_.data();
-
-    for (int i = 0; i < len >> 4; i++) { *(key_ptr + i) += len; }
+    for (int i = 0; i < key_.size() >> 2; i++) *(key_ptr + i) += len;
   }
 };
 

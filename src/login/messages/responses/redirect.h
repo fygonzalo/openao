@@ -17,7 +17,7 @@ struct Redirect {
   void serialize(BinaryBuffer &buffer) {
     buffer.set(0, 2);
     buffer.write(session);
-    buffer.set(0, 1);
+    buffer.set(1, 1);
     buffer.write(server.ip);
     buffer.write(server.port);
     buffer.set(0, 5);

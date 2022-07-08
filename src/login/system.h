@@ -25,10 +25,10 @@ public:
 
     Model::GameServer gm;
     gm.ip = "127.0.0.1";
-    gm.port = 31002;
+    gm.port = 31001;
 
     Messages::Responses::Redirect gameserver;
-    gameserver.session = 1231231;
+    gameserver.session = 1;
     gameserver.server = gm;
 
     co_await stream.read();

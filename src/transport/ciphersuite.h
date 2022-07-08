@@ -6,11 +6,13 @@
 
 #include "utils/binarybuffer.h"
 
+#include "transport/security/crypt_xor2.h"
+
 class CipherSet {
 public:
-  CipherSet(std::vector<char> key) : key_(std::move(key)){};
+  CipherSet(std::vector<char> key) : key_(std::move(key)), read(key_){};
 
-  void decrypt(std::vector<char> &buffer) {}
+  void decrypt(std::vector<char> &buffer) {read.decrypt(buffer.data(), buffer.data(), buffer.size());}
 
   void encrypt(std::vector<char> &buffer) {}
 
@@ -21,6 +23,10 @@ public:
 
 private:
   std::vector<char> key_;
+
+  CryptXOR2 read;
+
+
 };
 
 
