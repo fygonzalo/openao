@@ -42,17 +42,17 @@ struct Stats {
   uint16_t soul_defense_base;
   uint16_t soul_defense_total;
 
-  uint16_t thunder_attack;
-  uint16_t thunder_defense;
+  uint16_t thunder_attack_total;
+  uint16_t thunder_defense_total;
 
-  uint16_t fire_attack;
-  uint16_t fire_defense;
+  uint16_t fire_attack_total;
+  uint16_t fire_defense_total;
 
-  uint16_t ice_attack;
-  uint16_t ice_defense;
+  uint16_t ice_attack_total;
+  uint16_t ice_defense_total;
 
-  uint16_t rotten_attack;
-  uint16_t rotten_defense;
+  uint16_t rotten_attack_total;
+  uint16_t rotten_defense_total;
 };
 }// namespace Model
 

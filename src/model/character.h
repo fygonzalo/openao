@@ -30,9 +30,9 @@ struct Character {
   Misc misc;
 
   uint32_t level = 0;
-  uint32_t experience;
+  uint64_t experience;
 
-  uint32_t rank = 0;
+  uint8_t rank = 0;
   uint32_t credits = 0;
 
   uint8_t faction = 0;

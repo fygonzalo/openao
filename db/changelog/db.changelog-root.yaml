@@ -298,35 +298,35 @@ databaseChangeLog:
                   type: int
                   defaultValue: 0
               - column:
-                  name: thunder_base
+                  name: thunder_attack_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: thunder_total
+                  name: thunder_defense_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: fire_base
+                  name: fire_attack_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: fire_total
+                  name: fire_defense_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: ice_base
+                  name: ice_attack_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: ice_total
+                  name: ice_defense_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: rotten_base
+                  name: rotten_attack_total
                   type: int
                   defaultValue: 0
               - column:
-                  name: rotten_total
+                  name: rotten_defense_total
                   type: int
                   defaultValue: 0
 
@@ -384,3 +384,47 @@ databaseChangeLog:
             columnNames: character_id, type
             constraintName: uq__skills__character_id__type
             tableName: skills
+
+  - changeSet:
+      id: 4
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: bagitem
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: character_id
+                  type: int
+                  constraints:
+                    references: character(id)
+                    foreignKeyName: fk__bagitem__character
+                    nullable: false
+              - column:
+                  name: slot
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            columnNames: character_id, slot
+            constraintName: uq__bagitem__character_id__slot
+            tableName: bagitem
+
+

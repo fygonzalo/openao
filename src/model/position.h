@@ -8,7 +8,7 @@ namespace Model {
 struct Position {
   uint32_t x;
   uint32_t y;
-  uint8_t orientation;
+  uint32_t orientation;
 };
 }
 

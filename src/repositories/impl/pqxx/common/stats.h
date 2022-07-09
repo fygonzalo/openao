@@ -43,14 +43,17 @@ void deserialize(pqxx::row &r, Model::Stats &s) {
   s.soul_defense_base = r["soul_defense_base"].as<int>();
   s.soul_defense_total = r["soul_defense_total"].as<int>();
 
-  s.thunder_attack = r["thunder_attack"].as<int>();
-  s.thunder_defense = r["thunder_defense"].as<int>();
+  s.thunder_attack_total = r["thunder_attack_total"].as<int>();
+  s.thunder_defense_total = r["thunder_defense_total"].as<int>();
 
-  s.fire_attack = r["fire_attack"].as<int>();
-  s.fire_defense = r["fire_defense"].as<int>();
+  s.fire_attack_total = r["fire_attack_total"].as<int>();
+  s.fire_defense_total = r["fire_defense_total"].as<int>();
 
-  s.rotten_attack = r["rotten_attack"].as<int>();
-  s.rotten_defense = r["rotten_defense"].as<int>();
+  s.fire_attack_total = r["ice_attack_total"].as<int>();
+  s.fire_defense_total = r["ice_defense_total"].as<int>();
+
+  s.rotten_attack_total = r["rotten_attack_total"].as<int>();
+  s.rotten_defense_total = r["rotten_defense_total"].as<int>();
 }
 }// namespace Repositories::PQXX
 

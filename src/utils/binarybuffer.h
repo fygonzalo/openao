@@ -80,9 +80,11 @@ public:
   void write(uint16_t value) { write_(value); }
   void write(uint16_t value, int offset) { write_(value, offset); }
   void write(uint32_t value) { write_(value); }
+  void write(uint64_t value) { write_(value); }
   void write(int8_t value) { write_(value); }
   void write(int16_t value) { write_(value); }
   void write(int32_t value) { write_(value); }
+  void write(int64_t value) { write_(value); }
   void set(char c, int len) {
     if (len_ + len > buffer_.size()) throw "Unable to exceed buffer size";
 

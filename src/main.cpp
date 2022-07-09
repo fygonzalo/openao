@@ -17,7 +17,8 @@ int main(int argc, char *argv[]) {
   Login::System login{as};
   std::thread t1([&login]() { Server{30000, login}.start(); });
 
-  Game::System game{};
+  Game::Services::Account gsa{character};
+  Game::System game{gsa};
   std::thread t2([&game]() { Server{30001, game}.start(); });
 
   t1.join();

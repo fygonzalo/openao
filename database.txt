@@ -101,7 +101,7 @@ Stats {
   rotten_attack: SHORT 
 }
 
-Slot {
+BagSlot {
   id: INT
   character_id: INT FOREIGN KEY Character(id)
   slot_number: INT

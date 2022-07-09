@@ -19,20 +19,25 @@ public:
     Message message = co_await stream.read();
     if (message.header.type != 0x02) stream.close();
 
-    auto request = message.read<Messages::Requests::Auth>();
-    co_await as_.authenticate(stream, request);
+    try {
+      auto request = message.read<Messages::Requests::Auth>();
+      co_await as_.authenticate(stream, request);
 
-    Model::GameServer gm;
-    gm.ip = "127.0.0.1";
-    gm.port = 30001;
+      Model::GameServer gm;
+      gm.ip = "127.0.0.1";
+      gm.port = 30001;
 
-    Messages::Responses::Redirect gameserver;
-    gameserver.session = 1;
-    gameserver.server = gm;
+      Messages::Responses::Redirect gameserver;
+      gameserver.session = 1;
+      gameserver.server = gm;
 
-    co_await stream.read();
-    co_await stream.write(gameserver);
-    co_await stream.read();
+      co_await stream.read();
+      co_await stream.write(gameserver);
+      co_await stream.read();
+    } catch (std::exception & e) {
+      std::cout << e.what() << std::endl;
+      stream.close();
+    }
   }
 
 private:

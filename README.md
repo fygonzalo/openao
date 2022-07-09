@@ -1,3 +1,7 @@
+This is a proof of concept game server.
+There is currently no compatible client to connect to the server.
+This is an educational project on distributed systems.
+
 ### Requirements
 
 * CMake:3.22

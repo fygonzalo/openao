@@ -32,7 +32,7 @@ public:
   tcp::socket &socket() { return socket_; }
 
   void close() {
-    socket_.shutdown(asio::ip::tcp::socket::shutdown_send);
+    socket_.shutdown(asio::ip::tcp::socket::shutdown_both);
     socket_.close();
   }
 
