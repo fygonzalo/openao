@@ -20,3 +20,12 @@ databaseChangeLog:
             file: db/seed/character.csv
             tableName: character
             primaryKey: id
+  - changeSet:
+      id: 3
+      author: fygonzalo
+      runOnChange: true
+      changes:
+        - loadUpdateData:
+            file: db/seed/inventory.csv
+            tableName: bagitem
+            primaryKey: id

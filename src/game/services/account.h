@@ -9,13 +9,16 @@
 #include "transport/messagestream.h"
 
 #include "repositories/icharacter.h"
+#include "repositories/iinventory.h"
 
 
 namespace Game::Services {
 
 class Account {
 public:
-  Account(Repositories::ICharacter &icharacter) : icharacter_(icharacter) {}
+  Account(Repositories::ICharacter &icharacter,
+          Repositories::IInventory &iinventory)
+      : icharacter_(icharacter), iinventory_(iinventory) {}
 
   awaitable<void> authenticate(MessageStream &stream,
                                Messages::Requests::Auth &request) {
@@ -23,21 +26,15 @@ public:
     Messages::Responses::Character response{.c = character};
     co_await stream.write(response);
 
-
-    Model::BagItem money{.id = 1,
-                         .character_id = request.character_id,
-                         .slot = 0,
-                         .item_id = 1,
-                         .quantity = 10000};
-
     Messages::Responses::Inventory inventory{};
-    inventory.items.push_back(money);
+    inventory.items = iinventory_.get_bag_items(request.character_id);
 
     co_await stream.write(inventory);
   }
 
 private:
   Repositories::ICharacter &icharacter_;
+  Repositories::IInventory &iinventory_;
 };
 
 }// namespace Game::Services

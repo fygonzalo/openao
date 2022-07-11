@@ -31,7 +31,11 @@ public:
     archive.write(cc_.bloods);
     archive.write(cc_.hps);
     archive.write(cc_.mps);
-    archive.write(cc_.skills);
+    for (auto &c: cc_.skills) {
+      for (int i = 0; i < 9; i++){
+        archive.write(c[i]);
+      }
+    }
     archive.write(a_.slots);
 
     Serialization::serialize(archive, bb_);
