@@ -18,8 +18,11 @@ struct Inventory {
   void serialize(Archive &archive) {
     archive.write((uint32_t) items.size());
     for (auto &i: items) {
-      archive.set(0, 1);
-      archive.set(0, 8);
+      // Operation
+      // 1: Add item
+      // 2: Remove item
+      archive.set(1, 1);
+      archive.set(0xff, 8);
       archive.write(i.item_id);
       for (auto& e: i.enhacements) {
         archive.write(((uint32_t)e.attribute << 26) | e.amount);

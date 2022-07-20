@@ -21,7 +21,7 @@ public:
     std::vector<Model::BagItem> bag_items;
 
     for (const auto &r: result) {
-      auto& bi = bag_items.emplace_back();
+      auto &bi = bag_items.emplace_back();
       bi.id = r["id"].as<int>();
       bi.character_id = r["character_id"].as<int>();
       bi.slot = r["slot"].as<int>();
@@ -36,6 +36,6 @@ private:
   pqxx::connection &connection_;
 };
 
-}// namespace Repositories::Impl::PQXX
+}// namespace Repositories::PQXX
 
 #endif// OPENAO_REPOSITORIES_IMPL_PQXX_BAGITEMS_H

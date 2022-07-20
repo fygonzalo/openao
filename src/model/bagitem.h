@@ -53,9 +53,10 @@ struct BagItem {
   uint32_t quantity;
   // WHAT PART IS SHARED WITH BANK
   uint32_t owner_id{0};
-  std::array<Enhacement, 5> enhacements;
   uint8_t rests{0};
   uint8_t rests_enabled{0};
+
+  std::array<Enhacement, 5> enhacements;
 };
 
 }// namespace Model

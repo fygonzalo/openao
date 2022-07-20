@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_GAME_SERVICES_ACCOUNT_H
-#define OPENAO_GAME_SERVICES_ACCOUNT_H
+#ifndef OPENAO_GAME_CONTROLLER_ACCOUNT_H
+#define OPENAO_GAME_CONTROLLER_ACCOUNT_H
 
 #include "game/messages/requests/auth.h"
 #include "game/messages/responses/character.h"
@@ -11,14 +11,15 @@
 #include "repositories/icharacter.h"
 #include "repositories/iinventory.h"
 
+#include "game/subsystems/inventory.h"
 
-namespace Game::Services {
+namespace Game::Controller {
 
 class Account {
 public:
   Account(Repositories::ICharacter &icharacter,
-          Repositories::IInventory &iinventory)
-      : icharacter_(icharacter), iinventory_(iinventory) {}
+          Game::Subsystems::Inventory &inventory)
+      : icharacter_(icharacter), inventory_(inventory) {}
 
   awaitable<void> authenticate(MessageStream &stream,
                                Messages::Requests::Auth &request) {
@@ -27,16 +28,16 @@ public:
     co_await stream.write(response);
 
     Messages::Responses::Inventory inventory{};
-    inventory.items = iinventory_.get_bag_items(request.character_id);
+    inventory.items = inventory_.get_bag_items(request.character_id);
 
     co_await stream.write(inventory);
   }
 
 private:
   Repositories::ICharacter &icharacter_;
-  Repositories::IInventory &iinventory_;
+  Game::Subsystems::Inventory &inventory_;
 };
 
-}// namespace Game::Services
+}// namespace Game::Controller
 
-#endif// OPENAO_GAME_SERVICES_ACCOUNT_H
+#endif// OPENAO_GAME_CONTROLLER_ACCOUNT_H

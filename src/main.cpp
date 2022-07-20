@@ -1,6 +1,8 @@
 #include "transport/server.h"
 
+#include "game/controller/account.h"
 #include "game/system.h"
+#include "game/subsystems/inventory.h"
 #include "login/services/account.h"
 #include "login/system.h"
 
@@ -19,8 +21,10 @@ int main(int argc, char *argv[]) {
   Login::System login{as};
   std::thread t1([&login]() { Server{30000, login}.start(); });
 
-  Game::Services::Account gsa{character, inventory};
-  Game::System game{gsa};
+  Game::Subsystems::Inventory sinventory{inventory};
+  Game::Controller::Account gsa{character, sinventory};
+  Game::Controller::Items items{sinventory};
+  Game::System game{gsa, items};
   std::thread t2([&game]() { Server{30001, game}.start(); });
 
   t1.join();
