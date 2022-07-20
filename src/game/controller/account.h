@@ -4,7 +4,7 @@
 
 #include "game/messages/requests/auth.h"
 #include "game/messages/responses/character.h"
-#include "game/messages/responses/inventory.h"
+#include "game/messages/responses/loadinventory.h"
 
 #include "transport/messagestream.h"
 
@@ -27,7 +27,7 @@ public:
     Messages::Responses::Character response{.c = character};
     co_await stream.write(response);
 
-    Messages::Responses::Inventory inventory{};
+    Messages::Responses::LoadInventory inventory{};
     inventory.items = inventory_.get_bag_items(request.character_id);
 
     co_await stream.write(inventory);

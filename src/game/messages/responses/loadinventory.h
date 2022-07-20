@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_GAME_MESSAGES_RESPONSES_INVENTORY_H
-#define OPENAO_GAME_MESSAGES_RESPONSES_INVENTORY_H
+#ifndef OPENAO_GAME_MESSAGES_RESPONSES_LOADINVENTORY_H
+#define OPENAO_GAME_MESSAGES_RESPONSES_LOADINVENTORY_H
 
 #include <vector>
 
@@ -8,7 +8,7 @@
 
 namespace Game::Messages::Responses {
 
-struct Inventory {
+struct LoadInventory {
 
   static const uint16_t type = 0x1A;
 
@@ -45,4 +45,4 @@ struct Inventory {
 
 }// namespace Game::Messages::Responses
 
-#endif// OPENAO_GAME_MESSAGES_RESPONSES_INVENTORY_H
+#endif// OPENAO_GAME_MESSAGES_RESPONSES_LOADINVENTORY_H

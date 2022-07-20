@@ -14,7 +14,7 @@ public:
   std::vector<Model::InventoryItem> get_bag_items(uint32_t character_id) override {
     pqxx::work w{connection_};
 
-    auto result = w.exec("SELECT * FROM bagitem WHERE character_id = " +
+    auto result = w.exec("SELECT * FROM inventoryitem WHERE character_id = " +
                          w.quote(character_id));
     w.commit();
 
