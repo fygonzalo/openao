@@ -14,7 +14,7 @@ class Inventory {
 public:
   Inventory(Repositories::IInventory &iinventory) : iinventory_(iinventory) {}
 
-  std::vector<Model::BagItem> get_bag_items(uint32_t character_id) {
+  std::vector<Model::InventoryItem> get_bag_items(uint32_t character_id) {
     if (!bagitems.contains(character_id)) {
       bagitems[character_id] = iinventory_.get_bag_items(character_id);
     }
@@ -38,7 +38,7 @@ public:
 private:
   Repositories::IInventory &iinventory_;
 
-  std::map<uint32_t, std::vector<Model::BagItem>> bagitems;
+  std::map<uint32_t, std::vector<Model::InventoryItem>> bagitems;
 };
 
 }// namespace Game::Subsystems

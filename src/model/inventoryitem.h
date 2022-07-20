@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_MODEL_BAGITEM_H
-#define OPENAO_MODEL_BAGITEM_H
+#ifndef OPENAO_MODEL_INVENTORYITEM_H
+#define OPENAO_MODEL_INVENTORYITEM_H
 
 #include <cstdint>
 namespace Model {
@@ -40,7 +40,7 @@ struct Enhacement {
   uint8_t attribute{0};
 };
 
-struct BagItem {
+struct InventoryItem {
 
   uint32_t id;
   uint32_t character_id;
@@ -61,4 +61,4 @@ struct BagItem {
 
 }// namespace Model
 
-#endif// OPENAO_MODEL_BAGITEM_H
+#endif// OPENAO_MODEL_INVENTORYITEM_H

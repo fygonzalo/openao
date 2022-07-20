@@ -23,18 +23,17 @@ public:
 
     if (status) {
       auto bag_items = inventory_.get_bag_items(1);
-      Model::BagItem *bi;
-      for (Model::BagItem &i: bag_items) {
+      Model::InventoryItem *bi;
+      for (Model::InventoryItem &i: bag_items) {
         if (i.slot == request.slot_destination) bi = &i;
       }
 
-      auto update_inventory = Messages::Responses::UpdateInventory();
-      update_inventory.actions.push_back(
-              std::make_unique<Messages::Responses::AddItem>(*bi));
-      update_inventory.actions.push_back(
-              std::make_unique<Messages::Responses::RemoveItem>(1, request.slot_source));
+      auto ui = Messages::Responses::UpdateInventory();
+      ui.add(std::make_shared<Messages::Responses::AddItem>(*bi));
+      ui.add(std::make_shared<Messages::Responses::RemoveItem>(
+              1, request.slot_source));
 
-      co_await stream.write(std::move(update_inventory));
+      co_await stream.write(ui);
     }
   }
 

@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdint>
 
-#include "model/bagitem.h"
+#include "model/inventoryitem.h"
 
 namespace Game::Messages::Responses {
 
@@ -15,12 +15,12 @@ struct Action {
 
 struct AddItem : Action {
   static const uint8_t code = 1;
-  Model::BagItem item;
+  Model::InventoryItem item;
 
-  explicit AddItem(Model::BagItem i) : item(i) {};
+  AddItem(Model::InventoryItem& i) : item(i) {}
 
   void serialize(BinaryBuffer& archive) override {
-    Model::BagItem& i = item;
+    Model::InventoryItem & i = item;
 
     archive.write(code);
     archive.set((uint8_t)0xff, 8);
@@ -65,7 +65,11 @@ struct RemoveItem : Action {
 struct UpdateInventory {
   static const uint16_t type = 0x1B;
 
-  std::vector<std::unique_ptr<Action>> actions;
+  std::vector<std::shared_ptr<Action>> actions;
+
+  void add(const std::shared_ptr<Action>& action) {
+    actions.push_back(action);
+  }
 
   template <typename Archive>
   void serialize(Archive& archive) {

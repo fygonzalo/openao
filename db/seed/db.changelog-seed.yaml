@@ -26,6 +26,6 @@ databaseChangeLog:
       runOnChange: true
       changes:
         - loadUpdateData:
-            file: db/seed/inventory.csv
-            tableName: bagitem
+            file: db/seed/inventoryitem.csv
+            tableName: inventoryitem
             primaryKey: id

@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "model/bagitem.h"
+#include "model/inventoryitem.h"
 
 namespace Game::Messages::Responses {
 
@@ -12,7 +12,7 @@ struct Inventory {
 
   static const uint16_t type = 0x1A;
 
-  std::vector<Model::BagItem> items;
+  std::vector<Model::InventoryItem> items;
 
   template<typename Archive>
   void serialize(Archive &archive) {

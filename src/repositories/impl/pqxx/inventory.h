@@ -11,14 +11,14 @@ class Inventory : public Repositories::IInventory {
 public:
   Inventory(pqxx::connection &connection) : connection_(connection) {}
 
-  std::vector<Model::BagItem> get_bag_items(uint32_t character_id) override {
+  std::vector<Model::InventoryItem> get_bag_items(uint32_t character_id) override {
     pqxx::work w{connection_};
 
     auto result = w.exec("SELECT * FROM bagitem WHERE character_id = " +
                          w.quote(character_id));
     w.commit();
 
-    std::vector<Model::BagItem> bag_items;
+    std::vector<Model::InventoryItem> bag_items;
 
     for (const auto &r: result) {
       auto &bi = bag_items.emplace_back();

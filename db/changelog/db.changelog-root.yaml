@@ -390,7 +390,7 @@ databaseChangeLog:
       author: fygonzalo
       changes:
         - createTable:
-            tableName: bagitem
+            tableName: inventoryitem
             columns:
               - column:
                   name: id
@@ -424,7 +424,7 @@ databaseChangeLog:
 
         - addUniqueConstraint:
             columnNames: character_id, slot
-            constraintName: uq__bagitem__character_id__slot
-            tableName: bagitem
+            constraintName: uq__inventoryitem__character_id__slot
+            tableName: inventoryitem
 
 
