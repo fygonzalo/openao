@@ -15,6 +15,7 @@ typedef uint32_t MP;
 
 typedef uint32_t Skill;
 typedef std::array<Skill, 36> Skills;
+
 }// namespace Model
 
 #endif// OPENAO_GENERIC_H

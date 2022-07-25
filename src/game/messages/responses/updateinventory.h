@@ -43,8 +43,6 @@ struct AddItem : Action {
   }
 };
 
-
-
 struct RemoveItem : Action {
   RemoveItem(int i, uint16_t s) : character_id(i), slot(s) {}
   static const uint8_t code = 2;
@@ -59,8 +57,6 @@ struct RemoveItem : Action {
     buffer.write(slot);
   }
 };
-
-
 
 struct UpdateInventory {
   static const uint16_t type = 0x1B;

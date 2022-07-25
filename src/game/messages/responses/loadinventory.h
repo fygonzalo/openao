@@ -12,11 +12,11 @@ struct LoadInventory {
 
   static const uint16_t type = 0x1A;
 
-  std::vector<Model::InventoryItem> items;
+  Model::Inventory items;
 
   template<typename Archive>
   void serialize(Archive &archive) {
-    archive.write((uint32_t) items.size());
+    archive.write((uint32_t) items.count());
     for (auto &i: items) {
       // Operation
       // 1: Add item

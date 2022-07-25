@@ -10,7 +10,7 @@ namespace Repositories {
 
 class IInventory {
 public:
-  virtual std::vector<Model::InventoryItem> get_bag_items(uint32_t character_id) = 0;
+  virtual Model::Inventory get_bag_items(uint32_t character_id) = 0;
 };
 
 }

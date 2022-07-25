@@ -19,22 +19,22 @@ class Account {
 public:
   Account(Repositories::ICharacter &icharacter,
           Game::Subsystems::Inventory &inventory)
-      : icharacter_(icharacter), inventory_(inventory) {}
+      : character_(icharacter), inventory_(inventory) {}
 
   awaitable<void> authenticate(MessageStream &stream,
                                Messages::Requests::Auth &request) {
-    auto character = icharacter_.get_character_by_id(request.character_id);
-    Messages::Responses::Character response{.c = character};
-    co_await stream.write(response);
+    auto character = character_.get_character_by_id(request.character_id);
+    Messages::Responses::Character charinfo{.c = character};
+    co_await stream.write(charinfo);
 
     Messages::Responses::LoadInventory inventory{};
-    inventory.items = inventory_.get_bag_items(request.character_id);
+    inventory.items = inventory_.get_inventory(request.character_id);
 
     co_await stream.write(inventory);
   }
 
 private:
-  Repositories::ICharacter &icharacter_;
+  Repositories::ICharacter &character_;
   Game::Subsystems::Inventory &inventory_;
 };
 

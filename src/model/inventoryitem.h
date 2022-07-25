@@ -59,6 +59,41 @@ struct InventoryItem {
   std::array<Enhacement, 5> enhacements;
 };
 
+class Inventory {
+public:
+  void add(InventoryItem item) { inventory_.push_back(item); }
+
+  void remove(int slot) {}
+
+  InventoryItem &get(int slot) {
+    for (auto &ii: inventory_)
+      if (ii.slot == slot) { return ii; }
+  }
+
+  InventoryItem &move(int src, int dest) {
+    for (auto &ii: inventory_)
+      if (ii.slot == src) {
+        ii.slot = dest;
+        return ii;
+      }
+  }
+
+  int count() {
+    return inventory_.size();
+  }
+
+  std::vector<InventoryItem>::iterator begin() {
+    return inventory_.begin();
+  }
+
+  std::vector<InventoryItem>::iterator end() {
+    return inventory_.end();
+  }
+
+public:
+  std::vector<InventoryItem> inventory_;
+};
+
 }// namespace Model
 
 #endif// OPENAO_MODEL_INVENTORYITEM_H
