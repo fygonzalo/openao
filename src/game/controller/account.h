@@ -11,6 +11,7 @@
 #include "repositories/icharacter.h"
 #include "repositories/iinventory.h"
 
+#include "game/messages/responses/spawnplayer.h"
 #include "game/subsystems/inventory.h"
 
 namespace Game::Controller {
@@ -29,13 +30,25 @@ public:
 
     Messages::Responses::LoadInventory inventory{};
     inventory.items = inventory_.get_inventory(request.character_id);
-
     co_await stream.write(inventory);
+
+
+    Messages::Responses::SpawnPlayer sp{.c = character};
+    for (auto [s, c] : streams_) {
+      co_await s->write(sp);
+      Messages::Responses::SpawnPlayer sp_{.c = c};
+      co_await stream.write(sp_);
+    }
+
+    streams_.emplace_back(&stream, character);
+
   }
 
 private:
   Repositories::ICharacter &character_;
   Game::Subsystems::Inventory &inventory_;
+
+  std::vector<std::tuple<MessageStream*, Model::Character>> streams_;
 };
 
 }// namespace Game::Controller
