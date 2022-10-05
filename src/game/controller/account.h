@@ -12,6 +12,7 @@
 #include "datasources/iinventory.h"
 
 #include "game/messages/responses/spawnplayer.h"
+#include "game/subsystems/entitymanager.h"
 #include "game/subsystems/inventory.h"
 
 namespace Game::Controller {
@@ -19,36 +20,46 @@ namespace Game::Controller {
 class Account {
 public:
   Account(Datasources::ICharacter &icharacter,
-          Game::Subsystems::Inventory &inventory)
-      : character_(icharacter), inventory_(inventory) {}
+          Datasources::IInventory &inventory,
+          Subsystems::EntityManager &entity_manager)
+      : character_(icharacter), inventory_(inventory),
+        entity_manager_(entity_manager) {}
 
-  awaitable<void> authenticate(MessageStream &stream,
+  awaitable<void> preauth(MessageStream &stream,
                                Messages::Requests::Auth &request) {
     auto character = character_.get_character_by_id(request.character_id);
     Messages::Responses::Character charinfo{.c = character};
     co_await stream.write(charinfo);
 
     Messages::Responses::LoadInventory inventory{};
-    inventory.items = inventory_.get_inventory(request.character_id);
+    auto items = inventory_.get_bag_items(request.character_id);
+    inventory.items = items;
     co_await stream.write(inventory);
 
+    Subsystems::Entity player{.stream = &stream,
+                              .character = character,
+                              .items = items};
+    entity_manager_.insert(player);
 
-    Messages::Responses::SpawnPlayer sp{.c = character};
-    for (auto [s, c] : streams_) {
-      co_await s->write(sp);
-      Messages::Responses::SpawnPlayer sp_{.c = c};
-      co_await stream.write(sp_);
+    Messages::Responses::SpawnPlayer sp{
+            .entityid = player.id,
+            .c = character};
+
+    for (auto e: entity_manager_.get_all()) {
+      if (e.id != player.id) {
+        co_await e.stream->write(sp);
+        Messages::Responses::SpawnPlayer sp_{.entityid = e.id, .c = e.character};
+        co_await stream.write(sp_);
+      }
     }
-
-    streams_.emplace_back(&stream, character);
-
   }
 
 private:
   Datasources::ICharacter &character_;
-  Game::Subsystems::Inventory &inventory_;
+  Datasources::IInventory &inventory_;
+  Subsystems::EntityManager &entity_manager_;
 
-  std::vector<std::tuple<MessageStream*, Model::Character>> streams_;
+  std::vector<std::tuple<MessageStream *, Model::Character>> streams_;
 };
 
 }// namespace Game::Controller

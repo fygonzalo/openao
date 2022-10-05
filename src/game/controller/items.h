@@ -5,6 +5,7 @@
 #include <asio.hpp>
 
 #include "game/messages/requests/moveitem.h"
+#include "game/messages/responses/entityaction.h"
 #include "game/messages/responses/updateinventory.h"
 #include "game/subsystems/inventory.h"
 #include "transport/messagestream.h"
@@ -13,12 +14,12 @@ namespace Game::Controller {
 
 class Items {
 public:
-  Items(Subsystems::Inventory &inventory) : inventory_(inventory) {}
+  Items(Subsystems::EntityManager &entity_manager) : entity_manager_(entity_manager) {}
 
   awaitable<void> move_item(MessageStream &stream,
                             Messages::Requests::MoveItem &request) {
 
-    auto& inventory = inventory_.get_inventory(1);
+    auto& inventory = entity_manager_.find_by_character_id(1).items;
     auto& item = inventory.move(request.slot_source, request.slot_destination);
 
     auto ui = Messages::Responses::UpdateInventory();
@@ -27,11 +28,22 @@ public:
             1, request.slot_source));
 
     co_await stream.write(ui);
+
+    Messages::Responses::EntityAction ea{};
+    ea.entity = 1;
+    ea.item = item.item_id;
+    ea.slot = item.slot;
+
+    for (Subsystems::Entity& e : entity_manager_.get_all()) {
+      if (e.id != 1) {
+        co_await e.stream->write(ea);
+      }
+    }
   }
 
 
 private:
-  Subsystems::Inventory &inventory_;
+  Subsystems::EntityManager &entity_manager_;
 };// namespace Game::Controller
 
 }// namespace Game::Controller

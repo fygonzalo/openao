@@ -19,7 +19,7 @@ public:
       if (message.header.type != 0x02) stream.close();
 
       auto auth = message.read<Game::Messages::Requests::Auth>();
-      co_await account_.authenticate(stream, auth);
+      co_await account_.preauth(stream, auth);
 
       for (;;) {
         message = co_await stream.read();

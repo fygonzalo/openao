@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
   Login::System login{as};
   std::thread t1([&login]() { Server{30000, login}.start(); });
 
-  Game::Subsystems::Inventory sinventory{inventory};
-  Game::Controller::Account gsa{character, sinventory};
-  Game::Controller::Items items{sinventory};
+  Game::Subsystems::EntityManager manager{};
+  Game::Controller::Account gsa{character, inventory, manager};
+  Game::Controller::Items items{manager};
   Game::System game{gsa, items};
   std::thread t2([&game]() { Server{30001, game}.start(); });
 

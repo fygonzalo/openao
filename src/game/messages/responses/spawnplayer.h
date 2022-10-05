@@ -12,8 +12,7 @@ namespace Game::Messages::Responses {
 struct SpawnPlayer {
   static const uint16_t type = 0x01;
 
-  uint32_t entityid = 1007289969;
-
+  uint32_t entityid;
   Model::Character c;
 
   template <typename Archive>
