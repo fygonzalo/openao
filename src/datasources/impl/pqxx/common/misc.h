@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include <pqxx/pqxx>
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Misc &m) {
 
   m.month = r["birthday_month"].as<int>();

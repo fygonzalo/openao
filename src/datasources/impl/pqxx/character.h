@@ -4,10 +4,10 @@
 
 #include <pqxx/pqxx>
 
-#include "repositories/icharacter.h"
-#include "repositories/impl/pqxx/common/character.h"
+#include "datasources/icharacter.h"
+#include "datasources/impl/pqxx/common/character.h"
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 class Character : public ICharacter {
 public:
   Character(pqxx::connection &connection) : connection_(connection) {}

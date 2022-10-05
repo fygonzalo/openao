@@ -11,8 +11,8 @@
 
 #include "transport/messagestream.h"
 
-#include "repositories/iaccount.h"
-#include "repositories/icharacter.h"
+#include "datasources/iaccount.h"
+#include "datasources/icharacter.h"
 
 using asio::awaitable;
 using asio::co_spawn;

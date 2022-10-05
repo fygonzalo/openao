@@ -10,7 +10,7 @@ namespace Game::Messages::Responses {
 struct Character {
   static const uint16_t type = 0x02;
 
-  Model::Character c{};
+  Model::Character c;
 
   template <typename Archive>
   void serialize(Archive& archive) {

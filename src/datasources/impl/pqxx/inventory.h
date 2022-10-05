@@ -2,12 +2,12 @@
 #ifndef OPENAO_REPOSITORIES_IMPL_PQXX_BAGITEMS_H
 #define OPENAO_REPOSITORIES_IMPL_PQXX_BAGITEMS_H
 
-#include "repositories/iinventory.h"
+#include "datasources/iinventory.h"
 #include <pqxx/pqxx>
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 
-class Inventory : public Repositories::IInventory {
+class Inventory : public Datasources::IInventory {
 public:
   Inventory(pqxx::connection &connection) : connection_(connection) {}
 

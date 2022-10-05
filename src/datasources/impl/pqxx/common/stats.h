@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include <pqxx/pqxx>
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Stats &s) {
 
   s.hp_current = r["hp_current"].as<int>();

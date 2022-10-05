@@ -3,16 +3,16 @@
 #define OPENAO_REPOSITORIES_IMPL_PQXX_COMMON_CHARACTER_H
 
 #include "model/character.h"
-#include "repositories/impl/pqxx/common/attributes.h"
-#include "repositories/impl/pqxx/common/misc.h"
-#include "repositories/impl/pqxx/common/position.h"
-#include "repositories/impl/pqxx/common/stats.h"
-#include "repositories/impl/pqxx/common/equipment.h"
+#include "datasources/impl/pqxx/common/attributes.h"
+#include "datasources/impl/pqxx/common/misc.h"
+#include "datasources/impl/pqxx/common/position.h"
+#include "datasources/impl/pqxx/common/stats.h"
+#include "datasources/impl/pqxx/common/equipment.h"
 
 #include "pqxx/row"
 
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Character &c) {
   c.id = r["id"].as<int>();
   c.account_id = r["account_id"].as<int>();

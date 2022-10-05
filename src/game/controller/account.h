@@ -8,8 +8,8 @@
 
 #include "transport/messagestream.h"
 
-#include "repositories/icharacter.h"
-#include "repositories/iinventory.h"
+#include "datasources/icharacter.h"
+#include "datasources/iinventory.h"
 
 #include "game/messages/responses/spawnplayer.h"
 #include "game/subsystems/inventory.h"
@@ -18,7 +18,7 @@ namespace Game::Controller {
 
 class Account {
 public:
-  Account(Repositories::ICharacter &icharacter,
+  Account(Datasources::ICharacter &icharacter,
           Game::Subsystems::Inventory &inventory)
       : character_(icharacter), inventory_(inventory) {}
 
@@ -45,7 +45,7 @@ public:
   }
 
 private:
-  Repositories::ICharacter &character_;
+  Datasources::ICharacter &character_;
   Game::Subsystems::Inventory &inventory_;
 
   std::vector<std::tuple<MessageStream*, Model::Character>> streams_;

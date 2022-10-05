@@ -6,16 +6,16 @@
 #include "login/messages/requests/auth.h"
 #include "login/messages/responses/charinfo.h"
 
-#include "repositories/iaccount.h"
-#include "repositories/icharacter.h"
+#include "datasources/iaccount.h"
+#include "datasources/icharacter.h"
 
 #include "transport/messagestream.h"
 
 namespace Login::Services {
 class Account {
 public:
-  Account(Repositories::IAccount &iaccount,
-          Repositories::ICharacter &icharacter)
+  Account(Datasources::IAccount &iaccount,
+          Datasources::ICharacter &icharacter)
       : iaccount_(iaccount), icharacter_(icharacter){};
 
   awaitable<void> authenticate(MessageStream &stream,
@@ -36,8 +36,8 @@ public:
   }
 
 private:
-  Repositories::IAccount &iaccount_;
-  Repositories::ICharacter &icharacter_;
+  Datasources::IAccount &iaccount_;
+  Datasources::ICharacter &icharacter_;
   // std::vector<Client>& players;
 };
 }// namespace Login::Services

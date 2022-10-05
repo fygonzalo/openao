@@ -1,11 +1,11 @@
 
-#ifndef OPENAO_IACCOUNT_H
-#define OPENAO_IACCOUNT_H
+#ifndef OPENAO_DATASOURCES_IACCOUNT_H
+#define OPENAO_DATASOURCES_IACCOUNT_H
 
 #include "model/account.h"
 #include <optional>
 
-namespace Repositories {
+namespace Datasources {
 class IAccount {
 public:
   virtual ~IAccount() {}
@@ -15,4 +15,4 @@ public:
                                     std::string password) = 0;
 };
 }// namespace Repositories
-#endif// OPENAO_IACCOUNT_H
+#endif// OPENAO_DATASOURCES_IACCOUNT_H

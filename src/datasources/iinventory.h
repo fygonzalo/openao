@@ -1,12 +1,12 @@
 
-#ifndef OPENAO_REPOSITORIES_IINVENTORY_H
-#define OPENAO_REPOSITORIES_IINVENTORY_H
+#ifndef OPENAO_DATASOURCES_IINVENTORY_H
+#define OPENAO_DATASOURCES_IINVENTORY_H
 
 #include <vector>
 
 #include "model/inventoryitem.h"
 
-namespace Repositories {
+namespace Datasources {
 
 class IInventory {
 public:
@@ -15,4 +15,4 @@ public:
 
 }
 
-#endif// OPENAO_REPOSITORIES_IINVENTORY_H
+#endif// OPENAO_DATASOURCES_IINVENTORY_H

@@ -1,12 +1,12 @@
 
-#ifndef OPENAO_CHARACTER_REPOSITORY_H
-#define OPENAO_CHARACTER_REPOSITORY_H
+#ifndef OPENAO_DATASOURCES_CHARACTER_H
+#define OPENAO_DATASOURCES_CHARACTER_H
 
 #include <vector>
 
 #include "model/characters.h"
 
-namespace Repositories {
+namespace Datasources {
 class ICharacter {
 public:
   virtual ~ICharacter() {}
@@ -19,4 +19,4 @@ public:
 
 }// namespace Repositories
 
-#endif// OPENAO_CHARACTER_REPOSITORY_H
+#endif// OPENAO_DATASOURCES_CHARACTER_H

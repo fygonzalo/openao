@@ -4,9 +4,9 @@
 
 #include <pqxx/pqxx>
 
-#include "repositories/iaccount.h"
+#include "datasources/iaccount.h"
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 class Account : public IAccount {
 public:
   Account(pqxx::connection &connection) : connection_(connection){};

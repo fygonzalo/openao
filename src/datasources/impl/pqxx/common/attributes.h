@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include <pqxx/pqxx>
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Attributes &a) {
 
   a.gender = r["gender"].as<int>();

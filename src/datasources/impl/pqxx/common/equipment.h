@@ -5,7 +5,7 @@
 #include "model/character.h"
 #include <pqxx/pqxx>
 
-namespace Repositories::PQXX {
+namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Equipment &e) {
   e.head = r["head"].as<int>();
   e.body = r["body"].as<int>();
