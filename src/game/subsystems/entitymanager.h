@@ -37,6 +37,13 @@ public:
     }
   }
 
+  Entity& find_by_stream(MessageStream& stream) {
+    for (Entity& e : entities_) {
+      if (e.stream == &stream)
+        return e;
+    }
+  }
+
 
 };
 

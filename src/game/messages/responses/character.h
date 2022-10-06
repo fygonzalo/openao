@@ -10,11 +10,12 @@ namespace Game::Messages::Responses {
 struct Character {
   static const uint16_t type = 0x02;
 
+  uint32_t entityid;
   Model::Character c;
 
   template <typename Archive>
   void serialize(Archive& archive) {
-    archive.set(1, 4);
+    archive.write(entityid);
     archive.write(c.position.orientation);
     archive.write(c.position.x);
     archive.write(c.position.y);
