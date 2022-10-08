@@ -16,6 +16,7 @@
 #include "game/messages/requests/postauth.h"
 #include "game/messages/responses/postauthok.h"
 #include "game/messages/responses/spawnplayer.h"
+#include "game/messages/responses/removeentity.h"
 #include "game/messages/responses/unk1.h"
 #include "game/messages/responses/unk2.h"
 #include "game/subsystems/entitymanager.h"
@@ -82,9 +83,14 @@ public:
 
     auto& e = entity_manager_.find_by_stream(stream);
     auto message = co_await e.stream->read();
+    uint32_t eid = e.id;
     auto mi = message.read<Game::Messages::Requests::Logout2>();
-    //e.stream->close();
     entity_manager_.remove_by_stream(stream);
+
+    Messages::Responses::RemoveEntity re{.entityid = eid, .code = 0};
+    for (auto &e: entity_manager_.get_all()) {
+      co_await e.stream->write(re);
+    }
   }
 
 private:
