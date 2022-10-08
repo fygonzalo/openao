@@ -15,6 +15,7 @@
 #include "game/messages/responses/postauthok.h"
 #include "game/messages/responses/spawnplayer.h"
 #include "game/messages/responses/unk1.h"
+#include "game/messages/responses/unk2.h"
 #include "game/subsystems/entitymanager.h"
 #include "game/subsystems/inventory.h"
 
@@ -57,6 +58,9 @@ public:
 
     Messages::Responses::Unk1 unk1{.entityid = entity.id};
     co_await stream.write(unk1);
+
+    Messages::Responses::Unk2 unk2{.entityid = entity.id};
+    co_await stream.write(unk2);
 
     Messages::Responses::SpawnPlayer sp{.entityid = entity.id,
                                         .c = entity.character};

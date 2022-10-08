@@ -32,8 +32,8 @@ public:
       co_await e.stream->write(move);
     }
 
-    entity.character.position.x = request.destination.x;
-    entity.character.position.y = request.destination.y;
+    entity.character.position.x = request.destination.x / 32;
+    entity.character.position.y = request.destination.y / 32;
   }
 
 private:

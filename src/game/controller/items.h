@@ -19,23 +19,24 @@ public:
   awaitable<void> move_item(MessageStream &stream,
                             Messages::Requests::MoveItem &request) {
 
-    auto& inventory = entity_manager_.find_by_character_id(1).items;
+    auto& entity = entity_manager_.find_by_stream(stream);
+    auto& inventory = entity.items;
     auto& item = inventory.move(request.slot_source, request.slot_destination);
 
     auto ui = Messages::Responses::UpdateInventory();
     ui.add(std::make_shared<Messages::Responses::AddItem>(item));
     ui.add(std::make_shared<Messages::Responses::RemoveItem>(
-            1, request.slot_source));
+            entity.id, request.slot_source));
 
     co_await stream.write(ui);
 
     Messages::Responses::EntityAction ea{};
-    ea.entity = 1;
+    ea.entity = entity.id;
     ea.item = item.item_id;
     ea.slot = item.slot;
 
     for (Subsystems::Entity& e : entity_manager_.get_all()) {
-      if (e.id != 1) {
+      if (e.id != entity.id) {
         co_await e.stream->write(ea);
       }
     }
