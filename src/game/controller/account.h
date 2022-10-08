@@ -11,6 +11,8 @@
 #include "datasources/icharacter.h"
 #include "datasources/iinventory.h"
 
+#include "game/messages/requests/logout_1.h"
+#include "game/messages/requests/logout_2.h"
 #include "game/messages/requests/postauth.h"
 #include "game/messages/responses/postauthok.h"
 #include "game/messages/responses/spawnplayer.h"
@@ -75,12 +77,21 @@ public:
     }
   }
 
+  awaitable<void> logout(MessageStream &stream,
+                          Messages::Requests::Logout1 &request) {
+
+    auto& e = entity_manager_.find_by_stream(stream);
+    auto message = co_await e.stream->read();
+    auto mi = message.read<Game::Messages::Requests::Logout2>();
+    //e.stream->close();
+    entity_manager_.remove_by_stream(stream);
+  }
+
 private:
   Datasources::ICharacter &character_;
   Datasources::IInventory &inventory_;
   Subsystems::EntityManager &entity_manager_;
 
-  std::vector<std::tuple<MessageStream *, Model::Character>> streams_;
 };
 
 }// namespace Game::Controller

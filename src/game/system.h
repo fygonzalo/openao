@@ -7,6 +7,7 @@
 #include "game/controller/items.h"
 #include "game/controller/movement.h"
 #include "game/messages/requests/auth.h"
+#include "game/messages/requests/logout_1.h"
 #include "game/messages/requests/postauth.h"
 
 
@@ -41,6 +42,9 @@ public:
         } else if (message.header.type == 4) {
           auto mi = message.read<Game::Messages::Requests::Move>();
           co_await movement_.move(stream, mi);
+        } else if (message.header.type == Game::Messages::Requests::Logout1::type) {
+          auto mi = message.read<Game::Messages::Requests::Logout1>();
+          co_await account_.logout(stream, mi);
         }
       }
     } catch (std::exception &e) {

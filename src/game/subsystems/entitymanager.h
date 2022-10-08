@@ -21,10 +21,11 @@ struct Entity {
 class EntityManager {
 private:
   std::vector<Entity> entities_;
+  int id_ = 1;
 
 public:
   void insert(Entity &e) {
-    e.id =  entities_.size() + 1;
+    e.id = id_++;
     entities_.push_back(e);
   }
 
@@ -44,6 +45,16 @@ public:
     }
   }
 
+  Entity& remove_by_stream(MessageStream& stream) {
+    int i = 0;
+    for (Entity& e : entities_) {
+      if (e.stream == &stream) {
+        entities_.erase(entities_.begin() + i);
+        return e;
+      }
+      i++;
+    }
+  }
 
 };
 

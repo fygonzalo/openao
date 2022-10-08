@@ -27,13 +27,21 @@ using asio::ip::tcp;
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)){}
+      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)) {}
 
   tcp::socket &socket() { return socket_; }
 
   void close() {
     socket_.shutdown(asio::ip::tcp::socket::shutdown_both);
     socket_.close();
+  }
+
+  void close(int mode) {
+    if (mode == 0) socket_.shutdown(asio::ip::tcp::socket::shutdown_send);
+    else if (mode == 1)
+      socket_.shutdown(asio::ip::tcp::socket::shutdown_receive);
+    else
+      socket_.close();
   }
 
   asio::any_io_executor get_executor() { return socket_.get_executor(); }
@@ -85,28 +93,29 @@ public:
   awaitable<Message> read() {
 
     if (read_buffer_.eof()) {
-        read_buffer_ = BinaryBuffer(6, true);
-        co_await async_read(socket_, buffer(read_buffer_.buffer_), use_awaitable);
+      read_buffer_ = BinaryBuffer(6, true);
+      co_await async_read(socket_, buffer(read_buffer_.buffer_), use_awaitable);
 
-        PacketHeader header;
-        read_buffer_.read(header);
+      PacketHeader header;
+      read_buffer_.read(header);
 
-        int pending = header.size;
-        if (header.flags & 0x01) pending = (((header.size + 15) >> 4) << 4);
+      int pending = header.size;
+      if (header.flags & 0x01) pending = (((header.size + 15) >> 4) << 4);
 
-        read_buffer_ = BinaryBuffer(pending, true);
-        co_await async_read(socket_, buffer(read_buffer_.buffer_), use_awaitable);
+      read_buffer_ = BinaryBuffer(pending, true);
+      co_await async_read(socket_, buffer(read_buffer_.buffer_), use_awaitable);
 
 
-        if (header.flags & 0x01) {
-          cipher_.decrypt(read_buffer_.buffer_);
-          read_buffer_.len_ = header.size;
-        }
+      if (header.flags & 0x01) {
+        cipher_.decrypt(read_buffer_.buffer_);
+        read_buffer_.len_ = header.size;
+      }
 
-        if (header.sequence != 2 && header.checksum !=
-            checksum((uint8_t *) read_buffer_.data(), read_buffer_.size())) {
-          throw "Invalid packet received";
-        }
+      if (header.sequence != 2 &&
+          header.checksum != checksum((uint8_t *) read_buffer_.data(),
+                                      read_buffer_.size())) {
+        throw "Invalid packet received";
+      }
     }
 
     // Unparsed message
@@ -114,7 +123,7 @@ public:
     Message message;
     read_buffer_.read(message);
 
-    //read_buffer_.off_ = off;
+    // read_buffer_.off_ = off;
 
 
     co_return message;
