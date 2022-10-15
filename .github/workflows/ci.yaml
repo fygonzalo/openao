@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code into workspace
+        uses: actions/checkout@v3
+      - name: Build the application
+        run: make build
