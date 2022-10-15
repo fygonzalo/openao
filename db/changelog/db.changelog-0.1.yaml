@@ -1,0 +1,428 @@
+databaseChangeLog:
+  - runningAs:
+    username: liquibase
+
+  - changeSet:
+      id: 1
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: slots
+                  type: int
+                  defaultValue: 1
+
+  - changeSet:
+      id: 2
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: character
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk__character__account
+                    references: account(id)
+                    nullable: false
+              - column:
+                  name: index
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(12)
+              - column:
+                  name: gender
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hair_style
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: height
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hair_color
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: skin_color
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthday_month
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthday_day
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: blood
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: place
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: job
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: face
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: personality
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level
+                  type: int
+                  defaultValue: 1
+              - column:
+                  name: experience
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: rank
+                  type: int
+                  defaultValue: 1
+              - column:
+                  name: credits
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: faction
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: stage
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: position_x
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: position_y
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: orientation
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: head
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: body
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: main_hand
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: off_hand
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: hand
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: feet
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: back
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: ride
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: shape
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: hp_current
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: hp_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: mp_current
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: mp_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: sp_current
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: sp_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: weight
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: attack_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: attack_right
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: attack_left
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: defense_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: spell_defense_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: spell_defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: rigor_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: rigor_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: agility_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: agility_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: critical_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: critical_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: stamina_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: stamina_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: soul_defense_base
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: soul_defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: thunder_attack_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: thunder_defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: fire_attack_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: fire_defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: ice_attack_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: ice_defense_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: rotten_attack_total
+                  type: int
+                  defaultValue: 0
+              - column:
+                  name: rotten_defense_total
+                  type: int
+                  defaultValue: 0
+
+        - addUniqueConstraint:
+            columnNames: account_id, index
+            constraintName: uq__character__account_id__index
+            tableName: character
+
+  - changeSet:
+      id: 3
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: skills
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: character_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk__skills__character
+                    references: character(id)
+                    nullable: false
+              - column:
+                  name: type
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level
+                  type: int
+                  defaultValue: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: experience
+                  type: int
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            columnNames: character_id, type
+            constraintName: uq__skills__character_id__type
+            tableName: skills
+
+  - changeSet:
+      id: 4
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: inventoryitem
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: character_id
+                  type: int
+                  constraints:
+                    references: character(id)
+                    foreignKeyName: fk__bagitem__character
+                    nullable: false
+              - column:
+                  name: slot
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            columnNames: character_id, slot
+            constraintName: uq__inventoryitem__character_id__slot
+            tableName: inventoryitem

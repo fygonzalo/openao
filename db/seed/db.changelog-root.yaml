@@ -8,7 +8,7 @@ databaseChangeLog:
       runOnChange: true
       changes:
         - loadUpdateData:
-            file: db/seed/account.csv
+            file: account.csv
             tableName: account
             primaryKey: id
   - changeSet:
@@ -17,7 +17,7 @@ databaseChangeLog:
       runOnChange: true
       changes:
         - loadUpdateData:
-            file: db/seed/character.csv
+            file: character.csv
             tableName: character
             primaryKey: id
   - changeSet:
@@ -26,6 +26,6 @@ databaseChangeLog:
       runOnChange: true
       changes:
         - loadUpdateData:
-            file: db/seed/inventoryitem.csv
+            file: inventoryitem.csv
             tableName: inventoryitem
             primaryKey: id

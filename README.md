@@ -1,51 +1,35 @@
-This is a proof of concept game server.
-There is currently no compatible client to play.
+This is a proof of concept network server.
 This is an educational project on distributed systems.
-
-## Build
-
-### Requirements
-
-* CMake:3.22
-* GCC:11.3.1
-
-### Commands
-
-```bash
-mkdir build
-cmake -B build
-make --directory build
-```
-
-## Run
-
-### Requirements
-
-* Liquibase 4.12
-* Postgresql
-
-### Commands
-
-```bash
-make
-```
-
-To update the database data on the fly, run `make seed` from the root directory.
-
-## Supported platforms
-
-* Fedora 36
 
 ## Goals
 
 * Build with a single command
-* Run a develop build with a single command
+* Local environment runnable with single command
 * Configuration as code
-* Centralized management
-* Upgradable without downtime
 
 ## Contribute
 
-* Include tests
-* Database changelogs must not act on themselves when working on feature branches
 * Maintain project conventions
+
+## Development
+
+#### Requirements
+
+The minimal requirement to build and run the project is `make` and `docker`.
+
+#### Building the project
+
+The simplest way to build the project is executing the command `make build`,
+which generates a image tagged `localhost/openao:local`.
+
+#### Spin up a local environment
+
+The makefile includes a target `make up` that starts up a postgres container,
+runs changelogs using liquibase, initializes the database with seed data, then
+starts the openao container.
+
+If only need the database, then run `make up.database`.
+
+If want to re-run the database seed, then run `make up.database.seed`
+
+To clean it up use `make down`.
