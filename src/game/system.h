@@ -4,6 +4,7 @@
 
 #include "game/controller/account.h"
 #include "game/controller/actions.h"
+#include "game/controller/chat.h"
 #include "game/controller/items.h"
 #include "game/controller/movement.h"
 #include "game/messages/requests/auth.h"
@@ -15,9 +16,9 @@ namespace Game {
 class System {
 public:
   System(Controller::Account &account, Controller::Items &items,
-         Controller::Actions &actions, Controller::Movement &movement)
+         Controller::Actions &actions, Controller::Movement &movement, Controller::Chat &chat)
       : account_(account), items_(items), actions_(actions),
-        movement_(movement) {}
+        movement_(movement), chat_(chat) {}
 
   awaitable<void> accept(MessageStream stream) {
     try {
@@ -45,6 +46,9 @@ public:
         } else if (message.header.type == Game::Messages::Requests::Logout1::type) {
           auto mi = message.read<Game::Messages::Requests::Logout1>();
           co_await account_.logout(stream, mi);
+        } else if (message.header.type == Game::Messages::Requests::GlobalMessage::type) {
+          auto mi = message.read<Game::Messages::Requests::GlobalMessage>();
+          co_await chat_.global_message(stream, mi);
         }
       }
     } catch (std::exception &e) {
@@ -58,6 +62,7 @@ private:
   Controller::Items &items_;
   Controller::Actions &actions_;
   Controller::Movement &movement_;
+  Controller::Chat &chat_;
 };
 }// namespace Game
 

@@ -26,7 +26,8 @@ int main(int argc, char *argv[]) {
   Game::Controller::Items items{manager};
   Game::Controller::Actions actions{manager};
   Game::Controller::Movement movement{manager};
-  Game::System game{gsa, items, actions, movement};
+  Game::Controller::Chat chat{manager};
+  Game::System game{gsa, items, actions, movement, chat};
   std::thread t2([&game]() { Server{30001, game}.start(); });
 
   t1.join();
