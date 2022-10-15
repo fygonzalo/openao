@@ -1,15 +1,19 @@
-This is a proof of concept network server.
-This is an educational project on distributed systems.
+# OpenAO
+
+Implementation of a network server. This project is for educational purposes,
+as a playground for development practices.
 
 ## Goals
 
-* Build with a single command
-* Local environment runnable with single command
-* Configuration as code
+* Build with a single command.
+* Local environment runnable with single command.
+* Configuration as code.
 
 ## Contribute
 
-* Maintain project conventions
+* Maintain project conventions.
+* Follow [conventional commits guide](https://www.conventionalcommits.org/en/v1.0.0/#summary).
+* Follow [github flow](https://docs.github.com/en/get-started/quickstart/github-flow#following-github-flow).
 
 ## Development
 
@@ -17,7 +21,7 @@ This is an educational project on distributed systems.
 
 The minimal requirement to build and run the project is `make` and `docker`.
 
-#### Building the project
+#### Build the project
 
 The simplest way to build the project is executing the command `make build`,
 which generates a image tagged `localhost/openao:local`.
@@ -30,6 +34,6 @@ starts the openao container.
 
 If only need the database, then run `make up.database`.
 
-If want to re-run the database seed, then run `make up.database.seed`
+If want to re-run the database seed, then run `make up.database.seed`.
 
 To clean it up use `make down`.
