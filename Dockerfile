@@ -9,7 +9,7 @@ RUN cd /usr/src/openao \
     && cmake . \
     && cmake --build . --target openao_server
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal
+FROM registry.access.redhat.com/ubi9/ubi-minimal AS runner
 
 RUN microdnf install -y libpq \
     && microdnf clean all
