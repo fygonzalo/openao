@@ -3,7 +3,7 @@
 all: build up
 
 build:
-	docker build -f Dockerfile -t openao:local
+	docker build . -f Dockerfile -t openao:local
 
 up:	down up.database up.openao
 
