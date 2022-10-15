@@ -36,6 +36,10 @@ public:
 
   operator std::string() const { return value_; }
 
+  const char* c_str() const {
+    return value_.c_str();
+  }
+
   void serialize(BinaryBuffer &buffer) {
     buffer.write(value_.data(), size_ + 1);
   }

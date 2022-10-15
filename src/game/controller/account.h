@@ -85,6 +85,8 @@ public:
     auto message = co_await e.stream->read();
     uint32_t eid = e.id;
     auto mi = message.read<Game::Messages::Requests::Logout2>();
+
+    character_.update_character(e.character);
     entity_manager_.remove_by_stream(stream);
 
     Messages::Responses::RemoveEntity re{.entityid = eid, .code = 0};
