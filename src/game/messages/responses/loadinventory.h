@@ -23,7 +23,7 @@ struct LoadInventory {
       // 2: Remove item
       archive.set(1, 1);
       archive.set(0xff, 8);
-      archive.write(i.item_id);
+      archive.write(i.code);
       for (auto& e: i.enhacements) {
         archive.write(((uint32_t)e.attribute << 26) | e.amount);
       }

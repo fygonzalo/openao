@@ -24,7 +24,7 @@ struct AddItem : Action {
 
     archive.write(code);
     archive.set((uint8_t)0xff, 8);
-    archive.write(i.item_id);
+    archive.write(i.code);
     for (auto& e: i.enhacements) {
       archive.write(((uint32_t)e.attribute << 26) | e.amount);
     }

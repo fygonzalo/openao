@@ -49,7 +49,7 @@ struct InventoryItem {
    * 167: Head pd
    */
   uint16_t slot;
-  uint32_t item_id;
+  uint32_t code;
   uint32_t quantity;
   // WHAT PART IS SHARED WITH BANK
   uint32_t owner_id{0};

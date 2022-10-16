@@ -25,7 +25,7 @@ public:
       ii.id = r["id"].as<int>();
       ii.character_id = r["character_id"].as<int>();
       ii.slot = r["slot"].as<int>();
-      ii.item_id = r["item_id"].as<int>();
+      ii.code = r["code"].as<int>();
       ii.quantity = r["quantity"].as<int>();
 
       inventory.add(ii);
@@ -38,6 +38,6 @@ private:
   pqxx::connection &connection_;
 };
 
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX
 
 #endif// OPENAO_REPOSITORIES_IMPL_PQXX_BAGITEMS_H

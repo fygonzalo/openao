@@ -1,4 +1,4 @@
-id,character_id,slot,item_id,quantity
+id,character_id,slot,code,quantity
 0,1,0,1,100000
 1,1,167,6179,1
 2,1,168,26,1

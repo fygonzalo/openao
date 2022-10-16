@@ -32,13 +32,11 @@ public:
 
     Messages::Responses::EntityAction ea{};
     ea.entity = entity.id;
-    ea.item = item.item_id;
+    ea.code = item.code;
     ea.slot = item.slot;
 
-    for (Subsystems::Entity& e : entity_manager_.get_all()) {
-      if (e.id != entity.id) {
-        co_await e.stream->write(ea);
-      }
+    for (Subsystems::Entity &e: entity_manager_.get_all()) {
+      if (e.id != entity.id) { co_await e.stream->write(ea); }
     }
   }
 

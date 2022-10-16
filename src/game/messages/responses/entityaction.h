@@ -12,7 +12,7 @@ struct EntityAction {
   uint32_t entity;
   uint8_t action = 1;
   uint32_t slot;
-  uint32_t item;
+  uint32_t code;
 
   template<typename Archive>
   void serialize(Archive &archive) {
@@ -20,7 +20,7 @@ struct EntityAction {
     archive.set(0, 1);
     archive.write(action);
     archive.write(slot);
-    archive.write(item);
+    archive.write(code);
   }
 
 };

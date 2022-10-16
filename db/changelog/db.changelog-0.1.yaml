@@ -407,12 +407,12 @@ databaseChangeLog:
                     foreignKeyName: fk__bagitem__character
                     nullable: false
               - column:
-                  name: slot
+                  name: code
                   type: int
                   constraints:
                     nullable: false
               - column:
-                  name: item_id
+                  name: slot
                   type: int
                   constraints:
                     nullable: false
