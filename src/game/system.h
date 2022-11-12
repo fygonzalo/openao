@@ -22,33 +22,35 @@ public:
 
   awaitable<void> accept(MessageStream stream) {
     try {
+      co_spawn(stream.get_executor(), stream.writer(), detached);
+
       Message message = co_await stream.read();
       if (message.header.type != 0x02) stream.close();
 
       auto auth = message.read<Game::Messages::Requests::Auth>();
-      co_await account_.preauth(stream, auth);
+      account_.preauth(stream, auth);
 
       message = co_await stream.read();
       auto postauth = message.read<Game::Messages::Requests::PostAuth>();
-      co_await account_.postauth(stream, postauth);
+      account_.postauth(stream, postauth);
 
       for (;;) {
         message = co_await stream.read();
         if (message.header.type == 0x12) {
           auto mi = message.read<Game::Messages::Requests::MoveItem>();
-          co_await items_.move_item(stream, mi);
+          items_.move_item(stream, mi);
         } else if (message.header.type == 22) {
           auto mi = message.read<Game::Messages::Requests::Interact>();
-          co_await actions_.execute(stream, mi);
+          actions_.execute(stream, mi);
         } else if (message.header.type == 4) {
           auto mi = message.read<Game::Messages::Requests::Move>();
-          co_await movement_.move(stream, mi);
+          movement_.move(stream, mi);
         } else if (message.header.type == Game::Messages::Requests::Logout1::type) {
           auto mi = message.read<Game::Messages::Requests::Logout1>();
           co_await account_.logout(stream, mi);
         } else if (message.header.type == Game::Messages::Requests::GlobalMessage::type) {
           auto mi = message.read<Game::Messages::Requests::GlobalMessage>();
-          co_await chat_.global_message(stream, mi);
+          chat_.global_message(stream, mi);
         }
       }
     } catch (std::exception &e) {

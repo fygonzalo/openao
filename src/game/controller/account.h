@@ -32,7 +32,7 @@ public:
       : character_(icharacter), inventory_(inventory),
         entity_manager_(entity_manager) {}
 
-  awaitable<void> preauth(MessageStream &stream,
+  void preauth(MessageStream &stream,
                           Messages::Requests::Auth &request) {
     auto character = character_.get_character_by_id(request.character_id);
     auto items = inventory_.get_bag_items(request.character_id);
@@ -42,40 +42,40 @@ public:
                               .items = items};
     entity_manager_.insert(player);
 
-    co_return;
   }
 
-  awaitable<void> postauth(MessageStream &stream,
+  void postauth(MessageStream &stream,
                            Messages::Requests::PostAuth &request) {
     Subsystems::Entity &entity = entity_manager_.find_by_stream(stream);
 
     Messages::Responses::PostAuthOk pao{};
-    co_await stream.write(pao);
+    stream.write(pao);
 
     Messages::Responses::Character charinfo{.entityid = entity.id,
                                             .c = entity.character};
-    co_await stream.write(charinfo);
+    stream.write(charinfo);
 
     Messages::Responses::LoadInventory inventory{.items = entity.items};
-    co_await stream.write(inventory);
+    stream.write(inventory);
 
     Messages::Responses::Unk1 unk1{.entityid = entity.id};
-    co_await stream.write(unk1);
+    stream.write(unk1);
 
     Messages::Responses::Unk2 unk2{.entityid = entity.id};
-    co_await stream.write(unk2);
+    stream.write(unk2);
 
     Messages::Responses::SpawnPlayer sp{.entityid = entity.id,
                                         .c = entity.character};
 
     for (auto e: entity_manager_.get_all()) {
       if (e.id != entity.id) {
-        co_await e.stream->write(sp);
+        e.stream->write(sp);
         Messages::Responses::SpawnPlayer sp_{.entityid = e.id,
                                              .c = e.character};
-        co_await stream.write(sp_);
+        stream.write(sp_);
       }
     }
+
   }
 
   awaitable<void> logout(MessageStream &stream,
@@ -91,7 +91,7 @@ public:
 
     Messages::Responses::RemoveEntity re{.entityid = eid, .code = 0};
     for (auto &e: entity_manager_.get_all()) {
-      co_await e.stream->write(re);
+      e.stream->write(re);
     }
   }
 

@@ -12,7 +12,7 @@ public:
   Chat(Subsystems::EntityManager &entityManager)
       : entity_manager_(entityManager) {}
 
-  awaitable<void> global_message(MessageStream &stream,
+  void global_message(MessageStream &stream,
                                  Messages::Requests::GlobalMessage &request) {
 
     auto &entity = entity_manager_.find_by_stream(stream);
@@ -21,7 +21,7 @@ public:
                                           .nick = entity.character.name,
                                           .message = request.message};
 
-    for (auto &e: entity_manager_.get_all()) { co_await e.stream->write(gm); }
+    for (auto &e: entity_manager_.get_all()) { e.stream->write(gm); }
   }
 
 private:

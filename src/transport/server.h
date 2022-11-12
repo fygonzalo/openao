@@ -41,7 +41,7 @@ public:
                                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                             0x00, 0x00, 0x00, 0x00})};
       co_await acceptor_.async_accept(stream.socket(), use_awaitable);
-      co_await stream.init();
+      stream.init();
       co_spawn(ctx_, system_.accept(std::move(stream)), detached);
     }
   }

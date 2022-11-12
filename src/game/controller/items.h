@@ -16,7 +16,7 @@ class Items {
 public:
   Items(Subsystems::EntityManager &entity_manager) : entity_manager_(entity_manager) {}
 
-  awaitable<void> move_item(MessageStream &stream,
+  void move_item(MessageStream &stream,
                             Messages::Requests::MoveItem &request) {
 
     auto& entity = entity_manager_.find_by_stream(stream);
@@ -28,7 +28,7 @@ public:
     ui.add(std::make_shared<Messages::Responses::RemoveItem>(
             entity.id, request.slot_source));
 
-    co_await stream.write(ui);
+    stream.write(ui);
 
     Messages::Responses::EntityAction ea{};
     ea.entity = entity.id;
@@ -36,8 +36,9 @@ public:
     ea.slot = item.slot;
 
     for (Subsystems::Entity &e: entity_manager_.get_all()) {
-      if (e.id != entity.id) { co_await e.stream->write(ea); }
+      if (e.id != entity.id) { e.stream->write(ea); }
     }
+
   }
 
 

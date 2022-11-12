@@ -32,7 +32,7 @@ public:
     auto branches = Model::Branches({10});
     Messages::Responses::CharInfo charinfo(account.value(), characters,
                                            branches);
-    co_await stream.write(charinfo);
+    stream.write(charinfo);
   }
 
 private:

@@ -13,7 +13,7 @@ public:
   Movement(Subsystems::EntityManager &entity_manager)
       : entity_manager_(entity_manager){};
 
-  awaitable<void> move(MessageStream &stream,
+  void move(MessageStream &stream,
                        Messages::Requests::Move &request) {
     auto &entity = entity_manager_.find_by_stream(stream);
 
@@ -29,7 +29,7 @@ public:
     };
 
     for (Subsystems::Entity &e: entity_manager_.get_all()) {
-      co_await e.stream->write(move);
+      e.stream->write(move);
     }
 
     entity.character.position.x = request.destination.x / 32;

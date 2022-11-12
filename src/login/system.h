@@ -16,6 +16,8 @@ public:
   System(Services::Account &as) : as_(as){};
 
   awaitable<void> accept(MessageStream stream) {
+    co_spawn(stream.get_executor(), stream.writer(), detached);
+
     Message message = co_await stream.read();
     if (message.header.type != 0x02) stream.close();
 
@@ -32,7 +34,7 @@ public:
       gameserver.server = gm;
 
       co_await stream.read();
-      co_await stream.write(gameserver);
+      stream.write(gameserver);
       co_await stream.read();
     } catch (std::exception & e) {
       std::cout << e.what() << std::endl;

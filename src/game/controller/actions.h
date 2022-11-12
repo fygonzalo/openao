@@ -12,10 +12,11 @@ public:
   Actions(Subsystems::EntityManager &entityManager)
       : entity_manager_(entityManager) {}
 
-  awaitable<void> execute(MessageStream &stream,
+  void execute(MessageStream &stream,
                            Messages::Requests::Interact &request) {
     Messages::Responses::PostAuthOk pao{};
-    co_await stream.write(pao);
+    stream.write(pao);
+
   }
 
 private:
