@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_EXPERIMENTAL_SERIALIZER_DESERIALIZER_H
-#define OPENAO_EXPERIMENTAL_SERIALIZER_DESERIALIZER_H
+#ifndef OPENAO_EXPERIMENTAL_SERIALIZATION_DESERIALIZER_H
+#define OPENAO_EXPERIMENTAL_SERIALIZATION_DESERIALIZER_H
 
 #include <cassert>
 #include <map>
@@ -10,7 +10,7 @@
 #include "experimental/reactor/event.h"
 #include "utils/binarybuffer.h"
 
-namespace openao::experimental::serializer {
+namespace openao::experimental::serialization {
 
 
 class Deserializer {
@@ -48,4 +48,4 @@ private:
 
 }// namespace openao::experimental::serializer
 
-#endif// OPENAO_EXPERIMENTAL_SERIALIZER_DESERIALIZER_H
+#endif// OPENAO_EXPERIMENTAL_SERIALIZATION_DESERIALIZER_H

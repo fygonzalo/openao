@@ -5,11 +5,11 @@
 
 #include "experimental/game/chat/chatmessageevent.h"
 #include "experimental/reactor/event.h"
-#include "experimental/serializer/serializer.h"
+#include "experimental/serialization/serializer.h"
 
 using namespace openao::experimental;
 using namespace openao::experimental::game::chat;
-using namespace openao::experimental::serializer;
+using namespace openao::experimental::serialization;
 
 TEST(Serialization, Serialization_Message_Test) {
   ChatMessageEvent command;

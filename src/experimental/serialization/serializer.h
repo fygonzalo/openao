@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_EXPERIMENTAL_SERIALIZER_SERIALIZER_H
-#define OPENAO_EXPERIMENTAL_SERIALIZER_SERIALIZER_H
+#ifndef OPENAO_EXPERIMENTAL_SERIALIZATION_SERIALIZER_H
+#define OPENAO_EXPERIMENTAL_SERIALIZATION_SERIALIZER_H
 
 #include <cstdint>
 #include <map>
@@ -9,7 +9,7 @@
 
 #include "utils/binarybuffer.h"
 
-namespace openao::experimental::serializer {
+namespace openao::experimental::serialization {
 
 class Serializer {
 
@@ -50,4 +50,4 @@ private:
 
 }
 
-#endif// OPENAO_EXPERIMENTAL_SERIALIZER_SERIALIZER_H
+#endif// OPENAO_EXPERIMENTAL_SERIALIZATION_SERIALIZER_H

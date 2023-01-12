@@ -4,11 +4,11 @@
 #include "experimental/reactor.h"
 
 #include "experimental/game/chat/chatmessagecommand.h"
-#include "experimental/serializer/deserializer.h"
+#include "experimental/serialization/deserializer.h"
 
 
 using namespace openao::experimental;
-using namespace openao::experimental::serializer;
+using namespace openao::experimental::serialization;
 using openao::experimental::Reactor;
 
 using namespace openao::experimental::game::chat;

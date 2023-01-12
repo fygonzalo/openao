@@ -1,10 +1,10 @@
 
 #include <gtest/gtest.h>
 
-#include "experimental/serializer/deserializer.h"
+#include "experimental/serialization/deserializer.h"
 #include "experimental/game/chat/chatmessagecommand.h"
 
-using namespace openao::experimental::serializer;
+using namespace openao::experimental::serialization;
 using namespace openao::experimental::game::chat;
 
 TEST(Deserializer, Base) {

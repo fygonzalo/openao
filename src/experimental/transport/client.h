@@ -8,10 +8,10 @@
 #include "experimental/transport/imessagestream.h"
 
 #include "experimental/reactor.h"
-#include "experimental/serializer/deserializer.h"
-#include "experimental/serializer/serializer.h"
+#include "experimental/serialization/deserializer.h"
+#include "experimental/serialization/serializer.h"
 
-using namespace openao::experimental::serializer;
+using namespace openao::experimental::serialization;
 
 namespace openao::experimental::transport {
 

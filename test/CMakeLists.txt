@@ -15,7 +15,7 @@ add_executable(
         experimental/mockmessagestream.h
   experimental/client.cpp
   experimental/deserializer.cpp
-  experimental/serialization.cpp experimental/mockclient.h)
+  experimental/serialization.cpp experimental/mockclient.h experimental/clientmanager.cpp)
 
 target_link_libraries(openao_test gtest_main gmock_main openao)
 

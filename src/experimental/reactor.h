@@ -4,8 +4,6 @@
 
 #include "experimental/reactor/event.h"
 
-#include "utils/binarybuffer.h"
-
 #include <cstdint>
 #include <functional>
 #include <map>
