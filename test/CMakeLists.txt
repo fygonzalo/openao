@@ -12,10 +12,10 @@ add_executable(
   experimental/chat.cpp
   experimental/itemmall.cpp
   experimental/reactor.cpp
-  experimental/messagestreammock.h
+        experimental/mockmessagestream.h
   experimental/client.cpp
   experimental/deserializer.cpp
-  experimental/serialization.cpp experimental/clientmock.h)
+  experimental/serialization.cpp experimental/mockclient.h)
 
 target_link_libraries(openao_test gtest_main gmock_main openao)
 

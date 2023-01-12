@@ -3,8 +3,8 @@
 
 #include "experimental/game/chat/controller.h"
 
-#include "messagestreammock.h"
-#include "clientmock.h"
+#include "mockclient.h"
+#include "mockmessagestream.h"
 
 using namespace openao::experimental::game;
 using namespace openao::experimental::game::chat;

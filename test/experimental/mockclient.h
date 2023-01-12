@@ -1,6 +1,6 @@
 
-#ifndef OPENAO_TEST_EXPERIMENTAL_CLIENTMOCK_H
-#define OPENAO_TEST_EXPERIMENTAL_CLIENTMOCK_H
+#ifndef OPENAO_TEST_EXPERIMENTAL_MOCKCLIENT_H
+#define OPENAO_TEST_EXPERIMENTAL_MOCKCLIENT_H
 
 #include <gmock/gmock.h>
 
@@ -13,4 +13,4 @@ public:
   MOCK_METHOD(void, send, (openao::experimental::reactor::IEvent&), (override));
 };
 
-#endif// OPENAO_TEST_EXPERIMENTAL_CLIENTMOCK_H
+#endif// OPENAO_TEST_EXPERIMENTAL_MOCKCLIENT_H

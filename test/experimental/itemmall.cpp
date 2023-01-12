@@ -7,8 +7,8 @@
 #include "experimental/game/account/accountmanager.h"
 #include "experimental/game/itemmall/controller.h"
 
-#include "messagestreammock.h"
-#include "clientmock.h"
+#include "mockclient.h"
+#include "mockmessagestream.h"
 
 using namespace openao::experimental::game::itemmall;
 using namespace openao::experimental::game::account;
