@@ -6,7 +6,9 @@
 #include <utility>
 
 #include "experimental/game/character/character.h"
-#include "experimental/client.h"
+#include "experimental/transport/client.h"
+
+using namespace openao::experimental::transport;
 
 namespace openao::experimental::game::character {
 

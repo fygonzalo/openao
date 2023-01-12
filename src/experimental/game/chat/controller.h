@@ -5,8 +5,7 @@
 #include <functional>
 #include <unordered_set>
 
-#include "experimental/client.h"
-#include "experimental/player.h"
+#include "experimental/transport/client.h"
 #include "experimental/game/chat/chatmessageevent.h"
 #include "experimental/game/chat/chatmessagecommand.h"
 

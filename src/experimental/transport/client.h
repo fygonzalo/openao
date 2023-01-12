@@ -1,18 +1,16 @@
 
-#ifndef OPENAO_EXPERIMENTAL_GAME_CLIENT_H
-#define OPENAO_EXPERIMENTAL_GAME_CLIENT_H
+#ifndef OPENAO_EXPERIMENTAL_TRANSPORT_CLIENT_H
+#define OPENAO_EXPERIMENTAL_TRANSPORT_CLIENT_H
 
 #include <memory>
 
-#include "experimental/iclient.h"
 #include "experimental/transport/imessagestream.h"
 
 #include "experimental/serializer/serializer.h"
 
-using namespace openao::experimental::transport;
 using namespace openao::experimental::serializer;
 
-namespace openao::experimental {
+namespace openao::experimental::transport {
 
 class Client {
 public:
@@ -26,15 +24,13 @@ public:
     stream_->send(buffer);
   }
 
-  IMessageStream& stream() {
-    return *stream_;
-  }
+  IMessageStream &stream() { return *stream_; }
 
 private:
   std::unique_ptr<IMessageStream> stream_;
   Serializer &serializer_;
 };
 
-}// namespace openao::experimental
+}// namespace openao::experimental::transport
 
-#endif// OPENAO_EXPERIMENTAL_GAME_CLIENT_H
+#endif// OPENAO_EXPERIMENTAL_TRANSPORT_CLIENT_H

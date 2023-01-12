@@ -2,11 +2,11 @@
 #ifndef OPENAO_BINARYBUFFER_H
 #define OPENAO_BINARYBUFFER_H
 
+#include <array>
+#include <bitset>
 #include <cstring>
 #include <type_traits>
-#include <bitset>
 #include <vector>
-#include <array>
 
 class BinaryBuffer {
 public:
@@ -97,7 +97,9 @@ public:
   }
   void write(std::string &var) { write(var.c_str(), var.size() + 1, len_); };
 
-  void write(const std::string &var) { write(var.c_str(), var.size() + 1, len_); };
+  void write(const std::string &var) {
+    write(var.c_str(), var.size() + 1, len_);
+  };
 
   template<typename T, size_t N>
   void write(std::array<T, N> &values) {
@@ -105,7 +107,7 @@ public:
     for (T &t: values) write(t);
   }
 
-  template <typename T>
+  template<typename T>
   void write(std::vector<T> &values) {
     for (T &t: values) write(t);
   }
@@ -119,7 +121,7 @@ public:
   void read(int16_t &var) { read_(var); }
   void read(int32_t &var) { read_(var); }
 
-  void read(char * dst, int len) {
+  void read(char *dst, int len) {
     if (len > len_) len = len_;
 
     memmove(dst, buffer_.data() + off_, len);
@@ -141,9 +143,7 @@ public:
 
   template<typename T, std::size_t N>
   void write_array(const T t[N]) {
-    for (auto i = 0; i < N; i++) {
-      write(t[i]);
-    }
+    for (auto i = 0; i < N; i++) { write(t[i]); }
   }
 
   template<typename T>
@@ -169,12 +169,16 @@ public:
     t.deserialize(*this);
   }
 
-  template <typename T>
+  template<typename T>
   T read() {
     T t;
     read(t);
     return t;
   }
+
+  friend bool operator==(const BinaryBuffer &b1, const BinaryBuffer &b2) {
+    return !std::memcmp(b1.buffer_.data(), b2.buffer_.data(), b1.len_);
+  };
 
 private:
   BinaryBuffer(int size, bool fixed) {

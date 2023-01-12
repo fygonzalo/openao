@@ -5,7 +5,6 @@
 #include "utils/string.h"
 #include <cstdint>
 
-#include "experimental/events/event.h"
 
 namespace openao::experimental::game::chat {
 

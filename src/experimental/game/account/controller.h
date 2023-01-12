@@ -2,7 +2,7 @@
 #ifndef OPENAO_EXPERIMENTAL_GAME_ACCOUNT_CONTROLLER_H
 #define OPENAO_EXPERIMENTAL_GAME_ACCOUNT_CONTROLLER_H
 
-#include "experimental/iclient.h"
+#include "experimental/transport/client.h"
 
 #include "experimental/game/account/authenticatecommand.h"
 #include "experimental/game/account/logoutcommand.h"
@@ -13,11 +13,13 @@
 #include "experimental/game/character/service.h"
 #include "experimental/game/stage.h"
 
+using namespace openao::experimental::transport;
+
 namespace openao::experimental::game::account {
 
 class AccountController {
 public:
-  static void logout(IClient &client, const LogoutCommand &command,
+  static void logout(Client &client, const LogoutCommand &command,
                      AccountManager &account_manager,
                      character::CharacterManager &character_manager,
                      Stage &stage) {
@@ -26,7 +28,7 @@ public:
     account_manager.remove(client);
   }
 
-  static void authenticate(IClient &client, const AuthenticateCommand &command,
+  static void authenticate(Client &client, const AuthenticateCommand &command,
                            AccountManager &account_manager,
                            character::CharacterManager &character_manager,
                            character::CharacterService &character_service,

@@ -3,12 +3,12 @@
 
 #include "experimental/game/chat/controller.h"
 
-#include "clientmock.h"
 #include "messagestreammock.h"
 
 using namespace openao::experimental::game;
 using namespace openao::experimental::game::chat;
 using namespace openao::experimental::game::character;
+using namespace openao::experimental;
 
 
 TEST(Chat, Chat_SendChatMessage_Test) {

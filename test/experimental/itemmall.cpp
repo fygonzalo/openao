@@ -3,62 +3,35 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-
+#include "experimental/transport/client.h"
+#include "experimental/game/account/accountmanager.h"
 #include "experimental/game/itemmall/controller.h"
 
-#include "clientmock.h"
+#include "messagestreammock.h"
 
 using namespace openao::experimental::game::itemmall;
+using namespace openao::experimental::game::account;
+using namespace openao::experimental;
 
-class LoadAngelGoldEventEqMatcher {
-public:
-  using is_gtest_matcher = void;
-
-  explicit LoadAngelGoldEventEqMatcher(const LoadAngelGoldEvent expected)
-      : expected_(expected) {}
-
-  bool MatchAndExplain(const openao::experimental::events::AbstractEvent& event, std::ostream*) const {
-    if (event.code() != 98)
-      return false;
-
-    auto& invoked = static_cast<const LoadAngelGoldEvent&>(event);
-    return invoked.amount == expected_.amount;
-  }
-
-  void DescribeTo(std::ostream* os) const {
-    *os << "Events are equal";
-  }
-
-  void DescribeNegationTo(std::ostream* os) const {
-    *os << "Events differ";
-  }
-
-private:
-  const LoadAngelGoldEvent expected_;
-};
-
-::testing::Matcher<const LoadAngelGoldEvent&> LoadAngelGoldEventEq(const LoadAngelGoldEvent expected) {
-  return LoadAngelGoldEventEqMatcher(expected);
-}
 
 TEST(ItemMall, OpenMall_Test) {
+
+  Serializer serializer;
+  serializer.insert<LoadAngelGoldEvent>(98);
 
   // Expected generated events
   LoadAngelGoldEvent event;
   event.amount = 300;
 
-  // Configure sender
-  MockClient sender;
-  EXPECT_CALL(sender,
-              send(LoadAngelGoldEventEqMatcher(event)))
-          .Times(1);
+  Client sender(std::make_unique<MessageStreamMock>(), serializer);
+  auto &msm = static_cast<MessageStreamMock &>(sender.stream());
+  EXPECT_CALL(msm, send(serializer.serialize(event))).Times(1);
 
   // Create player identity
   uint32_t account_id = 1;
   MallService mall_service;
   AccountManager account_manager;
-  account_manager.insert((IClient&)sender, account_id);
-
+  account_manager.insert(sender, account_id);
 
   // Create command
   OpenCommand command{};
