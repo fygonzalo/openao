@@ -2,7 +2,7 @@
 #ifndef OPENAO_EXPERIMENTAL_REACTOR_H
 #define OPENAO_EXPERIMENTAL_REACTOR_H
 
-#include "experimental/events/abstractevent.h"
+#include "experimental/reactor/event.h"
 
 #include "utils/binarybuffer.h"
 
@@ -21,7 +21,7 @@ public:
 
   template <class T>
   void add(std::function<void(const T& t)> fun) {
-    handlers_[typeid(T)] = [fun](const events::AbstractEvent& e) {
+    handlers_[typeid(T)] = [fun](const reactor::IEvent& e) {
       fun(static_cast<const T&>(e));
     };
   }
@@ -35,8 +35,12 @@ public:
     handlers_.at(index)(t);
   }
 
+  void react(std::type_index index, reactor::IEvent& e) {
+    handlers_.at(index)(e);
+  }
+
 private:
-  std::map<std::type_index, std::function<void(const events::AbstractEvent& e)>> handlers_{};
+  std::map<std::type_index, std::function<void(const reactor::IEvent& e)>> handlers_{};
 };
 
 }// namespace openao::experimental

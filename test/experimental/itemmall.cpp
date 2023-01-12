@@ -8,6 +8,7 @@
 #include "experimental/game/itemmall/controller.h"
 
 #include "messagestreammock.h"
+#include "clientmock.h"
 
 using namespace openao::experimental::game::itemmall;
 using namespace openao::experimental::game::account;
@@ -17,15 +18,15 @@ using namespace openao::experimental;
 TEST(ItemMall, OpenMall_Test) {
 
   Serializer serializer;
+  Deserializer deserializer;
   serializer.insert<LoadAngelGoldEvent>(98);
 
   // Expected generated events
   LoadAngelGoldEvent event;
   event.amount = 300;
 
-  Client sender(std::make_unique<MessageStreamMock>(), serializer);
-  auto &msm = static_cast<MessageStreamMock &>(sender.stream());
-  EXPECT_CALL(msm, send(serializer.serialize(event))).Times(1);
+  MockClient sender{};
+  EXPECT_CALL(sender, send).Times(1);
 
   // Create player identity
   uint32_t account_id = 1;

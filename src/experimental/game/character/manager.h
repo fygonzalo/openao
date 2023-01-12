@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "experimental/game/character/character.h"
-#include "experimental/transport/client.h"
+#include "experimental/transport/iclient.h"
 
 using namespace openao::experimental::transport;
 
@@ -14,21 +14,21 @@ namespace openao::experimental::game::character {
 
 class CharacterManager {
 public:
-  void insert(Client& client, CharacterInfo char_info) {
+  void insert(IClient& client, CharacterInfo char_info) {
     client_to_char_[&client] = std::move(char_info);
   }
 
-  CharacterInfo& get(Client& client) {
+  CharacterInfo& get(IClient& client) {
     return client_to_char_[&client];
   }
 
-  void remove(Client& client) {
+  void remove(IClient& client) {
     client_to_char_.erase(&client);
   }
 
 private:
 
-  std::unordered_map<Client*, CharacterInfo> client_to_char_;
+  std::unordered_map<IClient*, CharacterInfo> client_to_char_;
 };
 
 }

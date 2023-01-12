@@ -4,6 +4,7 @@
 #include "experimental/game/chat/controller.h"
 
 #include "messagestreammock.h"
+#include "clientmock.h"
 
 using namespace openao::experimental::game;
 using namespace openao::experimental::game::chat;
@@ -13,29 +14,27 @@ using namespace openao::experimental;
 
 TEST(Chat, Chat_SendChatMessage_Test) {
 
-  Serializer serializer;
-  serializer.insert<ChatMessageEvent>(23);
 
   // Create connected players
-  std::unordered_set<std::unique_ptr<Client>> players;
-  players.emplace(std::make_unique<Client>(std::make_unique<MessageStreamMock>(), serializer));
-  players.emplace(std::make_unique<Client>(std::make_unique<MessageStreamMock>(), serializer));
-  players.emplace(std::make_unique<Client>(std::make_unique<MessageStreamMock>(), serializer));
+  std::unordered_set<std::unique_ptr<IClient>> players;
+  players.emplace(std::make_unique<MockClient>());
+  players.emplace(std::make_unique<MockClient>());
+  players.emplace(std::make_unique<MockClient>());
 
   CharacterManager character_manager;
 
   // Create stage
   Stage stage{character_manager};
-  for (auto& client : players) {
+  for (auto &client: players) {
     stage.join(*client);
 
-    auto& mock_stream = static_cast<MessageStreamMock&>(client->stream());
-    EXPECT_CALL(mock_stream, send).Times(1);
+    auto &mock_client = static_cast<MockClient &>(*client);
+    EXPECT_CALL(mock_client, send).Times(1);
   }
 
 
   // Obtain sender
-  auto& sender = (*players.begin()->get());
+  auto &sender = (*players.begin()->get());
 
   // Sent message
   ChatMessageCommand chat_message;

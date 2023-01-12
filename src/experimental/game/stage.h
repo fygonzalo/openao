@@ -11,7 +11,7 @@ public:
   Stage(character::CharacterManager &character_manager)
       : character_manager_(character_manager){};
 
-  void join(Client &client) {
+  void join(IClient &client) {
     auto character = character_manager_.get(client);
     for (auto &c : clients_) {
       auto c_ = character_manager_.get(*c);
@@ -22,18 +22,17 @@ public:
     clients_.emplace(&client);
   };
 
-  void leave(Client &client) {
+  void leave(IClient &client) {
     // Delete myself to others
     clients_.erase(&client);
   }
 
-  template <typename Event>
-  void broadcast(Event &event) {
+  void broadcast(reactor::IEvent &event) {
     for (auto &c: clients_) c->send(event);
   }
 
 private:
-  std::unordered_set<Client *> clients_;
+  std::unordered_set<IClient *> clients_;
 
   character::CharacterManager &character_manager_;
 };

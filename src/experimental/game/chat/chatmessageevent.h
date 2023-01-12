@@ -4,15 +4,15 @@
 
 #include "utils/string.h"
 #include <cstdint>
-
+#include "experimental/reactor/event.h"
 
 namespace openao::experimental::game::chat {
 
-struct ChatMessageEvent {
+struct ChatMessageEvent : reactor::Event<ChatMessageEvent> {
 
   uint32_t entity;
-  String name{12};
-  String text{80};
+  String name{16};
+  std::string text;
 
   void serialize(BinaryBuffer &buffer) {
     buffer.write(entity);

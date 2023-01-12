@@ -5,7 +5,7 @@
 #include <functional>
 #include <unordered_set>
 
-#include "experimental/transport/client.h"
+#include "experimental/transport/iclient.h"
 #include "experimental/game/chat/chatmessageevent.h"
 #include "experimental/game/chat/chatmessagecommand.h"
 
@@ -16,7 +16,7 @@ namespace openao::experimental::game::chat {
 
 class ChatController {
 public:
-  static void send_chat_message(Client &client,
+  static void send_chat_message(IClient &client,
                                 const ChatMessageCommand &command, Stage& stage) {
     ChatMessageEvent chat_event{};
     chat_event.entity = 1;

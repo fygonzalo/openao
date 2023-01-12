@@ -6,7 +6,7 @@
 
 namespace openao::experimental::game::itemmall {
 
-struct LoadAngelGoldEvent {
+struct LoadAngelGoldEvent : reactor::Event<LoadAngelGoldEvent> {
 
   uint32_t amount;
 

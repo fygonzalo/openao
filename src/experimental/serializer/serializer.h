@@ -17,6 +17,14 @@ public:
   template <typename T>
   void insert(uint16_t code) {
     index_to_code_[typeid(T)] = code;
+    index_to_fun_[typeid(T)] = [code](reactor::IEvent& e){
+      auto t = static_cast<T&>(e);
+
+      BinaryBuffer buffer;
+      buffer.write(code);
+      buffer.write(t);
+      return buffer;
+    };
   }
 
   template <typename T>
@@ -30,9 +38,14 @@ public:
     return buffer;
   }
 
+  BinaryBuffer serialize(std::type_index i, reactor::IEvent& e) {
+    auto fun = index_to_fun_[i];
+    return fun(e);
+  }
+
 private:
-  //std::map<std::type_index, std::function<void()>> code_to_fun_;
   std::map<std::type_index, uint16_t> index_to_code_;
+  std::map<std::type_index, std::function<BinaryBuffer(reactor::IEvent&)>> index_to_fun_;
 };
 
 }
