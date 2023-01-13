@@ -7,60 +7,60 @@
 #include <functional>
 
 #include "experimental/transport/client.h"
-#include "experimental/transport/iclient.h"
+#include "experimental/transport/customreactor.h"
+#include "experimental/transport/messagestream.h"
 
-#include "experimental/di/injector.h"
-#include "experimental/reactor.h"
 #include "experimental/serialization/deserializer.h"
 #include "experimental/serialization/serializer.h"
 
 using asio::io_context;
 using namespace openao::experimental::serialization;
-using namespace openao::experimental::di;
+
 
 namespace openao::experimental::transport {
 
 
+using asio::awaitable;
+using asio::ip::tcp;
 
 class Server {
 public:
-  Server(io_context &context, uint16_t port, Injector &injector,
+  Server(io_context &context, uint16_t port, CustomReactor &reactor,
          Serializer &serializer, Deserializer &deserializer)
-      : context_(context), injector_(injector), serializer_(serializer),
-        deserializer_(deserializer){};
+      : context_(context), reactor_(reactor), serializer_(serializer),
+        deserializer_(deserializer),
+        acceptor_(context_, tcp::endpoint(tcp::v4(), port)){};
 
-
-  template<typename T, typename... Services>
-  void add_handler(void (*handler)(IClient &client, const T &t, Services...)) {
-    auto lambda = [this, handler](IClient &client,
-                                  const reactor::IEvent &event) {
-      auto &cevent = static_cast<const T &>(event);
-      std::tuple args =
-              std::make_tuple(std::ref(client), cevent,
-                              injector_.get<Services>()...);
-      std::apply(handler, args);
-    };
-    handlers_[typeid(T)] = lambda;
+  void start() {
+    co_spawn(context_.get_executor(), listen(), detached);
   }
 
+private:
+  awaitable<void> listen() {
+    while (true) {
+      auto stream = MessageStream(
+              context_,
+              CipherSet{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}});
+      co_await acceptor_.async_accept(stream.socket(), use_awaitable);
+      co_await stream.init();
 
-  template<typename T>
-  void recv(IClient &client, const T &t) {
-    handlers_[typeid(T)](client, t);
+      auto client = std::make_unique<Client>(std::move(stream), reactor_,
+                                             serializer_, deserializer_);
+      auto [el, ok] = clients_.emplace(std::move(client));
+      if (ok) el->get()->start();
+    }
   }
-
-  void start() {}
 
 private:
   Serializer &serializer_;
   Deserializer &deserializer_;
-  Injector &injector_;
-
-  std::unordered_map<std::type_index,
-                     std::function<void(IClient &, const reactor::IEvent &)>>
-          handlers_;
+  CustomReactor &reactor_;
 
   io_context &context_;
+  tcp::acceptor acceptor_;
+
+  std::unordered_set<std::unique_ptr<Client>> clients_;
 };
 
 }// namespace openao::experimental::transport

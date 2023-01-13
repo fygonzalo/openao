@@ -4,8 +4,9 @@
 
 #include <memory>
 
+#include "experimental/transport/customreactor.h"
 #include "experimental/transport/iclient.h"
-#include "experimental/transport/imessagestream.h"
+#include "experimental/transport/messagestream.h"
 
 #include "experimental/reactor.h"
 #include "experimental/serialization/deserializer.h"
@@ -18,28 +19,55 @@ namespace openao::experimental::transport {
 
 class Client : public IClient {
 public:
-  Client(std::unique_ptr<IMessageStream> stream, Reactor &reactor,
-                  Serializer &serializer, Deserializer &deserializer)
-      : stream_(std::move(stream)), reactor_(reactor), serializer_(serializer),
-        deserializer_(deserializer){};
+  Client(MessageStream stream, CustomReactor &reactor, Serializer &serializer,
+         Deserializer &deserializer)
+      : stream_(std::move(stream)), send_timer_(stream.get_executor()),
+        reactor_(reactor), serializer_(serializer),
+        deserializer_(deserializer) {
+    send_timer_.expires_at(std::chrono::steady_clock::time_point::max());
+  };
 
   void send(reactor::IEvent &event) override {
     BinaryBuffer buffer = serializer_.serialize(event.index(), event);
-    stream_->send(buffer);
+    send_queue_.push_back(std::move(buffer));
+    send_timer_.cancel_one();
   }
 
-  void recv(BinaryBuffer &buffer) {
-    auto [t, e] = deserializer_.deserialize(buffer);
-    reactor_.react(t, *e);
+  void start() {
+    co_spawn(stream_.get_executor(), sender(), asio::detached);
+    co_spawn(stream_.get_executor(), receiver(), asio::detached);
   }
 
-  IMessageStream &stream() { return *stream_; }
+  MessageStream &stream() { return stream_; }
+
+private:
+  awaitable<void> receiver() {
+    while (true) {
+      auto buffer = co_await stream_.read();
+      auto [type, event] = deserializer_.deserialize(buffer);
+      reactor_.react(*this, type, *event);
+    }
+  }
+
+  awaitable<void> sender() {
+    while (true) {
+      std::error_code ec;
+      co_await send_timer_.async_wait(asio::redirect_error(use_awaitable, ec));
+
+      for (auto& b : send_queue_) {
+        co_await stream_.send(b);
+      }
+    }
+  }
 
 protected:
-  std::unique_ptr<IMessageStream> stream_;
+  MessageStream stream_;
   Serializer &serializer_;
   Deserializer &deserializer_;
-  Reactor &reactor_;
+  CustomReactor &reactor_;
+
+  std::vector<BinaryBuffer> send_queue_;
+  asio::steady_timer send_timer_;
 };
 
 }// namespace openao::experimental::transport
