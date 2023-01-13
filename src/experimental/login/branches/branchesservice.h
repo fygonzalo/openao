@@ -5,11 +5,10 @@
 #include <cstdint>
 #include <vector>
 
-#include "experimental/di/injectable.h"
-
 namespace openao::experimental::login::branches {
 
-class BranchesService : public di::Injectable {
+class BranchesService {
+
 public:
   std::vector<uint32_t> get_branch_statuses() { return {40, 1}; };
 };
