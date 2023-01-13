@@ -18,11 +18,11 @@ using namespace openao::experimental::reactor;
 int main(int argc, char *argv[]) {
   io_context context;
 
-  Injector injector;
-  injector.create<BranchesService>();
-  injector.create<AccountService>();
+  DependencyInjector dependency_injector;
+  dependency_injector.create<BranchesService>();
+  dependency_injector.create<AccountService>();
 
-  CustomReactor reactor(injector);
+  CustomReactor reactor(dependency_injector);
   reactor.insert(AccountController::authenticate);
 
   Serializer serializer;

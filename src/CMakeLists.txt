@@ -58,15 +58,14 @@ add_library(
   experimental/serialization/deserializer.h
   experimental/reactor/event.h
   experimental/transport/iclient.h
-  experimental/transport/clientmanager.h
   experimental/transport/server.h
   experimental/login/account/authenticatecommand.h
   experimental/login/account/accountcontroller.h
   experimental/login/account/accountservice.h
   experimental/login/account/characterlistevent.h
   experimental/login/branches/branchesservice.h
-  experimental/di/injector.h
-  experimental/di/injectable.h)
+  experimental/di/dependency_injector.h
+)
 
 target_include_directories(
   openao
