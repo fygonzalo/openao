@@ -15,11 +15,11 @@ struct CharacterListEvent : Event<CharacterListEvent> {
   struct Character {
 
     struct Attributes {
-      uint8_t gender;
-      uint8_t hair_style;
-      uint8_t height;
-      uint8_t hair_color;
-      uint8_t skin_color;
+      uint8_t gender{0};
+      uint8_t hair_style{0};
+      uint8_t height{0};
+      uint8_t hair_color{0};
+      uint8_t skin_color{0};
 
       void serialize(BinaryBuffer &buffer) {
         buffer.write(gender);
@@ -31,14 +31,14 @@ struct CharacterListEvent : Event<CharacterListEvent> {
     };
 
     struct Equipment {
-      uint32_t head;
-      uint32_t body;
-      uint32_t right_hand;
-      uint32_t left_hand;
-      uint32_t hand;
-      uint32_t feet;
-      uint32_t back;
-      uint32_t ride;
+      uint32_t head{0};
+      uint32_t body{0};
+      uint32_t right_hand{0};
+      uint32_t left_hand{0};
+      uint32_t hand{0};
+      uint32_t feet{0};
+      uint32_t back{0};
+      uint32_t ride{0};
 
       void serialize(BinaryBuffer &buffer) {
         buffer.write(head);
@@ -53,8 +53,8 @@ struct CharacterListEvent : Event<CharacterListEvent> {
     };
 
     struct Stats {
-      uint32_t current_hp;
-      uint32_t current_mp;
+      uint32_t current_hp{0};
+      uint32_t current_mp{0};
 
       void serialize(BinaryBuffer &buffer) {
         buffer.write(current_hp);
@@ -64,16 +64,16 @@ struct CharacterListEvent : Event<CharacterListEvent> {
       }
     };
 
-    uint32_t level;
-    uint8_t faction;
+    uint32_t level{0};
+    uint8_t faction{0};
     Attributes attributes;
-    uint32_t stage;
-    uint8_t status_flags;
-    uint32_t shape;
-    uint32_t deletion_timer;
-    uint32_t character_id;
+    uint32_t stage{0};
+    uint8_t status_flags{0};
+    uint32_t shape{0};
+    uint32_t deletion_timer{0};
+    uint32_t character_id{0};
     String character_name{16};
-    uint32_t account_id;
+    uint32_t account_id{0};
     String account_name{20};
     Equipment equipment;
     Stats stats;
@@ -111,7 +111,7 @@ struct CharacterListEvent : Event<CharacterListEvent> {
   };
 
   static const uint16_t error_code = 0;
-  bool requires_pin;
+  bool requires_pin{false};
   std::array<Character, 3> characters;
   std::array<uint8_t, 3> birthday_months;
   std::array<uint8_t, 3> birthday_days;
@@ -119,7 +119,7 @@ struct CharacterListEvent : Event<CharacterListEvent> {
   std::array<uint32_t, 3> total_hps;
   std::array<uint32_t, 3> total_mps;
   std::array<std::array<uint32_t, 9>, 3> active_skills;
-  uint32_t active_character_slots;
+  uint32_t active_character_slots{1};
   Branches branches;
 
   void serialize(BinaryBuffer &buffer) {
