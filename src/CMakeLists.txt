@@ -55,7 +55,7 @@ add_library(
   experimental/game/character/manager.h
         experimental/serialization/serializer.h
   experimental/transport/imessagestream.h
-        experimental/serialization/deserializer.h experimental/reactor/event.h experimental/transport/iclient.h experimental/transport/clientmanager.h)
+        experimental/serialization/deserializer.h experimental/reactor/event.h experimental/transport/iclient.h experimental/transport/clientmanager.h experimental/transport/server.h experimental/login/account/authenticatecommand.h experimental/login/account/accountcontroller.h experimental/login/account/accountservice.h experimental/login/account/characterlistevent.h experimental/login/branches/branchesservice.h experimental/di/injector.h experimental/di/injectable.h)
 
 target_include_directories(
   openao

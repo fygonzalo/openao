@@ -35,6 +35,7 @@ public:
 
   template <typename Archive>
   void serialize(Archive& archive) {
+    // STATUS
     archive.write((uint16_t) 0);
     archive.write(a_.pin);
 

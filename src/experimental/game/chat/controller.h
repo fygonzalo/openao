@@ -12,17 +12,24 @@
 #include "experimental/game/stage.h"
 
 
+using namespace openao::experimental::game::character;
+
 namespace openao::experimental::game::chat {
 
 class ChatController {
 public:
   static void send_chat_message(IClient &client,
                                 const ChatMessageCommand &command, Stage& stage) {
+    //auto character = character_manager.get(client);
+    //auto entity = entity_client_manager.get(client);
+
+
     ChatMessageEvent chat_event{};
     chat_event.entity = 1;
     chat_event.name = "openao";
     chat_event.text = command.text;
 
+    // auto stage = stage_manager_.get(character.stage)
     stage.broadcast(chat_event);
   }
 };
