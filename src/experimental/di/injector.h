@@ -13,14 +13,15 @@ namespace openao::experimental::di {
 class Injector {
 public:
   template<typename T, typename ...Args>
-  void create(Args... args) {
+  auto create(Args... args) {
     injectables_[typeid(T)] = std::make_unique<T>(args...);
+    return static_cast<T &>(*injectables_.at(typeid(T)));
   }
 
   template<typename T>
-  T& get() {
+  T &get() {
     auto &index = typeid(T);
-    return static_cast<T&>(*injectables_.at(index));
+    return static_cast<T &>(*injectables_[index]);
   }
 
 private:
