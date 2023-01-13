@@ -22,7 +22,10 @@ public:
                            BranchesService &branches_service
                                    ) {
     CharacterListEvent character_list;
-    std::cout << "Test" << std::endl;
+    for (auto &c : character_list.characters) {
+      c.account_name = command.username;
+      c.account_id = 1;
+    }
     character_list.branches.statuses = branches_service.get_branch_statuses();
     client.send(character_list);
   }
