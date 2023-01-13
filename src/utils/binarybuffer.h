@@ -8,6 +8,12 @@
 #include <type_traits>
 #include <vector>
 
+namespace openao::experimental::transport {
+
+class MessageStream;
+
+}
+
 class BinaryBuffer {
 public:
   BinaryBuffer(int size) { buffer_.resize(size); };
@@ -188,6 +194,9 @@ private:
   }
 
   friend class MessageStream;
+  friend class openao::experimental::transport::MessageStream;
+
+
 
   char *data_() { return buffer_.data(); }
   void commit(int size) { len_ = size; }
