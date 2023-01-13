@@ -16,16 +16,15 @@ namespace openao::experimental::login::account {
 
 class AccountController {
 public:
-  static void authenticate(IClient *client,
+  static void authenticate(IClient &client,
                            const AuthenticationCommand &command,
-                           AccountService **&account_service,
-                           BranchesService **&branches_service) {
+                           AccountService &account_service,
+                           BranchesService &branches_service
+                                   ) {
     CharacterListEvent character_list;
     std::cout << "Test" << std::endl;
-    BranchesService* pBranches_service =
-            reinterpret_cast<BranchesService *>(&branches_service);
-    character_list.branches.statuses = pBranches_service->get_branch_statuses();
-    client->send(character_list);
+    character_list.branches.statuses = branches_service.get_branch_statuses();
+    client.send(character_list);
   }
 };
 

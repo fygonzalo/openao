@@ -6,6 +6,7 @@
 
 #include <functional>
 
+#include "experimental/transport/client.h"
 #include "experimental/transport/iclient.h"
 
 #include "experimental/di/injector.h"
@@ -19,10 +20,7 @@ using namespace openao::experimental::di;
 
 namespace openao::experimental::transport {
 
-template<typename Service>
-auto injector_getter(Injector &injector) {
-  return injector.get<Service>();
-}
+
 
 class Server {
 public:
@@ -33,34 +31,22 @@ public:
 
 
   template<typename T, typename... Services>
-  void add_handler(void (*handler)(IClient *client, const T &t, Services...)) {
-    auto lambda = [this, handler](IClient *client,
+  void add_handler(void (*handler)(IClient &client, const T &t, Services...)) {
+    auto lambda = [this, handler](IClient &client,
                                   const reactor::IEvent &event) {
-      auto args = std::tuple(client, static_cast<const T &>(event),
-                             injector_getter<Services>(injector_)...);
+      auto &cevent = static_cast<const T &>(event);
+      std::tuple args =
+              std::make_tuple(std::ref(client), cevent,
+                              injector_.get<Services>()...);
       std::apply(handler, args);
     };
-
     handlers_[typeid(T)] = lambda;
   }
 
-  template<typename T>
-  void add_handler(void (*handler)(IClient *client, const T &t)) {
-    auto lambda = [this, handler](IClient *client,
-                                  const reactor::IEvent &event) {
-      auto args = std::tuple<IClient *, const T &>(
-              client, static_cast<const T &>(event));
-      std::apply(handler, args);
-    };
-
-    handlers_[typeid(T)] = lambda;
-  }
 
   template<typename T>
   void recv(IClient &client, const T &t) {
-    auto& f = handlers_[typeid(T)];
-    auto& e = static_cast<const reactor::IEvent&>(t);
-    f(&client, e);
+    handlers_[typeid(T)](client, t);
   }
 
   void start() {}
@@ -71,7 +57,7 @@ private:
   Injector &injector_;
 
   std::unordered_map<std::type_index,
-                     std::function<void(IClient *, const reactor::IEvent &)>>
+                     std::function<void(IClient &, const reactor::IEvent &)>>
           handlers_;
 
   io_context &context_;

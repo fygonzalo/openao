@@ -12,19 +12,19 @@ namespace openao::experimental::di {
 
 class Injector {
 public:
-  template<typename T>
-  void insert(T &t) {
-    injectables_[typeid(T)] = &t;
+  template<typename T, typename ...Args>
+  void create(Args... args) {
+    injectables_[typeid(T)] = std::make_unique<T>(args...);
   }
 
   template<typename T>
-  auto get() {
+  T& get() {
     auto &index = typeid(T);
-    return (T&)(injectables_[index]);
+    return static_cast<T&>(*injectables_.at(index));
   }
 
 private:
-  std::unordered_map<std::type_index, Injectable *> injectables_;
+  std::unordered_map<std::type_index, std::unique_ptr<Injectable>> injectables_;
 };
 
 }// namespace openao::experimental::di
