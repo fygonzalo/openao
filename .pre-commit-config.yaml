@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v14.0.6
+    hooks:
+      - id: clang-format
+        files: ^(src|test)\/.*
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.10
+    hooks:
+      - id: cmake-format
+        files: ^(src|test)\/.*
+      - id: cmake-lint
+        files: ^(src|test)\/.*
+        args:
+        - -c
+        - .cmake-lint
