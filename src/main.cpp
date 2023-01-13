@@ -1,12 +1,5 @@
 #include "transport/server.h"
 
-#include "login/services/account.h"
-
-#include "datasources/impl/pqxx/account.h"
-#include "datasources/impl/pqxx/character.h"
-#include "game/server.h"
-#include "login/server.h"
-
 #include "experimental/login/account/accountcontroller.h"
 #include "experimental/transport/server.h"
 
