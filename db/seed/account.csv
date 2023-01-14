@@ -1,3 +1,3 @@
-id,username,password,slots
-1,bowser,bowser,3
-2,mario,mario,3
+id,username,password,slots,pin
+1,bowser,TBk3DFTCePSOy5HMKqw3ku9C0tgZ+ULDeHWZxyZazSQ=,3,null
+2,mario,5sRlp9T/skzIG/4uEwM1wJZD2va2DxhYq7NFzdumK3s=,3,null

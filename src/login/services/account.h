@@ -76,13 +76,14 @@ public:
             request.username, request.password);
 
     if (!account) {
-      client.close();
+      client.write(Messages::Responses::AuthError{.code = 0x98});
+      client.disconnect();
       return;
     };
 
     if (auto player = players.find_by_id(account->id)) {
-      player->client.close();
-      client.close();
+      player->client.disconnect();
+      client.disconnect();
       return;
     } else {
       players.create(account->id, client);
@@ -97,7 +98,7 @@ public:
 
   void disconnect(Client &client, const Login::Messages::Requests::Disconnect &request) {
     if (auto player = players.find_by_client(client)) {
-      player->client.close();
+      player->client.disconnect();
       players.remove(*player);
     }
   }
@@ -107,21 +108,17 @@ public:
     auto player = players.find_by_client(client);
     if (!player) return;
 
-    Messages::Responses::SetPin result{.status = true};
-    player->client.write(result);
+    auto status = iaccount_.set_pin(player->id, request.password, request.pin);
+    if (status) {
+      Messages::Responses::SetPin result{.status = true};
+      player->client.write(result);
+    } else {
+      Messages::Responses::SetPin result{.status = false};
+      player->client.write(result);
+    }
+
   }
 
-  void delete_pin(Client &client,
-                  Login::Messages::Requests::DeletePin &request) {
-    Messages::Responses::DeletePin result{.status = true};
-    client.write(result);
-  }
-
-  void change_pin(Client &client,
-                  Login::Messages::Requests::ChangePin &request) {
-    Messages::Responses::ChangePin result{.status = true};
-    client.write(result);
-  }
 
 private:
   Datasources::IAccount &iaccount_;

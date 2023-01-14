@@ -13,7 +13,19 @@
 #include "utils/binarybuffer.h"
 
 namespace Login::Messages::Responses {
-class CharInfo {
+
+struct AuthError {
+  static const uint16_t type = 0x00;
+
+  int code;
+
+  template <typename Archive>
+  void serialize(Archive& archive) {
+    archive.write(code);
+  }
+};
+
+struct CharInfo {
 public:
   static const uint16_t type = 0x00;
 

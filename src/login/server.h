@@ -66,13 +66,11 @@ private:
         }
 
         std::optional<Message> m = c->read();
-        if (m.has_value()) { handlers_[m->header.type](*c, *m); }
+        if (m) { handlers_[m->header.type](*c, *m); }
         i += 1;
       }
 
       std::reverse(disconnected.begin(), disconnected.end());
-
-
       for (auto i: disconnected) {
         Message message = Login::Messages::Requests::Disconnect();
         handlers_[Login::Messages::Requests::Disconnect::type](*clients[i], message);

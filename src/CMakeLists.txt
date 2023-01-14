@@ -22,5 +22,5 @@ add_executable(openao_server
 target_include_directories(openao PUBLIC ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/deps/asio/asio/include)
 target_include_directories(openao_server PUBLIC ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/deps/asio/asio/include)
 
-target_link_libraries(openao_server pqxx)
+target_link_libraries(openao_server pqxx base64)
 

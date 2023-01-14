@@ -24,12 +24,15 @@ public:
     co_spawn(stream_.get_executor(), reader(), asio::detached);
   }
 
-  void write(Message message) {
+  void write(const Message& message) {
     send_queue_.push_back(message);
     send_timer_.cancel_one();
   }
 
-  void close() { stream_.close(); }
+  void disconnect() {
+    close_ = true;
+    send_timer_.cancel_one();
+  }
 
   bool is_open() {
     try {
@@ -60,7 +63,7 @@ protected:
       }
     } catch (std::exception &e) {
       // Must terminate the connection
-      close();
+      disconnect();
     }
   }
 
@@ -74,6 +77,9 @@ protected:
         co_await stream_.write(send_queue_.front());
         send_queue_.pop_front();
       }
+
+      if (close_)
+        stream_.close();
     }
   }
 
@@ -84,6 +90,8 @@ private:
   std::deque<Message> send_queue_;
 
   std::deque<Message> recv_queue_;
+
+  bool close_ = false;
 };
 
 #endif// OPENAO_TRANSPORT_CLIENT_H

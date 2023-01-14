@@ -6,6 +6,13 @@
 
 #include "binarybuffer.h"
 
+/*
+ * Fixed size C string container.
+ *
+ * Use it instead of std::string if need to enforce a fixed maximum size.
+ * Use it instead of a char array to automatically manage null character.
+ *
+ */
 class String {
 public:
   String(int size) {
@@ -20,31 +27,43 @@ public:
     memcpy(value_.data(), str, N);
   }
 
-  // Would be nice to have static assertion on the size
-  void operator=(const std::string string) {
+  /*
+   * Truncates the input if it's larger than the container
+   */
+  String& operator=(const std::string& string) {
     int size = string.size();
-
     if (size > size_) size = size_;
 
     memcpy(value_.data(), string.data(), size);
+    return *this;
   }
 
+  /*
+   * Truncates the input if it's larger than the container
+   */
   template<std::size_t N>
-  void operator=(const char src[N]) {
-    memcpy(value_.data(), src, N);
+  String& operator=(const char src[N]) {
+    int size = N;
+    if (size > size_) size = size_;
+
+    memcpy(value_.data(), src, size);
+    return *this;
   }
 
   operator std::string() const { return value_; }
 
-  const char* c_str() const {
+  [[nodiscard]] const char* c_str() const {
     return value_.c_str();
   }
 
   void serialize(BinaryBuffer &buffer) {
-    buffer.write(value_.data(), size_ + 1);
+    buffer.write(value_.c_str(), size_ + 1);
   }
 
-  void deserialize(BinaryBuffer &buffer) { buffer.read(value_); }
+  void deserialize(BinaryBuffer &buffer) {
+    buffer.read(value_.data(), size_);
+    buffer.skip(1);
+  }
 
 private:
   int size_ = 0;

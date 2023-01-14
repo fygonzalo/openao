@@ -69,7 +69,7 @@ public:
    * @param src
    * @param len
    */
-  void write(char *src, int len) {
+  void write(const char *src, int len) {
     if (len_ + len > buffer_.size()) throw "Cannot exceed max buffer size";
 
     memcpy(buffer_.data() + len_, src, len);
@@ -108,9 +108,12 @@ public:
   void read(int8_t &var) { read_(var); }
   void read(int16_t &var) { read_(var); }
   void read(int32_t &var) { read_(var); }
-  void read(std::string &var) {
-    read_(var.data(), var.size());
-    len_ += 1;
+
+  void read(char * dst, int len) {
+    if (len > len_) len = len_;
+
+    memmove(dst, buffer_.data() + off_, len);
+    off_ += len;
   }
   void skip(int n) { off_ += n; }
 

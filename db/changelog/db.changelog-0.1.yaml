@@ -25,13 +25,16 @@ databaseChangeLog:
                     unique: true
               - column:
                   name: password
-                  type: varchar(20)
+                  type: varchar
                   constraints:
                     nullable: false
               - column:
                   name: slots
                   type: int
                   defaultValue: 1
+              - column:
+                  name: pin
+                  type: varchar
 
   - changeSet:
       id: 2
