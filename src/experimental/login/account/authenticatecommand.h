@@ -10,7 +10,7 @@ using namespace openao::experimental::reactor;
 
 namespace openao::experimental::login::account {
 
-struct AuthenticationCommand : Event<AuthenticationCommand> {
+struct AuthenticationCommand : IEvent {
 
   String username{20};
   String password{32};

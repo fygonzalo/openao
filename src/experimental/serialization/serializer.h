@@ -38,8 +38,8 @@ public:
     return buffer;
   }
 
-  BinaryBuffer serialize(std::type_index i, reactor::IEvent &e) {
-    auto fun = index_to_fun_[i];
+  BinaryBuffer serialize(reactor::IEvent &e) {
+    auto fun = index_to_fun_[typeid(e)];
     return fun(e);
   }
 

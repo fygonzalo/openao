@@ -28,7 +28,7 @@ public:
   };
 
   void send(reactor::IEvent &event) override {
-    BinaryBuffer buffer = serializer_.serialize(event.index(), event);
+    BinaryBuffer buffer = serializer_.serialize(event);
     send_queue_.push_back(std::move(buffer));
     send_timer_.cancel_one();
   }
@@ -44,8 +44,8 @@ private:
   awaitable<void> receiver() {
     while (true) {
       auto buffer = co_await stream_.read();
-      auto [type, event] = deserializer_.deserialize(buffer);
-      reactor_.react(*this, type, *event);
+      auto event = deserializer_.deserialize(buffer);
+      reactor_.react(*this, *event);
     }
   }
 

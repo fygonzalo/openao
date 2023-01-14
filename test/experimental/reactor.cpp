@@ -36,6 +36,6 @@ TEST(Reactor, Complet) {
   Deserializer deserializer;
   deserializer.insert<ChatMessageCommand>(14);
 
-  auto [type, event] = deserializer.deserialize(buffer);
-  reactor.react(type, *event);
+  auto event = deserializer.deserialize(buffer);
+  reactor.react(*event);
 }

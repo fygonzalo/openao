@@ -31,8 +31,8 @@ public:
     handlers_.at(index)(t);
   }
 
-  void react(std::type_index index, reactor::IEvent &e) {
-    handlers_.at(index)(e);
+  void react(reactor::IEvent &e) {
+    handlers_.at(typeid(e))(e);
   }
 
 private:

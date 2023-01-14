@@ -10,7 +10,7 @@ using namespace openao::experimental::reactor;
 
 namespace openao::experimental::login::account {
 
-struct CharacterListEvent : Event<CharacterListEvent> {
+struct CharacterListEvent : IEvent {
 
   struct Character {
 

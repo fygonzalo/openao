@@ -7,7 +7,7 @@
 
 namespace openao::experimental::game::chat {
 
-struct ChatMessageCommand : reactor::Event<ChatMessageCommand> {
+struct ChatMessageCommand : reactor::IEvent {
 
   String text{80};
 

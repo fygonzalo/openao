@@ -27,8 +27,8 @@ public:
     handlers_[typeid(T)] = lambda;
   }
 
-  void react(IClient &client, std::type_index index, reactor::IEvent &event) {
-    handlers_[index](client, event);
+  void react(IClient &client, reactor::IEvent &event) {
+    handlers_[typeid(event)](client, event);
   }
 
 private:

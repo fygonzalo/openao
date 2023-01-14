@@ -8,7 +8,7 @@
 
 namespace openao::experimental::game::chat {
 
-struct ChatMessageEvent : reactor::Event<ChatMessageEvent> {
+struct ChatMessageEvent : reactor::IEvent {
 
   uint32_t entity;
   String name{16};

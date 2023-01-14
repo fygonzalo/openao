@@ -24,8 +24,7 @@ public:
     fun_[code] = [](BinaryBuffer &buffer) {
       auto t = buffer.read<T>();
       std::type_index idx = typeid(T);
-      return std::pair<std::type_index, std::unique_ptr<T>>(
-              idx, std::make_unique<T>(t));
+      return std::make_unique<T>(t);
     };
   }
 
@@ -35,14 +34,14 @@ public:
     return buffer.read<T>();
   }
 
-  Result deserialize(BinaryBuffer &buffer) {
+   std::unique_ptr<reactor::IEvent> deserialize(BinaryBuffer &buffer) {
     auto code = buffer.read<uint16_t>();
     return fun_[code](buffer);
   }
 
 private:
   std::unordered_map<std::type_index, uint16_t> codes_{};
-  std::unordered_map<uint16_t, std::function<Result(BinaryBuffer &buffer)>>
+  std::unordered_map<uint16_t, std::function<std::unique_ptr<reactor::IEvent>(BinaryBuffer &buffer)>>
           fun_{};
 };
 
