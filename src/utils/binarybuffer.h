@@ -76,6 +76,7 @@ public:
     len_ += len;
   }
 
+  void write(bool value) { write_(value); }
   void write(uint8_t value) { write_(value); }
   void write(uint16_t value) { write_(value); }
   void write(uint16_t value, int offset) { write_(value, offset); }
@@ -100,6 +101,7 @@ public:
   }
 
 
+  void read(bool &var) { read_(var); }
   void read(uint8_t &var) { read_(var); }
   void read(uint16_t &var) { read_(var); }
   void read(uint32_t &var) { read_(var); }
@@ -110,17 +112,14 @@ public:
     read_(var.data(), var.size());
     len_ += 1;
   }
-  void skip(int n) {
-    off_ += n;
-  }
+  void skip(int n) { off_ += n; }
 
   // TODO: Test this
-  template <typename T,std::size_t N>
-  void read(std::array<T, N>& var) {
+  template<typename T, std::size_t N>
+  void read(std::array<T, N> &var) {
     memcpy(var.data(), buffer_.data(), sizeof(T) * N);
     off_ += sizeof(T) * N;
   }
-
 
 
   template<class T>
@@ -181,8 +180,6 @@ private:
   void write_(T t, int offset) {
     write((char *) &t, sizeof(T), offset);
   }
-
-
 
 
   int off_ = 0;

@@ -12,6 +12,7 @@ struct Account {
   uint32_t slots;
   bool enabled;
   bool banned;
+  bool pin;
 };
 }// namespace Model
 

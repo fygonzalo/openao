@@ -23,7 +23,7 @@ public:
   template <typename Archive>
   void serialize(Archive& archive) {
     archive.write((uint16_t) 0);
-    archive.write((uint8_t) 0);
+    archive.write(a_.pin);
 
     for (auto &c: cc_.characters) { serialize(archive, c); }
     archive.write(cc_.birthday_months);
