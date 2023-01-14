@@ -12,8 +12,7 @@ struct ChangePin {
   String old_pin{32};
   String new_pin{32};
 
-  template<typename Archive>
-  void deserialize(Archive& archive) {
+  void deserialize(BinaryBuffer& archive) {
     archive.read(old_pin);
     archive.read(new_pin);
 

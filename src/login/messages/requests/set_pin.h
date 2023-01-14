@@ -12,8 +12,7 @@ struct SetPin {
   String password{32};
   String pin{32};
 
-  template<typename Archive>
-  void deserialize(Archive& archive) {
+  void deserialize(BinaryBuffer& archive) {
     archive.read(password);
     archive.read(pin);
   }

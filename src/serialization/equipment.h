@@ -6,8 +6,8 @@
 #include "utils/binarybuffer.h"
 
 namespace Serialization {
-template <typename Archive>
-void serialize(Archive &archive, Model::Equipment &e) {
+
+void serialize(BinaryBuffer &archive, Model::Equipment &e) {
   archive.write(e.head);
   archive.write(e.body);
   archive.write(e.main_hand);

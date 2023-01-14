@@ -11,8 +11,7 @@ struct DeletePin {
 
   String pin{32};
 
-  template<typename Archive>
-  void deserialize(Archive& archive) {
+  void deserialize(BinaryBuffer& archive) {
     archive.read(pin);
   }
 };

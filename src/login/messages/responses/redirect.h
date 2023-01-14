@@ -14,8 +14,7 @@ struct Redirect {
   uint32_t session{};
   Model::GameServer server;
 
-  template <typename Archive>
-  void serialize(Archive &archive) {
+  void serialize(BinaryBuffer &archive) {
     archive.set(0, 2);
     archive.write(session);
     archive.set(1, 1);

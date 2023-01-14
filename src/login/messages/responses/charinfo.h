@@ -55,8 +55,7 @@ public:
 
 private:
 
-  template <typename Archive>
-  void serialize(Archive &archive, Model::Character &c) {
+  void serialize(BinaryBuffer& archive, Model::Character &c) {
     archive.write(c.index);
     archive.write(c.level);
     archive.write(c.faction);

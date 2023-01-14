@@ -9,11 +9,9 @@ struct Disconnect {
 
   static const uint16_t type = 0xFFFF;
 
-  template<typename Archive>
-  void deserialize(Archive &archive) {}
+  void deserialize(BinaryBuffer &archive) {}
 
-  template<typename Archive>
-  void serialize(Archive &archive) {}
+  void serialize(BinaryBuffer &archive) {}
 };
 
 }// namespace Login::Messages::Requests

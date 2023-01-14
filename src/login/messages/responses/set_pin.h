@@ -11,8 +11,7 @@ struct SetPin {
 
   bool status;
 
-  template<typename Archive>
-  void serialize(Archive& archive) {
+  void serialize(BinaryBuffer& archive) {
     archive.write(status);
   }
 };

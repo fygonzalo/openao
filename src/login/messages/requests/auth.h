@@ -13,7 +13,6 @@ struct Auth {
   String username{20};
   String password{32};
 
-  template <typename Archive>
   void deserialize(BinaryBuffer& archive) {
     archive.read(username);
     archive.read(password);

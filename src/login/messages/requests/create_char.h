@@ -16,13 +16,13 @@ struct CreateChar {
   String name{17};
   Model::Misc misc;
 
-  template <typename Archive>
-  void deserialize(Archive& archive) {
+
+  void deserialize(BinaryBuffer& archive) {
     archive.skip(1);
-    deserialize(archive, attributes);
+    Serialization::deserialize(archive, attributes);
     archive.read(name);
     archive.skip(27);
-    deserialize(archive, misc);
+    Serialization::deserialize(archive, misc);
   }
 };
 

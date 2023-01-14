@@ -6,8 +6,7 @@
 
 namespace Serialization {
 
-template <typename Archive>
-void deserialize(Archive &archive, Model::Misc &m) {
+void deserialize(BinaryBuffer &archive, Model::Misc &m) {
   archive.read(m.month);
   archive.read(m.day);
   archive.read(m.blood);

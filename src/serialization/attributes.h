@@ -6,8 +6,8 @@
 #include "utils/binarybuffer.h"
 
 namespace Serialization {
-template <typename Archive>
-void serialize(Archive &archive, Model::Attributes &a) {
+
+void serialize(BinaryBuffer &archive, Model::Attributes &a) {
   archive.write(a.gender);
   archive.write(a.hair_style);
   archive.write(a.height);
@@ -15,8 +15,7 @@ void serialize(Archive &archive, Model::Attributes &a) {
   archive.write(a.skin_color);
 }
 
-template <typename Archive>
-void deserialize(Archive &archive, Model::Attributes &a) {
+void deserialize(BinaryBuffer &archive, Model::Attributes &a) {
   archive.read(a.gender);
   archive.read(a.hair_style);
   archive.read(a.height);
