@@ -13,6 +13,7 @@
 
 #include "datasources/iaccount.h"
 #include "datasources/icharacter.h"
+#include "transport/client.h"
 
 using asio::awaitable;
 using asio::co_spawn;
@@ -41,8 +42,9 @@ public:
                                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                             0x00, 0x00, 0x00, 0x00})};
       co_await acceptor_.async_accept(stream.socket(), use_awaitable);
-      stream.init();
-      co_spawn(ctx_, system_.accept(std::move(stream)), detached);
+      co_await stream.init();
+      Client client(std::move(stream));
+      client.start();
     }
   }
 

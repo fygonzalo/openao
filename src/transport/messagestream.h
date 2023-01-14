@@ -14,35 +14,42 @@ using asio::async_read;
 using asio::async_write;
 using asio::awaitable;
 using asio::buffer;
+using asio::co_spawn;
 using asio::const_buffer;
+using asio::detached;
 using asio::io_context;
 using asio::use_awaitable;
 using asio::ip::tcp;
-using asio::co_spawn;
-using asio::detached;
 
 #include "transport/ciphersuite.h"
 #include "transport/message.h"
 #include "utils/binarybuffer.h"
 
-
+/**
+ * Provides stream-oriented message communication over socket.
+ */
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : ctx_(ctx), socket_(ctx), cipher_(std::move(cipher)), send_timer_(ctx_) {
-    send_timer_.expires_at(std::chrono::steady_clock::time_point::max());
+      : socket_(ctx), cipher_(std::move(cipher)) {
   }
 
   tcp::socket &socket() { return socket_; }
 
+  const tcp::socket &socket() const { return socket_; }
+
   void close() {
-    socket_.shutdown(asio::ip::tcp::socket::shutdown_both);
+    std::error_code ec;
+    socket_.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
+    if (ec) {
+
+    }
     socket_.close();
   }
 
   asio::any_io_executor get_executor() { return socket_.get_executor(); }
 
-  void init() {
+  awaitable<void> init() {
     BinaryBuffer packet;
     packet.write(cipher_, 8);
     packet.write((uint16_t) (packet.size() - 8), 6);
@@ -56,21 +63,17 @@ public:
 
     packet.write(header, 0);
 
-    send_queue_.push_back(packet);
-    send_timer_.cancel_one();
+    co_await async_write(socket_, buffer(packet.data(), packet.size()),
+                         use_awaitable);
   }
 
   /**
-   *
-   *
-   * Could be optimized if every data type inherits from Message, so in reality
-   * we don't construct a message before calling write, but instead pass a
-   * reference that is latter serialized onto the already existing buffer
+   * Must ensure that there is only one outstanding write operation at any time.
    *
    * @param message
    * @return
    */
-  void write(Message message) {
+  awaitable<void> write(Message message) {
     BinaryBuffer packet;
 
     packet.write(message, 6);
@@ -83,28 +86,15 @@ public:
             checksum((uint8_t *) packet.data() + 6, packet.size() - 6);
     packet.write(header, 0);
 
-    send_queue_.push_back(packet);
-    send_timer_.cancel_one();
+    co_await async_write(socket_, buffer(packet.data(), packet.size()),
+                         use_awaitable);
   }
 
-  awaitable<void> writer() {
-    try {
-      while (socket_.is_open()) {
-        for (auto &packet: send_queue_) {
-          co_await async_write(socket_, buffer(packet.data(), packet.size()),
-                               use_awaitable);
-        }
-
-        send_queue_.clear();
-        std::error_code ec;
-        co_await send_timer_.async_wait(
-                asio::redirect_error(use_awaitable, ec));
-      }
-    } catch (std::exception& e) {
-      send_timer_.cancel();
-    }
-  }
-
+  /**
+   * Must ensure that there is only one outstanding read operation at any time.
+   *
+   * @return
+   */
   awaitable<Message> read() {
 
     if (read_buffer_.eof()) {
@@ -135,7 +125,6 @@ public:
 
     Message message;
     read_buffer_.read(message);
-
     co_return message;
   }
 
@@ -143,13 +132,9 @@ public:
 private:
   CipherSet cipher_;
 
-  io_context &ctx_;
   tcp::socket socket_;
 
   BinaryBuffer read_buffer_;
-
-  std::vector<BinaryBuffer> send_queue_;
-  asio::steady_timer send_timer_;
 };
 
 #endif// OPENAO_TRANSPORT_CONNECTION_H

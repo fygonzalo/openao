@@ -5,6 +5,7 @@ add_library(openao STATIC
         transport/packetheader.h
         transport/messagestream.h
         transport/server.h
+        transport/client.h
         )
 
 add_executable(openao_server
@@ -15,6 +16,7 @@ add_executable(openao_server
         transport/packetheader.h
         transport/messagestream.h
         transport/server.h
+        transport/client.h
         )
 
 target_include_directories(openao PUBLIC ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/deps/asio/asio/include)
