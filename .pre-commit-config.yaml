@@ -1,3 +1,4 @@
+default_stages: [ commit, merge-commit, push, manual ]
 repos:
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: v14.0.6
@@ -8,12 +9,10 @@ repos:
     rev: v0.6.10
     hooks:
       - id: cmake-format
-        files: ^(src|test)\/.*
+        files: ^(CMakeLists.txt|(src|test)\/.*)
       - id: cmake-lint
-        files: ^(src|test)\/.*
-        args:
-        - -c
-        - .cmake-lint
+        files: ^(CMakeLists.txt|(src|test)\/.*)
+        args: [ -c, .cmake-lint ]
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1
     hooks:
