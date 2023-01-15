@@ -7,11 +7,8 @@
 
 namespace Serialization {
 
-void serialize(BinaryBuffer &archive,  Model::Branches &bb) {
-  archive.write((uint32_t) bb.statuses.size());
-  archive.set(0, 51);
-  for (auto &v: bb.statuses) { archive.write(v); }
-}
+void serialize(BinaryBuffer &archive,  Model::Branches &bb);
+
 }// namespace Serialization
 
 #endif// OPENAO_SERIALIZATION_BRANCHES_H

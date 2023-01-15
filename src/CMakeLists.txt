@@ -17,6 +17,30 @@ add_executable(openao_server
         transport/messagestream.h
         transport/server.h
         transport/client.h
+        transport/checksum.h
+        transport/checksum.cpp
+        game/playermanager.h
+        game/playermanager.cpp
+        datasources/impl/pqxx/common/character.h
+        datasources/impl/pqxx/common/character.cpp
+        datasources/impl/pqxx/common/attributes.h
+        datasources/impl/pqxx/common/attributes.cpp
+        datasources/impl/pqxx/common/equipment.h
+        datasources/impl/pqxx/common/equipment.cpp
+        datasources/impl/pqxx/common/misc.h
+        datasources/impl/pqxx/common/misc.cpp
+        datasources/impl/pqxx/common/position.h
+        datasources/impl/pqxx/common/position.cpp
+        datasources/impl/pqxx/common/stats.h
+        datasources/impl/pqxx/common/stats.cpp
+        serialization/equipment.h
+        serialization/equipment.cpp
+        serialization/attributes.h
+        serialization/attributes.cpp
+        serialization/misc.h
+        serialization/misc.cpp
+        serialization/branches.h
+        serialization/branches.cpp
         )
 
 target_include_directories(openao PUBLIC ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/deps/asio/asio/include)
