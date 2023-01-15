@@ -89,7 +89,7 @@ public:
     character_.update_character(e.character);
     entity_manager_.remove_by_stream(stream);
 
-    Messages::Responses::RemoveEntity re{.entityid = eid, .code = 0};
+    Messages::Responses::RemoveEntity re{.entityid = eid, .code = 1};
     for (auto &e: entity_manager_.get_all()) {
       e.stream->write(re);
     }

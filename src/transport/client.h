@@ -70,7 +70,7 @@ protected:
     disconnect();
   }
 
-  awaitable<void> reader() {
+  virtual awaitable<void> reader() {
     try {
       while (true) {
         Message message = co_await stream_.read();
@@ -98,7 +98,7 @@ protected:
     }
   }
 
-private:
+protected:
   MessageStream stream_;
 
   asio::steady_timer send_timer_;

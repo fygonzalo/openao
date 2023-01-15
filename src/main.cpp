@@ -4,7 +4,7 @@
 
 #include "datasources/impl/pqxx/account.h"
 #include "datasources/impl/pqxx/character.h"
-#include "datasources/impl/pqxx/inventory.h"
+#include "game/server.h"
 #include "login/server.h"
 
 int main(int argc, char *argv[]) {
@@ -34,8 +34,13 @@ int main(int argc, char *argv[]) {
             account_service.enter_game(c, m);
           });
 
-  Login::Server server{30000, handlers};
-  std::thread t1([&server]() { server.start(); });
+  Login::Server login{30000, handlers};
+  std::thread t1([&login]() { login.start(); });
+
+
+  Game::Server game{30001, conn};
+  std::thread t2([&game]() { game.start(); });
 
   t1.join();
+  t2.join();
 }
