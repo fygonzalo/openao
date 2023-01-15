@@ -8,6 +8,7 @@
 
 #include "messagestream.h"
 
+
 /**
  * Provides a safe concurrent interface to comunicate with clients.
  */
@@ -24,7 +25,7 @@ public:
     co_spawn(stream_.get_executor(), reader(), asio::detached);
   }
 
-  void write(const Message& message) {
+  void write(const Message &message) {
     send_queue_.push_back(message);
     send_timer_.cancel_one();
   }
@@ -48,8 +49,7 @@ public:
     return m;
   }
 
-  friend bool operator== (const Client& c1, const Client& c2)
-  {
+  friend bool operator==(const Client &c1, const Client &c2) {
     return &c1.stream_.socket() == &c2.stream_.socket();
   }
 
@@ -78,8 +78,7 @@ protected:
         send_queue_.pop_front();
       }
 
-      if (close_)
-        stream_.close();
+      if (close_) stream_.close();
     }
   }
 
