@@ -16,13 +16,14 @@ class Client {
 
 public:
   Client(MessageStream stream)
-      : stream_(std::move(stream)), send_timer_(stream.get_executor()) {
+      : stream_(std::move(stream)), send_timer_(stream.get_executor()), recv_timer_(stream.get_executor()) {
     send_timer_.expires_at(std::chrono::steady_clock::time_point::max());
   };
 
   void start() {
     co_spawn(stream_.get_executor(), writer(), asio::detached);
     co_spawn(stream_.get_executor(), reader(), asio::detached);
+    co_spawn(stream_.get_executor(), watchdog(), asio::detached);
   }
 
   void write(const Message &message) {
@@ -55,11 +56,26 @@ public:
 
 
 protected:
+  awaitable<void> watchdog() {
+    deadline = std::chrono::steady_clock::now() + std::chrono::seconds(60);
+
+    auto now = std::chrono::steady_clock::now();
+    while (deadline > now) {
+      std::cout << "Deadline avoided" << std::endl;
+      recv_timer_.expires_at(deadline);
+      co_await recv_timer_.async_wait(use_awaitable);
+      now = std::chrono::steady_clock::now();
+    }
+
+    disconnect();
+  }
+
   awaitable<void> reader() {
     try {
       while (true) {
         Message message = co_await stream_.read();
         recv_queue_.push_back(message);
+        deadline = std::chrono::steady_clock::now() + std::chrono::seconds(60);
       }
     } catch (std::exception &e) {
       // Must terminate the connection
@@ -87,6 +103,9 @@ private:
 
   asio::steady_timer send_timer_;
   std::deque<Message> send_queue_;
+
+  asio::steady_timer recv_timer_;
+  std::chrono::steady_clock::time_point deadline;
 
   std::deque<Message> recv_queue_;
 
