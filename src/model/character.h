@@ -12,11 +12,25 @@
 #include "utils/binarybuffer.h"
 #include "utils/string.h"
 
+#include "utils/flagset.h"
 #include <cstdint>
 
 namespace Model {
 
 struct Character {
+  enum class Properties : uint8_t {
+    UNK_1,
+    PLV,
+    UNK_2,
+    DEAD,
+    NEW,
+    UNK_3,
+    DELETE_TIMER_ENABLE,
+    DELETE_TIMER_FINISH,
+    _
+  };
+
+
   // Must be bigger than 0 otherwise the client will fail to render the
   // character
   uint32_t id = 0;
@@ -42,7 +56,10 @@ struct Character {
 
   Equipment equipment;
 
+  FlagSet<Properties> properties;
+
   uint32_t shape;
+  uint32_t deletion_timer = 0;
 
   Stats stats;
   Skills skills;

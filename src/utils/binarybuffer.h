@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <type_traits>
+#include <bitset>
 
 class BinaryBuffer {
 public:

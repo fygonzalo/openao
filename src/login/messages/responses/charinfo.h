@@ -17,11 +17,12 @@ namespace Login::Messages::Responses {
 struct AuthError {
   static const uint16_t type = 0x00;
 
-  int code;
+  uint16_t message;
 
   template <typename Archive>
   void serialize(Archive& archive) {
-    archive.write(code);
+    archive.write(message);
+    archive.write((uint16_t)0);
   }
 };
 
@@ -61,9 +62,11 @@ private:
     archive.write(c.faction);
     Serialization::serialize(archive, c.attributes);
     archive.write(c.stage);
-    archive.set(0, 4);
+    archive.set(0, 3);
+    archive.write(c.properties);
     archive.write(c.shape);
-    archive.set(0, 8);
+    archive.write(c.deletion_timer);
+    archive.set(0, 4);
     archive.write(c.id);
     archive.write(c.name);
     archive.write(a_.id);
