@@ -57,7 +57,7 @@ public:
   }
 
   void serialize(BinaryBuffer &buffer) {
-    buffer.write(value_.c_str(), size_ + 1);
+    buffer.write(value_);
   }
 
   void deserialize(BinaryBuffer &buffer) {

@@ -55,7 +55,7 @@ public:
    * @param len
    * @param off
    */
-  void write(char *src, int len, int off) {
+  void write(const char *src, int len, int off) {
     int amount = off + len;
     if (amount > buffer_.size()) throw "Cannot exceed buffer limits";
 
@@ -93,7 +93,7 @@ public:
     memset(buffer_.data() + len_, c, len);
     len_ += len;
   }
-  void write(std::string &var) { write(var.data(), var.size() + 1, len_); };
+  void write(std::string &var) { write(var.c_str(), var.size() + 1, len_); };
 
   template<typename T, size_t N>
   void write(std::array<T, N> &values) {
