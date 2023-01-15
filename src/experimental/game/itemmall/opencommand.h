@@ -5,10 +5,8 @@
 
 namespace openao::experimental::game::itemmall {
 
-struct OpenCommand {
+struct OpenCommand {};
 
-};
-
-}
+}// namespace openao::experimental::game::itemmall
 
 #endif// OPENAO_EXPERIMENTAL_GAME_ITEMMALL_OPENCOMMAND_H

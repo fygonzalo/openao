@@ -18,14 +18,13 @@ struct GlobalMessage {
     buffer.write(message);
   }
 
-  void deserialize(BinaryBuffer& buffer) {
+  void deserialize(BinaryBuffer &buffer) {
     buffer.read(entityid);
     buffer.read(nick);
     buffer.read(message);
   }
-
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_GLOBAL_MESSAGE_H

@@ -70,7 +70,8 @@ struct InventoryItem {
 
   // Minutes if flags 2 (), Epoch if countdown
   uint32_t timer{0};
-  uint8_t piercings{0};;
+  uint8_t piercings{0};
+  ;
   uint8_t intensifications{0};
 
   std::array<Enhacement, 5> enhacements;
@@ -96,17 +97,11 @@ public:
       }
   }
 
-  int count() {
-    return inventory_.size();
-  }
+  int count() { return inventory_.size(); }
 
-  std::vector<InventoryItem>::iterator begin() {
-    return inventory_.begin();
-  }
+  std::vector<InventoryItem>::iterator begin() { return inventory_.begin(); }
 
-  std::vector<InventoryItem>::iterator end() {
-    return inventory_.end();
-  }
+  std::vector<InventoryItem>::iterator end() { return inventory_.end(); }
 
 public:
   std::vector<InventoryItem> inventory_;

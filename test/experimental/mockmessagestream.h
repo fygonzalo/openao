@@ -2,8 +2,8 @@
 #ifndef OPENAO_TEST_EXPERIMENTAL_MOCKMESSAGESTREAM_H
 #define OPENAO_TEST_EXPERIMENTAL_MOCKMESSAGESTREAM_H
 
-#include <gmock/gmock.h>
 #include "experimental/transport/imessagestream.h"
+#include <gmock/gmock.h>
 
 using namespace openao::experimental::transport;
 

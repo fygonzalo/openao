@@ -10,6 +10,6 @@ struct CharacterInfo {
   std::string name;
 };
 
-}
+}// namespace openao::experimental::game::character
 
 #endif// OPENAO_EXPERIMENTAL_GAME_CHARACTER_CHARACTER_H

@@ -197,7 +197,6 @@ private:
   friend class openao::experimental::transport::MessageStream;
 
 
-
   char *data_() { return buffer_.data(); }
   void commit(int size) { len_ = size; }
 

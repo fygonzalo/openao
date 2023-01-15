@@ -2,31 +2,31 @@
 #ifndef OPENAO_GAME_MESSAGES_RESPONSES_UPDATEINVENTORY_H
 #define OPENAO_GAME_MESSAGES_RESPONSES_UPDATEINVENTORY_H
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include "model/inventoryitem.h"
 
 namespace Game::Messages::Responses {
 
 struct Action {
-  virtual void serialize(BinaryBuffer& buffer) = 0;
+  virtual void serialize(BinaryBuffer &buffer) = 0;
 };
 
 struct AddItem : Action {
   static const uint8_t code = 1;
   Model::InventoryItem item;
 
-  AddItem(Model::InventoryItem& i) : item(i) {}
+  AddItem(Model::InventoryItem &i) : item(i) {}
 
-  void serialize(BinaryBuffer& archive) override {
-    Model::InventoryItem & i = item;
+  void serialize(BinaryBuffer &archive) override {
+    Model::InventoryItem &i = item;
 
     archive.write(code);
-    archive.set((uint8_t)0xff, 8);
+    archive.set((uint8_t) 0xff, 8);
     archive.write(i.item);
-    for (auto& e: i.enhacements) {
-      archive.write(((uint32_t)e.attribute << 26) | e.amount);
+    for (auto &e: i.enhacements) {
+      archive.write(((uint32_t) e.attribute << 26) | e.amount);
     }
     archive.set(1, 1);
     archive.write(i.entity);
@@ -50,9 +50,9 @@ struct RemoveItem : Action {
   uint32_t character_id;
   uint16_t slot;
 
-  void serialize(BinaryBuffer& buffer) override {
+  void serialize(BinaryBuffer &buffer) override {
     buffer.write(code);
-    buffer.write((uint8_t)1);
+    buffer.write((uint8_t) 1);
     buffer.write(character_id);
     buffer.write(slot);
   }
@@ -63,20 +63,15 @@ struct UpdateInventory {
 
   std::vector<std::shared_ptr<Action>> actions;
 
-  void add(const std::shared_ptr<Action>& action) {
-    actions.push_back(action);
-  }
+  void add(const std::shared_ptr<Action> &action) { actions.push_back(action); }
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     archive.write((uint32_t) actions.size());
-    for (auto &a: actions) {
-      a->serialize(archive);
-    }
+    for (auto &a: actions) { a->serialize(archive); }
   }
-
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_UPDATEINVENTORY_H

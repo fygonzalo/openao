@@ -7,4 +7,4 @@ void deserialize(pqxx::row &r, Model::Position &p) {
   p.y = r["position_y"].as<int>();
   p.orientation = r["orientation"].as<int>();
 }
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX

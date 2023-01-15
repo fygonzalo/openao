@@ -12,12 +12,12 @@ struct SetPin {
   String password{32};
   String pin{32};
 
-  void deserialize(BinaryBuffer& archive) {
+  void deserialize(BinaryBuffer &archive) {
     archive.read(password);
     archive.read(pin);
   }
 };
 
-}
+}// namespace Login::Messages::Requests
 
 #endif// OPENAO_LOGIN_MESSAGES_REQUESTS_SET_PIN_H

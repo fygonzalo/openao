@@ -3,9 +3,9 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "experimental/transport/client.h"
 #include "experimental/game/account/accountmanager.h"
 #include "experimental/game/itemmall/controller.h"
+#include "experimental/transport/client.h"
 
 #include "mockclient.h"
 #include "mockmessagestream.h"

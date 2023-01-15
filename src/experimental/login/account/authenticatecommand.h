@@ -15,13 +15,12 @@ struct AuthenticationCommand : Event<AuthenticationCommand> {
   String username{20};
   String password{32};
 
-  void deserialize(BinaryBuffer& archive) {
+  void deserialize(BinaryBuffer &archive) {
     archive.read(username);
     archive.read(password);
   }
-
 };
 
-}
+}// namespace openao::experimental::login::account
 
 #endif// OPENAO_EXPERIMENTAL_LOGIN_ACCOUNT_AUTHENTICATECOMMAND_H

@@ -14,14 +14,14 @@ namespace Game::Controller {
 
 class Items {
 public:
-  Items(Subsystems::EntityManager &entity_manager) : entity_manager_(entity_manager) {}
+  Items(Subsystems::EntityManager &entity_manager)
+      : entity_manager_(entity_manager) {}
 
-  void move_item(MessageStream &stream,
-                            Messages::Requests::MoveItem &request) {
+  void move_item(MessageStream &stream, Messages::Requests::MoveItem &request) {
 
-    auto& entity = entity_manager_.find_by_stream(stream);
-    auto& inventory = entity.items;
-    auto& item = inventory.move(request.slot_source, request.slot_destination);
+    auto &entity = entity_manager_.find_by_stream(stream);
+    auto &inventory = entity.items;
+    auto &item = inventory.move(request.slot_source, request.slot_destination);
 
     auto ui = Messages::Responses::UpdateInventory();
     ui.add(std::make_shared<Messages::Responses::AddItem>(item));
@@ -38,7 +38,6 @@ public:
     for (Subsystems::Entity &e: entity_manager_.get_all()) {
       if (e.id != entity.id) { e.stream->write(ea); }
     }
-
   }
 
 

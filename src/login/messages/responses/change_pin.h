@@ -11,11 +11,9 @@ struct ChangePin {
 
   bool status;
 
-  void serialize(BinaryBuffer& archive) {
-    archive.write(status);
-  }
+  void serialize(BinaryBuffer &archive) { archive.write(status); }
 };
 
-}
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_LOGIN_MESSAGES_RESPONSES_CHANGE_PIN_H

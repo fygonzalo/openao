@@ -13,7 +13,7 @@ public:
       : entity_manager_(entityManager) {}
 
   void global_message(MessageStream &stream,
-                                 Messages::Requests::GlobalMessage &request) {
+                      Messages::Requests::GlobalMessage &request) {
 
     auto &entity = entity_manager_.find_by_stream(stream);
 

@@ -2,12 +2,12 @@
 #ifndef OPENAO_CHARACTER_H
 #define OPENAO_CHARACTER_H
 
-#include "model/generic.h"
 #include "model/attributes.h"
 #include "model/equipment.h"
+#include "model/generic.h"
 #include "model/misc.h"
-#include "model/stats.h"
 #include "model/position.h"
+#include "model/stats.h"
 
 #include "utils/binarybuffer.h"
 #include "utils/string.h"

@@ -31,9 +31,7 @@ public:
         deserializer_(deserializer),
         acceptor_(context_, tcp::endpoint(tcp::v4(), port)){};
 
-  void start() {
-    co_spawn(context_.get_executor(), listen(), detached);
-  }
+  void start() { co_spawn(context_.get_executor(), listen(), detached); }
 
 private:
   awaitable<void> listen() {

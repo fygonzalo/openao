@@ -21,16 +21,14 @@ struct Test {
     buffer.write(magic);
     buffer.write(next_level_magic);
     buffer.write(place);
-    buffer.write((uint32_t)6);
-    buffer.write((uint32_t)0);
-    buffer.write((uint32_t)0);
+    buffer.write((uint32_t) 6);
+    buffer.write((uint32_t) 0);
+    buffer.write((uint32_t) 0);
     buffer.write(visitors);
-    buffer.write((uint32_t)16776965);
-
+    buffer.write((uint32_t) 16776965);
   }
-
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_HOUSEINFO_H

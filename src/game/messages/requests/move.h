@@ -27,6 +27,6 @@ struct Move {
   }
 };
 
-}
+}// namespace Game::Messages::Requests
 
 #endif// OPENAO_GAME_MESSAGES_REQUEST_MOVE_H

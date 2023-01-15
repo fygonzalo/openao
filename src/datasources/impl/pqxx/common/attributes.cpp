@@ -10,4 +10,4 @@ void deserialize(const pqxx::row &r, Model::Attributes &a) {
   a.hair_color = r["hair_color"].as<int>();
   a.skin_color = r["skin_color"].as<int>();
 }
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX

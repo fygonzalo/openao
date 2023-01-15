@@ -14,13 +14,12 @@ class Inventory {
 public:
   Inventory(Datasources::IInventory &iinventory) : iinventory_(iinventory) {}
 
-  Model::Inventory& get_inventory(uint32_t character_id) {
+  Model::Inventory &get_inventory(uint32_t character_id) {
     if (!inventory.contains(character_id)) {
       inventory[character_id] = iinventory_.get_bag_items(character_id);
     }
     return inventory[character_id];
   };
-
 
 
 private:

@@ -44,8 +44,7 @@ public:
 
     auto r = w.exec("UPDATE account SET "
                     "pin = " +
-                    w.quote(base64_encode(pin)) +
-                    "WHERE id = " + w.quote(id) +
+                    w.quote(base64_encode(pin)) + "WHERE id = " + w.quote(id) +
                     "AND password = " + w.quote(base64_encode(password)) +
                     "AND pin IS NULL");
 

@@ -2,9 +2,9 @@
 #ifndef OPENAO_EXPERIMENTAL_GAME_CHAT_CHATMESSAGEEVENT_H
 #define OPENAO_EXPERIMENTAL_GAME_CHAT_CHATMESSAGEEVENT_H
 
+#include "experimental/reactor/event.h"
 #include "utils/string.h"
 #include <cstdint>
-#include "experimental/reactor/event.h"
 
 namespace openao::experimental::game::chat {
 
@@ -19,7 +19,6 @@ struct ChatMessageEvent : reactor::Event<ChatMessageEvent> {
     buffer.write(name);
     buffer.write(text);
   }
-
 };
 
 

@@ -7,6 +7,6 @@
 
 namespace Datasources::PQXX {
 void deserialize(pqxx::row &r, Model::Equipment &e);
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX
 
 #endif// OPENAO_REPOSITORIES_IMPL_PQXX_COMMON_EQUIPMENT_H

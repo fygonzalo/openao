@@ -25,4 +25,4 @@ void deserialize(pqxx::row &r, Model::Character &c) {
 
   deserialize(r, c.stats);
 }
-}
+}// namespace Datasources::PQXX

@@ -54,5 +54,4 @@ TEST(ECS, ChatController_StaticProcess_Test) {
 
   ChatMessageCommand command;
   command.text = "Hello world";
-
 }

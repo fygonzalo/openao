@@ -7,8 +7,8 @@
 #include "game/server.h"
 #include "login/server.h"
 
-#include "experimental/transport/server.h"
 #include "experimental/login/account/accountcontroller.h"
+#include "experimental/transport/server.h"
 
 using namespace openao::experimental;
 using namespace openao::experimental::serialization;
@@ -35,5 +35,4 @@ int main(int argc, char *argv[]) {
   server.start();
 
   context.run();
-
 }

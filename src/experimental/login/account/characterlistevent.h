@@ -103,8 +103,8 @@ struct CharacterListEvent : Event<CharacterListEvent> {
   struct Branches {
     std::vector<uint32_t> statuses;
 
-    void serialize(BinaryBuffer & buffer) {
-      buffer.write((uint32_t)statuses.size());
+    void serialize(BinaryBuffer &buffer) {
+      buffer.write((uint32_t) statuses.size());
       buffer.set(0, 51);
       buffer.write(statuses);
     }

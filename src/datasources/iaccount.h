@@ -16,5 +16,5 @@ public:
 
   virtual bool set_pin(int id, std::string password, std::string pin) = 0;
 };
-}// namespace Repositories
+}// namespace Datasources
 #endif// OPENAO_DATASOURCES_IACCOUNT_H

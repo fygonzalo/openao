@@ -8,9 +8,9 @@
 
 #include <asio.hpp>
 
+#include "transport/checksum.h"
 #include "transport/ciphersuite.h"
 #include "transport/packetheader.h"
-#include "transport/checksum.h"
 #include "utils/binarybuffer.h"
 
 using asio::async_read;
@@ -33,8 +33,7 @@ namespace openao::experimental::transport {
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : socket_(ctx), cipher_(std::move(cipher)) {
-  }
+      : socket_(ctx), cipher_(std::move(cipher)) {}
 
   tcp::socket &socket() { return socket_; }
 
@@ -43,9 +42,7 @@ public:
   void close() {
     std::error_code ec;
     socket_.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
-    if (ec) {
-
-    }
+    if (ec) {}
     socket_.close();
   }
 
@@ -78,7 +75,7 @@ public:
   awaitable<void> send(BinaryBuffer message) {
     BinaryBuffer packet;
 
-    packet.write((uint16_t)message.size(), 6);
+    packet.write((uint16_t) message.size(), 6);
     packet.write(message.data(), message.size(), 8);
 
     PacketHeader header;
@@ -142,6 +139,6 @@ private:
 };
 
 
-}
+}// namespace openao::experimental::transport
 
 #endif// OPENAO_EXPERIMENTAL_TRANSPORT_MESSAGESTREAM_H

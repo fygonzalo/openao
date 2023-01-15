@@ -12,12 +12,9 @@ struct GlobalMessage {
 
   String message{80};
 
-  void deserialize(BinaryBuffer &archive) {
-    archive.read(message);
-  }
-
+  void deserialize(BinaryBuffer &archive) { archive.read(message); }
 };
 
-}
+}// namespace Game::Messages::Requests
 
 #endif// OPENAO_GAME_MESSAGES_REQUESTS_GLOBAL_MESSAGE_H

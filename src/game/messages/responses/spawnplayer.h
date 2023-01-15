@@ -23,7 +23,7 @@ struct SpawnPlayer {
     archive.write(c.position.y);
     archive.write(c.name);
     archive.write(c.title);
-    archive.write((uint32_t)1751094);
+    archive.write((uint32_t) 1751094);
     archive.write(c.position.orientation);
     archive.write(c.shape);
     Serialization::serialize(archive, c.attributes);
@@ -32,9 +32,9 @@ struct SpawnPlayer {
     archive.set(0, 2);// Team ?
     Serialization::serialize(archive, c.equipment);
     // Unk
-    archive.write((uint32_t)23190);
+    archive.write((uint32_t) 23190);
     // Badge / Overlay
-    archive.write((uint32_t)5367);
+    archive.write((uint32_t) 5367);
     // Quest title
     archive.set(0, 2);
     // Unk
@@ -44,8 +44,6 @@ struct SpawnPlayer {
     archive.set(0, 12);
     // Unk
     archive.set(0, 6);
-
-
   }
 };
 

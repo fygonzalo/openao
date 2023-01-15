@@ -18,8 +18,8 @@ struct Move {
   Position destination;
   uint16_t speed;
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     archive.write(entityid);
     archive.write(source.x);
     archive.write(source.y);
@@ -29,6 +29,6 @@ struct Move {
   }
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_MOVE_H

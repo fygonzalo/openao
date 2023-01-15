@@ -13,6 +13,6 @@ struct AuthenticateCommand {
   uint32_t session;
 };
 
-}
+}// namespace openao::experimental::game::account
 
 #endif// OPENAO_EXPERIMENTAL_GAME_ACCOUNT_AUTHENTICATECOMMAND_H

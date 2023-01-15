@@ -12,14 +12,12 @@ struct AfterSpawnPlayer {
   uint32_t entity_id;
 
   void serialize(BinaryBuffer &buffer) {
-    buffer.write((uint32_t)entity_id);
-    buffer.write((uint32_t)0);
-    buffer.write((uint32_t)0);
-
+    buffer.write((uint32_t) entity_id);
+    buffer.write((uint32_t) 0);
+    buffer.write((uint32_t) 0);
   }
-
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_AFTER_SPAWNPLAYER_H

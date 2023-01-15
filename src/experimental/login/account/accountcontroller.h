@@ -19,10 +19,9 @@ public:
   static void authenticate(IClient &client,
                            const AuthenticationCommand &command,
                            AccountService &account_service,
-                           BranchesService &branches_service
-                                   ) {
+                           BranchesService &branches_service) {
     CharacterListEvent character_list;
-    for (auto &c : character_list.characters) {
+    for (auto &c: character_list.characters) {
       c.account_name = command.username;
       c.account_id = 1;
     }

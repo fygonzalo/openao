@@ -10,7 +10,8 @@ using namespace openao::experimental::transport;
 
 class MockClient : public IClient {
 public:
-  MOCK_METHOD(void, send, (openao::experimental::reactor::IEvent&), (override));
+  MOCK_METHOD(void, send, (openao::experimental::reactor::IEvent &),
+              (override));
 };
 
 #endif// OPENAO_TEST_EXPERIMENTAL_MOCKCLIENT_H

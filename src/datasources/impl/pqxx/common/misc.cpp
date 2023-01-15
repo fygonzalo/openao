@@ -12,4 +12,4 @@ void deserialize(pqxx::row &r, Model::Misc &m) {
   m.face = r["face"].as<int>();
   m.personality = r["personality"].as<int>();
 }
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX

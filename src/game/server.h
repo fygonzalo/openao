@@ -50,7 +50,7 @@ private:
   tcp::acceptor acceptor_;
 
   std::unordered_set<std::unique_ptr<Player>> clients;
-  pqxx::connection& conn_;
+  pqxx::connection &conn_;
 
   asio::steady_timer update_timer_;
   EntityManager em_;

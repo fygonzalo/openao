@@ -51,4 +51,4 @@ void deserialize(pqxx::row &r, Model::Stats &s) {
   s.rotten_attack_total = r["rotten_attack_total"].as<int>();
   s.rotten_defense_total = r["rotten_defense_total"].as<int>();
 }
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX

@@ -17,7 +17,7 @@ struct CreateChar {
   Model::Misc misc;
 
 
-  void deserialize(BinaryBuffer& archive) {
+  void deserialize(BinaryBuffer &archive) {
     archive.skip(1);
     Serialization::deserialize(archive, attributes);
     archive.read(name);
@@ -26,6 +26,6 @@ struct CreateChar {
   }
 };
 
-}
+}// namespace Login::Messages::Requests
 
 #endif// OPENAO_LOGIN_MESSAGES_REQUESTS_CREATE_CHAR_H

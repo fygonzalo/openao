@@ -9,6 +9,6 @@ public:
   virtual ~Injectable() = default;
 };
 
-}
+}// namespace openao::experimental::di
 
 #endif// OPENAO_EXPERIMENTAL_DI_INJECTABLE_H

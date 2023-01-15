@@ -73,7 +73,8 @@ private:
       std::reverse(disconnected.begin(), disconnected.end());
       for (auto i: disconnected) {
         Message message = Login::Messages::Requests::Disconnect();
-        handlers_[Login::Messages::Requests::Disconnect::type](*clients[i], message);
+        handlers_[Login::Messages::Requests::Disconnect::type](*clients[i],
+                                                               message);
         clients.erase(clients.begin() + i);
       }
 

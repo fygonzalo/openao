@@ -13,8 +13,7 @@ public:
   Movement(Subsystems::EntityManager &entity_manager)
       : entity_manager_(entity_manager){};
 
-  void move(MessageStream &stream,
-                       Messages::Requests::Move &request) {
+  void move(MessageStream &stream, Messages::Requests::Move &request) {
     auto &entity = entity_manager_.find_by_stream(stream);
 
     Messages::Responses::Move move{

@@ -99,7 +99,8 @@ public:
     client.write(charinfo);
   }
 
-  void disconnect(Client &client, const Login::Messages::Requests::Disconnect &request) {
+  void disconnect(Client &client,
+                  const Login::Messages::Requests::Disconnect &request) {
     if (auto player = players.find_by_client(client)) {
       player->client.disconnect();
       players.remove(*player);
@@ -119,10 +120,10 @@ public:
       Messages::Responses::SetPin result{.status = false};
       player->client.write(result);
     }
-
   }
 
-  void enter_game(Client &client, const Login::Messages::Requests::EnterGame &request) {
+  void enter_game(Client &client,
+                  const Login::Messages::Requests::EnterGame &request) {
     Model::GameServer gm;
     gm.ip = "127.0.0.1";
     gm.port = 30001;

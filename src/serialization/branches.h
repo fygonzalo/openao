@@ -7,7 +7,7 @@
 
 namespace Serialization {
 
-void serialize(BinaryBuffer &archive,  Model::Branches &bb);
+void serialize(BinaryBuffer &archive, Model::Branches &bb);
 
 }// namespace Serialization
 

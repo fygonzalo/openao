@@ -11,9 +11,8 @@ public:
   CharacterInfo get_by_character_id(uint32_t id) {
     return CharacterInfo{.name = "openao"};
   }
-
 };
 
-}
+}// namespace openao::experimental::game::character
 
 #endif// OPENAO_EXPERIMENTAL_GAME_CHARACTER_SERVICE_H

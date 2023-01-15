@@ -2,7 +2,4 @@
 
 #include "transport/messagestream.h"
 
-TEST(Connection, Dummy) {
-
-  EXPECT_EQ(1, 1);
-}
+TEST(Connection, Dummy) { EXPECT_EQ(1, 1); }

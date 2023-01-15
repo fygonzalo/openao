@@ -12,12 +12,9 @@ struct SetTimestamp {
 
   uint32_t timestamp;
 
-  void serialize(BinaryBuffer &buffer) {
-    buffer.write(timestamp);
-  }
-
+  void serialize(BinaryBuffer &buffer) { buffer.write(timestamp); }
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_SET_TIMESTAMP_H

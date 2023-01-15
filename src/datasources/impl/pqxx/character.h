@@ -51,30 +51,77 @@ public:
 
 
     auto r = w.exec("UPDATE character SET "
-                    "title = " + w.quote(character.title.c_str()) + ","
-                    "gender = " + w.quote((int)character.attributes.gender) + ","
-                    "hair_style = " + w.quote((int)character.attributes.hair_style) + ","
-                    "height = " + w.quote((int)character.attributes.height) + ","
-                    "hair_color = " + w.quote((int)character.attributes.hair_color) + ","
-                    "skin_color = " + w.quote((int)character.attributes.skin_color) + ","
-                    "level = " + w.quote((int)character.level) + ","
-                    "experience = " + w.quote((int)character.experience) + ","
-                    "rank = " + w.quote((int)character.rank) + ","
-                    "credits = " + w.quote((int)character.credits) + ","
-                    "faction = " + w.quote((int)character.faction) + ","
-                    "stage = " + w.quote((int)character.stage) + ","
-                    "position_x = " + w.quote((int)character.position.x ) + ","
-                    "position_y = " + w.quote((int)character.position.y ) + ","
-                    "orientation = " + w.quote((int)character.position.orientation ) + ","
-                    "head = " + w.quote((int)character.equipment.hand ) + ","
-                    "body = " + w.quote((int)character.equipment.body ) + ","
-                    "main_hand = " + w.quote((int)character.equipment.main_hand ) + ","
-                    "off_hand = " + w.quote((int)character.equipment.off_hand) + ","
-                    "hand = " + w.quote((int)character.equipment.hand ) + ","
-                    "feet = " + w.quote((int)character.equipment.feet ) + ","
-                    "back = " + w.quote((int)character.equipment.back ) + ","
-                    "ride = " + w.quote((int)character.equipment.ride ) + ","
-                    "shape = " + w.quote((int)character.shape ) +
+                    "title = " +
+                    w.quote(character.title.c_str()) +
+                    ","
+                    "gender = " +
+                    w.quote((int) character.attributes.gender) +
+                    ","
+                    "hair_style = " +
+                    w.quote((int) character.attributes.hair_style) +
+                    ","
+                    "height = " +
+                    w.quote((int) character.attributes.height) +
+                    ","
+                    "hair_color = " +
+                    w.quote((int) character.attributes.hair_color) +
+                    ","
+                    "skin_color = " +
+                    w.quote((int) character.attributes.skin_color) +
+                    ","
+                    "level = " +
+                    w.quote((int) character.level) +
+                    ","
+                    "experience = " +
+                    w.quote((int) character.experience) +
+                    ","
+                    "rank = " +
+                    w.quote((int) character.rank) +
+                    ","
+                    "credits = " +
+                    w.quote((int) character.credits) +
+                    ","
+                    "faction = " +
+                    w.quote((int) character.faction) +
+                    ","
+                    "stage = " +
+                    w.quote((int) character.stage) +
+                    ","
+                    "position_x = " +
+                    w.quote((int) character.position.x) +
+                    ","
+                    "position_y = " +
+                    w.quote((int) character.position.y) +
+                    ","
+                    "orientation = " +
+                    w.quote((int) character.position.orientation) +
+                    ","
+                    "head = " +
+                    w.quote((int) character.equipment.hand) +
+                    ","
+                    "body = " +
+                    w.quote((int) character.equipment.body) +
+                    ","
+                    "main_hand = " +
+                    w.quote((int) character.equipment.main_hand) +
+                    ","
+                    "off_hand = " +
+                    w.quote((int) character.equipment.off_hand) +
+                    ","
+                    "hand = " +
+                    w.quote((int) character.equipment.hand) +
+                    ","
+                    "feet = " +
+                    w.quote((int) character.equipment.feet) +
+                    ","
+                    "back = " +
+                    w.quote((int) character.equipment.back) +
+                    ","
+                    "ride = " +
+                    w.quote((int) character.equipment.ride) +
+                    ","
+                    "shape = " +
+                    w.quote((int) character.shape) +
                     "WHERE id = " + w.quote(character.id));
 
     w.commit();

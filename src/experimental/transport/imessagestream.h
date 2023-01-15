@@ -12,6 +12,6 @@ public:
   virtual void send(BinaryBuffer buffer) = 0;
 };
 
-}
+}// namespace openao::experimental::transport
 
 #endif// OPENAO_EXPERIMENTAL_TRANSPORT_IMESSAGESTREAM_H

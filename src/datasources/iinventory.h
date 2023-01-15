@@ -13,6 +13,6 @@ public:
   virtual Model::Inventory get_bag_items(uint32_t character_id) = 0;
 };
 
-}
+}// namespace Datasources
 
 #endif// OPENAO_DATASOURCES_IINVENTORY_H

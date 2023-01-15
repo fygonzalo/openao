@@ -130,14 +130,14 @@ public:
   }
 
   void move_item(const Messages::Requests::MoveItem &request) {
-    auto& inventory_item = inventory_.get(request.slot_source);
+    auto &inventory_item = inventory_.get(request.slot_source);
 
     pqxx::result r;
     try {
       pqxx::work w(conn_);
       r = w.exec("UPDATE inventoryitem SET slot = " +
-                            w.quote((int) request.slot_destination) +
-                            "WHERE id = " + w.quote((int) inventory_item.id));
+                 w.quote((int) request.slot_destination) +
+                 "WHERE id = " + w.quote((int) inventory_item.id));
       w.commit();
     } catch (std::exception &e) {
       std::cout << e.what() << std::endl;
@@ -166,9 +166,10 @@ public:
   }
 
   void chat(const Messages::Requests::GlobalMessage &message) {
-    auto& p = pm_.get(eid);
+    auto &p = pm_.get(eid);
 
-    pm_.broadcast(Messages::Responses::GlobalMessage{eid, p.first.name, message.message});
+    pm_.broadcast(Messages::Responses::GlobalMessage{eid, p.first.name,
+                                                     message.message});
   }
 
   void move(const Messages::Requests::Move &request) {

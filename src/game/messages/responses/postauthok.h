@@ -9,12 +9,12 @@ struct PostAuthOk {
 
   uint8_t code = 0;
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     archive.write(code);
   }
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_POSTAUTHOK_H

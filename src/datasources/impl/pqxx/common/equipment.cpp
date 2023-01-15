@@ -12,4 +12,4 @@ void deserialize(pqxx::row &r, Model::Equipment &e) {
   e.back = r["back"].as<int>();
   e.ride = r["ride"].as<int>();
 }
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX

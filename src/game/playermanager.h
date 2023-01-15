@@ -17,9 +17,9 @@ public:
 
   void destroy(Entity id);
 
-  void broadcast(const Message& message);
+  void broadcast(const Message &message);
 
-  std::pair<Model::Character, Player*>& get(Entity id);
+  std::pair<Model::Character, Player *> &get(Entity id);
 
 private:
   std::map<Entity, std::pair<Model::Character, Player *>> players;

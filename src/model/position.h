@@ -10,6 +10,6 @@ struct Position {
   uint32_t y;
   uint8_t orientation;
 };
-}
+}// namespace Model
 
 #endif// OPENAO_POSITION_H

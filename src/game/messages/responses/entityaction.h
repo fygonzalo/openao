@@ -22,9 +22,8 @@ struct EntityAction {
     archive.write(slot);
     archive.write(code);
   }
-
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_ENTITYACTION_H

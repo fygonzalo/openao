@@ -4,10 +4,8 @@
 
 namespace openao::experimental::game::account {
 
-struct LogoutCommand {
+struct LogoutCommand {};
 
-};
-
-}
+}// namespace openao::experimental::game::account
 
 #endif// OPENAO_EXPERIMENTAL_GAME_ACCOUNT_LOGOUTCOMMAND_H

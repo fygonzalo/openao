@@ -8,15 +8,12 @@ namespace openao::experimental::game::itemmall {
 
 class MallService {
 public:
-  uint32_t get_ag_by_account(uint32_t account_id) {
-    return 300;
-  }
+  uint32_t get_ag_by_account(uint32_t account_id) { return 300; }
 
 
 private:
-
 };
 
-}
+}// namespace openao::experimental::game::itemmall
 
 #endif// OPENAO_EXPERIMENTAL_GAME_ITEMMALL_SERVICE_H

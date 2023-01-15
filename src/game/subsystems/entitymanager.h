@@ -31,23 +31,21 @@ public:
 
   std::vector<Entity> &get_all() { return entities_; }
 
-  Entity& find_by_character_id(int id) {
-    for (Entity& e : entities_) {
-      if (e.character.id == id)
-        return e;
+  Entity &find_by_character_id(int id) {
+    for (Entity &e: entities_) {
+      if (e.character.id == id) return e;
     }
   }
 
-  Entity& find_by_stream(MessageStream& stream) {
-    for (Entity& e : entities_) {
-      if (e.stream == &stream)
-        return e;
+  Entity &find_by_stream(MessageStream &stream) {
+    for (Entity &e: entities_) {
+      if (e.stream == &stream) return e;
     }
   }
 
-  Entity& remove_by_stream(MessageStream& stream) {
+  Entity &remove_by_stream(MessageStream &stream) {
     int i = 0;
-    for (Entity& e : entities_) {
+    for (Entity &e: entities_) {
       if (e.stream == &stream) {
         entities_.erase(entities_.begin() + i);
         return e;
@@ -55,7 +53,6 @@ public:
       i++;
     }
   }
-
 };
 
 }// namespace Game::Subsystems

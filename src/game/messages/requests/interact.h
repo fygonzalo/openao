@@ -18,6 +18,6 @@ struct Interact {
   }
 };
 
-}
+}// namespace Game::Messages::Requests
 
 #endif// OPENAO_GAME_MESSAGES_REQUESTS_INTERACT_H

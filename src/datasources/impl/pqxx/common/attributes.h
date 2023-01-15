@@ -7,6 +7,6 @@
 
 namespace Datasources::PQXX {
 void deserialize(const pqxx::row &r, Model::Attributes &a);
-}// namespace Repositories::PQXX
+}// namespace Datasources::PQXX
 
 #endif// OPENAO_REPOSITORIES_IMPL_PQXX_COMMON_ATTRIBUTES_H

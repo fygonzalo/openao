@@ -11,11 +11,9 @@ struct DeletePin {
 
   String pin{32};
 
-  void deserialize(BinaryBuffer& archive) {
-    archive.read(pin);
-  }
+  void deserialize(BinaryBuffer &archive) { archive.read(pin); }
 };
 
-}
+}// namespace Login::Messages::Requests
 
 #endif// OPENAO_LOGIN_MESSAGES_REQUESTS_DELETE_PIN_H

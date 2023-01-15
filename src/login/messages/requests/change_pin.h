@@ -12,13 +12,12 @@ struct ChangePin {
   String old_pin{32};
   String new_pin{32};
 
-  void deserialize(BinaryBuffer& archive) {
+  void deserialize(BinaryBuffer &archive) {
     archive.read(old_pin);
     archive.read(new_pin);
-
   }
 };
 
-}
+}// namespace Login::Messages::Requests
 
 #endif// OPENAO_LOGIN_MESSAGES_REQUESTS_CHANGE_PIN_H

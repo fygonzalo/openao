@@ -14,14 +14,13 @@ struct Announcement {
   uint32_t timestamp = 1693013624;
   std::string message;
 
-  void serialize(BinaryBuffer& buffer) {
+  void serialize(BinaryBuffer &buffer) {
     buffer.write(timestamp);
-    buffer.write((uint32_t)message.size() + 1);
+    buffer.write((uint32_t) message.size() + 1);
     buffer.write(message);
   }
-
 };
 
-}
+}// namespace Login::Messages::Responses
 
 #endif// OPENAO_LOGIN_MESSAGES_RESPONSES_ANNOUNCEMENT_H

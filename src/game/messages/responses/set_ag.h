@@ -14,12 +14,10 @@ struct Test {
   uint8_t action;
 
   void serialize(BinaryBuffer &buffer) {
-    uint8_t data[] = {
-            0x2a, 0x01, 0x00, 0x00
-    };
+    uint8_t data[] = {0x2a, 0x01, 0x00, 0x00};
 
     buffer.write((char *) data, sizeof(data));
-    //buffer.set(0x01, 37);
+    // buffer.set(0x01, 37);
   }
 };
 

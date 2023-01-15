@@ -15,10 +15,10 @@ public:
 
   virtual Model::Character get_character_by_id(uint32_t id) = 0;
 
-  virtual void update_character(Model::Character& character) = 0;
+  virtual void update_character(Model::Character &character) = 0;
 };
 
 
-}// namespace Repositories
+}// namespace Datasources
 
 #endif// OPENAO_DATASOURCES_CHARACTER_H

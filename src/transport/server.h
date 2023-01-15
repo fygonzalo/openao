@@ -23,13 +23,13 @@ using asio::use_awaitable;
 using asio::ip::tcp;
 
 
-template <typename System>
+template<typename System>
 class Server {
 
 public:
   Server(uint16_t port, System &system)
       : ctx_(), acceptor_(ctx_, tcp::endpoint(tcp::v4(), port)),
-        system_(system){}
+        system_(system) {}
 
   void start() {
     co_spawn(ctx_, listen(), detached);

@@ -16,7 +16,7 @@ namespace openao::experimental::game::itemmall {
 class ItemMallController {
 public:
   static void open_mall(IClient &client, const OpenCommand &command,
-                        AccountManager& account_manager,
+                        AccountManager &account_manager,
                         MallService mall_service) {
     auto account_id = account_manager.get_account_by_client(client);
 

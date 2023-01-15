@@ -16,7 +16,8 @@ namespace Game {
 class System {
 public:
   System(Controller::Account &account, Controller::Items &items,
-         Controller::Actions &actions, Controller::Movement &movement, Controller::Chat &chat)
+         Controller::Actions &actions, Controller::Movement &movement,
+         Controller::Chat &chat)
       : account_(account), items_(items), actions_(actions),
         movement_(movement), chat_(chat) {}
 
@@ -45,10 +46,12 @@ public:
         } else if (message.header.type == 4) {
           auto mi = message.read<Game::Messages::Requests::Move>();
           movement_.move(stream, mi);
-        } else if (message.header.type == Game::Messages::Requests::Logout1::type) {
+        } else if (message.header.type ==
+                   Game::Messages::Requests::Logout1::type) {
           auto mi = message.read<Game::Messages::Requests::Logout1>();
           co_await account_.logout(stream, mi);
-        } else if (message.header.type == Game::Messages::Requests::GlobalMessage::type) {
+        } else if (message.header.type ==
+                   Game::Messages::Requests::GlobalMessage::type) {
           auto mi = message.read<Game::Messages::Requests::GlobalMessage>();
           chat_.global_message(stream, mi);
         }

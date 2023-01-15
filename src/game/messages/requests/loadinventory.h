@@ -10,12 +10,9 @@ namespace Game::Messages::Requests {
 struct LoadInventory {
   static const uint16_t type = 3;
 
-  void deserialize(BinaryBuffer &buffer) {
-
-  }
-
+  void deserialize(BinaryBuffer &buffer) {}
 };
 
-}
+}// namespace Game::Messages::Requests
 
 #endif// OPENAO_GAME_MESSAGES_REQUESTS_LOADINVENTORY_H

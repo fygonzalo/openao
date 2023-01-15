@@ -16,7 +16,8 @@ class Client {
 
 public:
   Client(MessageStream stream)
-      : stream_(std::move(stream)), send_timer_(stream.get_executor()), recv_timer_(stream.get_executor()) {
+      : stream_(std::move(stream)), send_timer_(stream.get_executor()),
+        recv_timer_(stream.get_executor()) {
     send_timer_.expires_at(std::chrono::steady_clock::time_point::max());
   };
 
@@ -49,7 +50,6 @@ public:
     recv_queue_.pop_front();
     return m;
   }
-
 
 
   friend bool operator==(const Client &c1, const Client &c2) {

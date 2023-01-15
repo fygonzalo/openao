@@ -13,4 +13,4 @@ void deserialize(BinaryBuffer &archive, Model::Misc &m) {
   archive.read(m.personality);
 }
 
-}
+}// namespace Serialization

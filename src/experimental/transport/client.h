@@ -54,9 +54,7 @@ private:
       std::error_code ec;
       co_await send_timer_.async_wait(asio::redirect_error(use_awaitable, ec));
 
-      for (auto& b : send_queue_) {
-        co_await stream_.send(b);
-      }
+      for (auto &b: send_queue_) { co_await stream_.send(b); }
     }
   }
 

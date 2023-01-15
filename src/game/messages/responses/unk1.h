@@ -10,14 +10,14 @@ struct Unk1 {
 
   uint32_t entityid;
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     archive.write(entityid);
     archive.set(5, 1);
     archive.set(0, 2);
   }
 };
 
-}
+}// namespace Game::Messages::Responses
 
 #endif// OPENAO_GAME_MESSAGES_RESPONSES_UNK1_H

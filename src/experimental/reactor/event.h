@@ -11,13 +11,11 @@ struct IEvent {
   virtual std::type_index index() const = 0;
 };
 
-template <typename T>
+template<typename T>
 struct Event : IEvent {
-  virtual std::type_index index() const override {
-    return typeid(*this);
-  }
+  virtual std::type_index index() const override { return typeid(*this); }
 };
 
-}
+}// namespace openao::experimental::reactor
 
 #endif// OPENAO_EXPERIMENTAL_REACTOR_EVENT_H

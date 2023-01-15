@@ -64,8 +64,7 @@ add_library(
   experimental/login/account/accountservice.h
   experimental/login/account/characterlistevent.h
   experimental/login/branches/branchesservice.h
-  experimental/di/dependency_injector.h
-)
+  experimental/di/dependency_injector.h)
 
 target_include_directories(
   openao

@@ -15,8 +15,8 @@
 #include "game/messages/requests/logout_2.h"
 #include "game/messages/requests/postauth.h"
 #include "game/messages/responses/postauthok.h"
-#include "game/messages/responses/spawnplayer.h"
 #include "game/messages/responses/removeentity.h"
+#include "game/messages/responses/spawnplayer.h"
 #include "game/messages/responses/unk1.h"
 #include "game/messages/responses/unk2.h"
 #include "game/subsystems/entitymanager.h"
@@ -32,8 +32,7 @@ public:
       : character_(icharacter), inventory_(inventory),
         entity_manager_(entity_manager) {}
 
-  void preauth(MessageStream &stream,
-                          Messages::Requests::Auth &request) {
+  void preauth(MessageStream &stream, Messages::Requests::Auth &request) {
     auto character = character_.get_character_by_id(request.character_id);
     auto items = inventory_.get_bag_items(request.character_id);
 
@@ -41,11 +40,9 @@ public:
                               .character = character,
                               .items = items};
     entity_manager_.insert(player);
-
   }
 
-  void postauth(MessageStream &stream,
-                           Messages::Requests::PostAuth &request) {
+  void postauth(MessageStream &stream, Messages::Requests::PostAuth &request) {
     Subsystems::Entity &entity = entity_manager_.find_by_stream(stream);
 
     Messages::Responses::PostAuthOk pao{};
@@ -75,13 +72,12 @@ public:
         stream.write(sp_);
       }
     }
-
   }
 
   awaitable<void> logout(MessageStream &stream,
-                          Messages::Requests::Logout1 &request) {
+                         Messages::Requests::Logout1 &request) {
 
-    auto& e = entity_manager_.find_by_stream(stream);
+    auto &e = entity_manager_.find_by_stream(stream);
     auto message = co_await e.stream->read();
     uint32_t eid = e.id;
     auto mi = message.read<Game::Messages::Requests::Logout2>();
@@ -90,16 +86,13 @@ public:
     entity_manager_.remove_by_stream(stream);
 
     Messages::Responses::RemoveEntity re{.entityid = eid, .code = 1};
-    for (auto &e: entity_manager_.get_all()) {
-      e.stream->write(re);
-    }
+    for (auto &e: entity_manager_.get_all()) { e.stream->write(re); }
   }
 
 private:
   Datasources::ICharacter &character_;
   Datasources::IInventory &inventory_;
   Subsystems::EntityManager &entity_manager_;
-
 };
 
 }// namespace Game::Controller

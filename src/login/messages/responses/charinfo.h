@@ -19,10 +19,10 @@ struct AuthError {
 
   uint16_t message;
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     archive.write(message);
-    archive.write((uint16_t)0);
+    archive.write((uint16_t) 0);
   }
 };
 
@@ -33,8 +33,8 @@ public:
   CharInfo(Model::Account &a, Model::Characters &cc, Model::Branches &bb)
       : a_(a), cc_(cc), bb_(bb) {}
 
-  template <typename Archive>
-  void serialize(Archive& archive) {
+  template<typename Archive>
+  void serialize(Archive &archive) {
     // STATUS
     archive.write((uint16_t) 0);
     archive.write(a_.pin);
@@ -46,9 +46,7 @@ public:
     archive.write(cc_.hps);
     archive.write(cc_.mps);
     for (auto &c: cc_.skills) {
-      for (int i = 0; i < 9; i++){
-        archive.write(c[i]);
-      }
+      for (int i = 0; i < 9; i++) { archive.write(c[i]); }
     }
     archive.write(a_.slots);
 
@@ -56,8 +54,7 @@ public:
   }
 
 private:
-
-  void serialize(BinaryBuffer& archive, Model::Character &c) {
+  void serialize(BinaryBuffer &archive, Model::Character &c) {
     archive.write(c.index);
     archive.write(c.level);
     archive.write(c.faction);
@@ -78,7 +75,7 @@ private:
     archive.set(0, 4);
   }
 
-  template <typename Archive>
+  template<typename Archive>
   void serialize(Archive &archive, Model::Stats &s) {
     archive.write(s.hp_current);
     archive.set(0, 4);

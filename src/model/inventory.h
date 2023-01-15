@@ -8,19 +8,13 @@ namespace Model {
 
 class Inventory {
 public:
-
   class InventoryItem {
   public:
-
   private:
-
   };
 
 
-
-  InventoryItem& operator[](int index) {
-    return inventory_.at(index);
-  }
+  InventoryItem &operator[](int index) { return inventory_.at(index); }
 
 private:
   std::map<int, InventoryItem> inventory_;

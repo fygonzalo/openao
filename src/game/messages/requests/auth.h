@@ -15,8 +15,8 @@ struct Auth {
   uint32_t stage;
   uint32_t session;
 
-  template <typename Archive>
-  void deserialize(Archive& archive) {
+  template<typename Archive>
+  void deserialize(Archive &archive) {
     archive.read(version);
     archive.read(account_id);
     archive.read(character_id);
@@ -24,6 +24,6 @@ struct Auth {
     archive.read(session);
   }
 };
-}
+}// namespace Game::Messages::Requests
 
 #endif// OPENAO_GAME_MESSAGES_REQUESTS_AUTH_H

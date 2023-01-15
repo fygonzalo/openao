@@ -31,8 +31,7 @@ using asio::ip::tcp;
 class MessageStream {
 public:
   MessageStream(io_context &ctx, CipherSet cipher)
-      : socket_(ctx), cipher_(std::move(cipher)) {
-  }
+      : socket_(ctx), cipher_(std::move(cipher)) {}
 
   tcp::socket &socket() { return socket_; }
 
@@ -41,9 +40,7 @@ public:
   void close() {
     std::error_code ec;
     socket_.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
-    if (ec) {
-
-    }
+    if (ec) {}
     socket_.close();
   }
 

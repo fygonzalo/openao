@@ -1,8 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#include "experimental/serialization/deserializer.h"
 #include "experimental/game/chat/chatmessagecommand.h"
+#include "experimental/serialization/deserializer.h"
 
 using namespace openao::experimental::serialization;
 using namespace openao::experimental::game::chat;
@@ -26,7 +26,7 @@ TEST(Deserializer, Base) {
   };
 
   BinaryBuffer buffer;
-  buffer.write((char*)data, sizeof(data));
+  buffer.write((char *) data, sizeof(data));
 
-  //deserializer.deserialize(buffer);
+  // deserializer.deserialize(buffer);
 }
