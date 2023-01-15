@@ -12,11 +12,16 @@ struct GlobalMessage {
   String nick{16};
   String message{80};
 
-  template<typename Archive>
-  void serialize(Archive &archive) {
-    archive.write(entityid);
-    archive.write(nick);
-    archive.write(message);
+  void serialize(BinaryBuffer &buffer) {
+    buffer.write(entityid);
+    buffer.write(nick);
+    buffer.write(message);
+  }
+
+  void deserialize(BinaryBuffer& buffer) {
+    buffer.read(entityid);
+    buffer.read(nick);
+    buffer.read(message);
   }
 
 };

@@ -30,7 +30,7 @@ public:
   /*
    * Truncates the input if it's larger than the container
    */
-  String& operator=(const std::string& string) {
+  String &operator=(const std::string &string) {
     int size = string.size();
     if (size > size_) size = size_;
 
@@ -42,7 +42,7 @@ public:
    * Truncates the input if it's larger than the container
    */
   template<std::size_t N>
-  String& operator=(const char src[N]) {
+  String &operator=(const char src[N]) {
     int size = N;
     if (size > size_) size = size_;
 
@@ -52,13 +52,10 @@ public:
 
   operator std::string() const { return value_; }
 
-  [[nodiscard]] const char* c_str() const {
-    return value_.c_str();
-  }
+  [[nodiscard]] const char *c_str() const { return value_.c_str(); }
 
-  void serialize(BinaryBuffer &buffer) {
-    buffer.write(value_);
-  }
+  void serialize(BinaryBuffer &buffer) { buffer.write(value_); }
+  void serialize(BinaryBuffer &buffer) const { buffer.write(value_); }
 
   void deserialize(BinaryBuffer &buffer) {
     buffer.read(value_.data(), size_);

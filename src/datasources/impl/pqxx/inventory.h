@@ -23,9 +23,10 @@ public:
     for (const auto &r: result) {
       auto ii = Model::InventoryItem();
       ii.id = r["id"].as<int>();
-      ii.character_id = r["character_id"].as<int>();
+      ii.inventory_type = r["inventory_type"].as<int>();
+      ii.entity = r["character_id"].as<int>();
       ii.slot = r["slot"].as<int>();
-      ii.code = r["code"].as<int>();
+      ii.item = r["code"].as<int>();
       ii.quantity = r["quantity"].as<int>();
 
       inventory.add(ii);

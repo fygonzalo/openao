@@ -38,13 +38,9 @@ struct Message {
 
   template<typename T>
   T read() {
-    if (static_cast<uint16_t>(T::type) == header.type) {
-      T t;
-      payload.read(t);
-      return t;
-    }
-
-    throw "Unable to read";
+    T t;
+    payload.read(t);
+    return t;
   }
 
   MessageHeader header;

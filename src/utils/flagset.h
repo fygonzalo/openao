@@ -149,7 +149,7 @@ public:
     return stream << self.flags;
   }
 
-  void serialize(BinaryBuffer &buffer) {
+  void serialize(BinaryBuffer &buffer) const {
     buffer.write(static_cast<u_type>(flags.to_ullong()));
   }
 

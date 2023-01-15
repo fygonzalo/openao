@@ -50,6 +50,8 @@ public:
     return m;
   }
 
+
+
   friend bool operator==(const Client &c1, const Client &c2) {
     return &c1.stream_.socket() == &c2.stream_.socket();
   }

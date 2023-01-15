@@ -1,5 +1,6 @@
 
 #include "game/playermanager.h"
+#include "game/messages/responses/after_spawnplayer.h"
 #include "game/player.h"
 
 namespace Game {

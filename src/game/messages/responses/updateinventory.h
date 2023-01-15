@@ -24,19 +24,19 @@ struct AddItem : Action {
 
     archive.write(code);
     archive.set((uint8_t)0xff, 8);
-    archive.write(i.code);
+    archive.write(i.item);
     for (auto& e: i.enhacements) {
       archive.write(((uint32_t)e.attribute << 26) | e.amount);
     }
     archive.set(1, 1);
-    archive.write(i.character_id);
+    archive.write(i.entity);
     archive.write(i.slot);
     archive.write(i.quantity);
     archive.set(0, 8);
     archive.set(0, 1);
-    archive.write(i.owner_id);
+    archive.write(i.bind);
     archive.write(i.rests);
-    archive.write(i.rests_enabled);
+    archive.write(i.flags);
     archive.set(0, 2);
     archive.set(0, 20);
     archive.set(0, 5);

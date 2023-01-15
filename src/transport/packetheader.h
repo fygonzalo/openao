@@ -13,7 +13,7 @@ public:
   uint8_t flags;
   uint8_t checksum;
 
-  void serialize(BinaryBuffer &buffer) const {
+  void serialize(BinaryBuffer &buffer) {
     buffer.write((uint16_t) (size ^ 0x1357));
     buffer.write((uint16_t) (sequence ^ size));
     buffer.write((uint8_t) (flags ^ size));

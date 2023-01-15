@@ -403,14 +403,15 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: character_id
+                  name: timestamp
+                  type: int
+              - column:
+                  name: inventory_type
                   type: int
                   constraints:
-                    references: character(id)
-                    foreignKeyName: fk__bagitem__character
                     nullable: false
               - column:
-                  name: code
+                  name: entity
                   type: int
                   constraints:
                     nullable: false
@@ -420,12 +421,39 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: quantity
+                  name: item
                   type: int
                   constraints:
                     nullable: false
+              - column:
+                  name: quantity
+                  type: int
+              - column:
+                  name: expires_after
+                  type: int
+              - column:
+                  name: expires_at
+                  type: int
+              - column:
+                  name: rest_enabled
+                  type: bool
+              - column:
+                  name: rest_count
+                  type: int
+              - column:
+                  name: bind
+                  type: int
+              - column:
+                  name: hardiness
+                  type: int
+              - column:
+                  name: intensifications
+                  type: int
+              - column:
+                  name: piercings
+                  type: int
 
         - addUniqueConstraint:
-            columnNames: character_id, slot
-            constraintName: uq__inventoryitem__character_id__slot
+            columnNames: inventory_type, entity, slot
+            constraintName: uq__inventoryitem__inventory_type__entity__slot
             tableName: inventoryitem

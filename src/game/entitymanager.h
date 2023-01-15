@@ -12,7 +12,7 @@ using Entity = std::uint32_t;
 class EntityManager {
 public:
   EntityManager() {
-    for (Entity entity = 1; entity < 65000; ++entity)
+    for (Entity entity = 1007486580; entity < (1007486580 + 65000); ++entity)
     {
       entities.push(entity);
     }

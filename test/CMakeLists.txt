@@ -9,15 +9,12 @@ enable_testing()
 
 add_executable(
         openao_test
-        transport/security/crypt_xor.cc
-        transport/security/crypt_xor2.cc
-        transport/connection.cc
-        transport/packetheader.cpp
-)
+        experimental/chat.cpp experimental/itemmall.cpp experimental/clientmock.h experimental/messagestreammock.h)
 
 target_link_libraries(
         openao_test
         gtest_main
+        gmock_main
         openao
 )
 

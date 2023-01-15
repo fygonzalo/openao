@@ -17,7 +17,7 @@ struct EntityAction {
   template<typename Archive>
   void serialize(Archive &archive) {
     archive.write(entity);
-    archive.set(0, 1);
+    archive.set(1, 1);
     archive.write(action);
     archive.write(slot);
     archive.write(code);

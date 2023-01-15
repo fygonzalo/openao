@@ -43,20 +43,38 @@ struct Enhacement {
 struct InventoryItem {
 
   uint32_t id;
-  uint32_t character_id;
+  uint32_t creation_timestamp;
+  uint8_t inventory_type;
+  uint32_t entity;
   /**
-   * 10: Ride
-   * 167: Head pd
+   * 0: MONEY
+   * 1-19: EQUIPTMENT (10 ride)
+   * 20 - 44: BAG
+   * 45 - 94: BAGPACK
+   * 95 - ?: HIDDEN SLOT
+   * 167 - 175: PD
+   * 176 - 275:  FASHION BAG
+   * 276 - 325: CARD BAG
+   * 326 - 375: FURNITURE BAG
    */
   uint16_t slot;
-  uint32_t code;
+  uint32_t item;
   uint32_t quantity;
-  // WHAT PART IS SHARED WITH BANK
-  uint32_t owner_id{0};
+  uint32_t bind{0};
   uint8_t rests{0};
-  uint8_t rests_enabled{0};
+
+  // 1 = RESTS
+  // 2 = EXPIRES
+  uint8_t flags{0};
+  uint16_t hardiness{0};
+
+  // Minutes if flags 2 (), Epoch if countdown
+  uint32_t timer{0};
+  uint8_t piercings{0};;
+  uint8_t intensifications{0};
 
   std::array<Enhacement, 5> enhacements;
+  std::array<int, 5> gems;
 };
 
 class Inventory {

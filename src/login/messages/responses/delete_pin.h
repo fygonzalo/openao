@@ -11,7 +11,7 @@ struct DeletePin {
 
   bool status;
 
-  void serialize(BinaryBuffer& archive) const {
+  void serialize(BinaryBuffer& archive) {
     archive.write(status);
   }
 };

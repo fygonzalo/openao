@@ -97,9 +97,16 @@ public:
   }
   void write(std::string &var) { write(var.c_str(), var.size() + 1, len_); };
 
+  void write(const std::string &var) { write(var.c_str(), var.size() + 1, len_); };
+
   template<typename T, size_t N>
   void write(std::array<T, N> &values) {
     int a = values.size();
+    for (T &t: values) write(t);
+  }
+
+  template <typename T>
+  void write(std::vector<T> &values) {
     for (T &t: values) write(t);
   }
 
@@ -127,11 +134,23 @@ public:
     off_ += sizeof(T) * N;
   }
 
+  template<int N>
+  void write(const char value[N]) {
+    write_(value, N);
+  }
 
-  template<class T>
+  template<typename T, std::size_t N>
+  void write_array(const T t[N]) {
+    for (auto i = 0; i < N; i++) {
+      write(t[i]);
+    }
+  }
+
+  template<typename T>
   void write(T &t) {
     t.serialize(*this);
   }
+
 
   template<class T>
   void write(T &t, int offset) {
@@ -150,6 +169,12 @@ public:
     t.deserialize(*this);
   }
 
+  template <typename T>
+  T read() {
+    T t;
+    read(t);
+    return t;
+  }
 
 private:
   BinaryBuffer(int size, bool fixed) {
