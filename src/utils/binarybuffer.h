@@ -5,6 +5,8 @@
 #include <cstring>
 #include <type_traits>
 #include <bitset>
+#include <vector>
+#include <array>
 
 class BinaryBuffer {
 public:

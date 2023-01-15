@@ -21,9 +21,9 @@ public:
   }
 
   template<int N>
-  String(int size, const char (&str)[N]) {
-    value_.resize(size);
-    size_ = size;
+  explicit String(const char (&str)[N]) {
+    value_.resize(N);
+    size_ = N;
     memcpy(value_.data(), str, N);
   }
 

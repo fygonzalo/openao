@@ -37,8 +37,8 @@ struct Character {
   uint32_t account_id;
   uint8_t index = 0;
 
-  String name{16, ""};
-  String title{12, ""};
+  String name{16};
+  String title{12};
 
   Attributes attributes;
   Misc misc;
