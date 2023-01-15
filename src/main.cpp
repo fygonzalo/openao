@@ -29,6 +29,11 @@ int main(int argc, char *argv[]) {
             account_service.disconnect(c, m);
           });
 
+  handlers.add<Login::Messages::Requests::EnterGame>(
+          [&account_service](auto &&c, auto &&m) {
+            account_service.enter_game(c, m);
+          });
+
   Login::Server server{30000, handlers};
   std::thread t1([&server]() { server.start(); });
 

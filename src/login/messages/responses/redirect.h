@@ -9,7 +9,7 @@
 
 namespace Login::Messages::Responses {
 struct Redirect {
-  static const uint16_t type = 0x04;
+  static const uint16_t type = 4;
 
   uint32_t session{};
   Model::GameServer server;

@@ -14,7 +14,9 @@
 #include "login/messages/requests/change_pin.h"
 #include "login/messages/requests/delete_pin.h"
 #include "login/messages/requests/disconnect.h"
+#include "login/messages/requests/enter_game.h"
 #include "login/messages/requests/set_pin.h"
+#include "login/messages/responses/announcement.h"
 #include "login/messages/responses/change_pin.h"
 #include "login/messages/responses/delete_pin.h"
 #include "login/messages/responses/set_pin.h"
@@ -117,6 +119,13 @@ public:
       player->client.write(result);
     }
 
+  }
+
+  void enter_game(Client &client, const Login::Messages::Requests::EnterGame &request) {
+    Login::Messages::Responses::Redirect rd{};
+    client.write(rd);
+
+    disconnect(client, Login::Messages::Requests::Disconnect());
   }
 
 
