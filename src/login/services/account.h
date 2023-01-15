@@ -19,6 +19,7 @@
 #include "login/messages/responses/announcement.h"
 #include "login/messages/responses/change_pin.h"
 #include "login/messages/responses/delete_pin.h"
+#include "login/messages/responses/redirect.h"
 #include "login/messages/responses/set_pin.h"
 #include "transport/client.h"
 #include "transport/messagestream.h"
@@ -122,7 +123,14 @@ public:
   }
 
   void enter_game(Client &client, const Login::Messages::Requests::EnterGame &request) {
-    Login::Messages::Responses::Redirect rd{};
+    Model::GameServer gm;
+    gm.ip = "127.0.0.1";
+    gm.port = 30001;
+
+    Messages::Responses::Redirect rd;
+    rd.session = 1;
+    rd.server = gm;
+
     client.write(rd);
 
     disconnect(client, Login::Messages::Requests::Disconnect());
