@@ -9,61 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: registry.access.redhat.com/ubi9/ubi-minimal
-    steps:
-      - name: Install dependencies
-        run: |
-          microdnf install -y gcc-g++ cmake libpq-devel tar
-      - name: Checkout the code into workspace
-        uses: actions/checkout@v3
-      - name: Generate cache
-        run: |
-          mkdir build
-          cd build
-          cmake ../
-      - name: Build library
-        run: cmake --build build --target openao
-      - name: Build executable
-        run: cmake --build build --target openao_server
-      - name: Build tests
-        run: cmake --build build --target openao_test
-      - name: Run tests
-        run: ./build/test/openao_test
-  test_database:
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout the code into workspace
         uses: actions/checkout@v3
-      - name: Initialize postgresql container
-        run: >
-          docker run
-          --label project=openao
-          -e POSTGRES_USER=ci
-          -e POSTGRES_PASSWORD=ci
-          -e POSTGRES_DB=openao
-          -e POSTGRES_HOST_AUTH_METHOD=trust
-          -p 5432:5432
-          -d --rm
-          postgres
-      - name: Wait for database
-        run: >
-          docker run
-          --label project=openao
-          --network host
-          --restart always
-          postgres
-          pg_isready -d openao -h localhost
-      - name: Run migration scripts
-        run: >
-          docker run
-          --label project=openao
-          -v ./db/changelog/:/liquibase/changelog
-          --network host
-          --rm
-          liquibase/liquibase
-          --username=ci --password=ci
-          --url "jdbc:postgresql://localhost:5432/openao"
-          --changeLogFile=db.changelog-root.yaml
-          update
-          
+      - name: Build and test
+        run: make build
