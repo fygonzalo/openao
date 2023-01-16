@@ -27,5 +27,7 @@ int main(int argc, char *argv[]) {
   transport::Server server(context, 30000, reactor, serializer, deserializer);
   server.start();
 
+  asio::signal_set signals(context, SIGINT, SIGTERM);
+  signals.async_wait([&](auto, auto) { context.stop(); });
   context.run();
 }
