@@ -2,6 +2,7 @@
 #ifndef OPENAO_EXPERIMENTAL_GAME_ITEMMALL_LOADANGELGOLDEVENT_H
 #define OPENAO_EXPERIMENTAL_GAME_ITEMMALL_LOADANGELGOLDEVENT_H
 
+#include "utils/binarybuffer.h"
 
 namespace openao::experimental::game::itemmall {
 
