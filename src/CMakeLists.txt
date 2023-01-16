@@ -48,6 +48,14 @@ target_include_directories(base64 INTERFACE ${base64_SOURCE_DIR})
 
 # ##############################################################################
 #
+# Configures flags for coverage
+
+if(ENABLE_CODECOVERAGE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+endif(ENABLE_CODECOVERAGE)
+
+# ##############################################################################
+#
 # Defines the static openao library
 
 add_library(

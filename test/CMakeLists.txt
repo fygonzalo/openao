@@ -7,6 +7,14 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+# ##############################################################################
+#
+# Configures flags for coverage
+
+if(ENABLE_CODECOVERAGE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+endif(ENABLE_CODECOVERAGE)
+
 add_executable(
   openao_test
   experimental/chat.cpp
