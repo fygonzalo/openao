@@ -1,7 +1,7 @@
 .PHONY: build coverage up down
 
 build:
-	docker build . -f Dockerfile -t localhost/openao_server:latest
+	docker-compose -f docker-compose.build.yaml build
 
 coverage:
 	mkdir -p coverage && \

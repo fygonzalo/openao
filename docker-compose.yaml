@@ -1,13 +1,13 @@
 version: "3.9"
 services:
-  server:
-    build: .
+  login:
+    image: ghcr.io/fygonzalo/openao_login:latest
     ports:
       - 30000:30000
-    command:
-      - database_url=jdbc:postgresql://postgres:5432/openao
-      - database_user=user
-      - database_password=password
+  game:
+    image: ghcr.io/fygonzalo/openao_game:latest
+    ports:
+      - 30001:30001
   postgres:
     image: postgres
     ports:
@@ -17,27 +17,19 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=openao
       - POSTGRES_HOST_AUTH_METHOD=trust
-  migrate:
-    image: liquibase/liquibase
+  migration:
+    image: ghcr.io/fygonzalo/openao_migration:latest
     command:
       - --username=user
       - --password=password
       - --url
       - jdbc:postgresql://postgres:5432/openao
-      - --changeLogFile=db.changelog-root.yaml
-      - update
     restart: on-failure
-    volumes:
-      - ./db/changelog:/liquibase/changelog:z
   seed:
-    image: liquibase/liquibase
+    image: ghcr.io/fygonzalo/openao_seed:latest
     command:
       - --username=user
       - --password=password
       - --url
       - jdbc:postgresql://postgres:5432/openao
-      - --changeLogFile=db.changelog-root.yaml
-      - update
     restart: on-failure
-    volumes:
-      - ./db/seed:/liquibase/changelog:z
