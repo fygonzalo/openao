@@ -25,5 +25,4 @@ RUN microdnf install -y libpq && microdnf clean all
 
 COPY --from=build /usr/src/openao/build/src/game/openao_game_server /usr/local/bin/openao_game_server
 
-
 ENTRYPOINT [ "./usr/local/bin/openao_game_server" ]

@@ -12,8 +12,6 @@ services:
       dockerfile: src/login/Dockerfile
     depends_on:
       - framework
-    ports:
-      - 30000:30000
   game:
     image: localhost/openao_game:latest
     build:
@@ -21,12 +19,6 @@ services:
       dockerfile: src/game/Dockerfile
     depends_on:
       - framework
-    ports:
-      - 30001:30001
-    command:
-      - database_url=jdbc:postgresql://postgres:5432/openao
-      - database_user=user
-      - database_password=password
   migration:
     image: localhost/openao_migration:latest
     build:

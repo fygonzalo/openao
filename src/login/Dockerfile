@@ -25,5 +25,4 @@ RUN microdnf install -y libpq && microdnf clean all
 
 COPY --from=build /usr/src/openao/build/src/login/openao_login_server /usr/local/bin/openao_login_server
 
-
 ENTRYPOINT [ "./usr/local/bin/openao_login_server" ]
