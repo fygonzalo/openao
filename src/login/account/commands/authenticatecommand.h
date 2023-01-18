@@ -9,7 +9,7 @@
 using openao::framework::IEvent;
 using namespace openao::framework::utils;
 
-namespace openao::login::account {
+namespace openao::login::account::commands {
 
 struct AuthenticationCommand : IEvent {
 
@@ -22,6 +22,6 @@ struct AuthenticationCommand : IEvent {
   }
 };
 
-}// namespace openao::login::account
+}// namespace openao::login::account::commands
 
 #endif// OPENAO_LOGIN_ACCOUNT_AUTHENTICATECOMMAND_H

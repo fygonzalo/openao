@@ -2,6 +2,7 @@
 #ifndef OPENAO_FRAMEWORK_TRANSPORT_CLIENT_H
 #define OPENAO_FRAMEWORK_TRANSPORT_CLIENT_H
 
+#include <asio/experimental/awaitable_operators.hpp>
 #include <memory>
 
 #include "customreactor.h"
@@ -11,6 +12,7 @@
 #include "serialization/deserializer.h"
 #include "serialization/serializer.h"
 
+using namespace asio::experimental::awaitable_operators;
 using namespace openao::framework::serialization;
 
 namespace openao::framework::transport {
@@ -32,16 +34,19 @@ public:
     send_timer_.cancel_one();
   }
 
-  void start() {
-    co_spawn(stream_.get_executor(), sender(), asio::detached);
-    co_spawn(stream_.get_executor(), receiver(), asio::detached);
+  void disconnect() override {
+    connected_ = false;
+    send_timer_.cancel_one();
   }
+
+  awaitable<void> start() { co_await (receiver() && sender()); }
+
 
   MessageStream &stream() { return stream_; }
 
 private:
   awaitable<void> receiver() {
-    while (true) {
+    while (connected_) {
       auto buffer = co_await stream_.read();
       auto event = deserializer_.deserialize(buffer);
       reactor_.react(*this, *event);
@@ -49,7 +54,7 @@ private:
   }
 
   awaitable<void> sender() {
-    while (true) {
+    while (connected_) {
       std::error_code ec;
       co_await send_timer_.async_wait(asio::redirect_error(use_awaitable, ec));
 
@@ -65,6 +70,8 @@ protected:
 
   std::vector<BinaryBuffer> send_queue_;
   asio::steady_timer send_timer_;
+
+  bool connected_ = true;
 };
 
 }// namespace openao::framework::transport

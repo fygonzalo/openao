@@ -5,12 +5,14 @@
 #include <cstdint>
 #include <vector>
 
+#include "di/injectable.h"
+
 namespace openao::login::branches {
 
-class BranchesService {
+class BranchesService : public framework::di::Injectable {
 
 public:
-  std::vector<uint32_t> get_branch_statuses() { return {40, 1}; };
+  std::vector<uint32_t> get_branch_statuses() { return {40, 2}; };
 };
 
 }// namespace openao::login::branches

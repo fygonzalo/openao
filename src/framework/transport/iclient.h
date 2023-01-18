@@ -10,6 +10,7 @@ class IClient {
 public:
   virtual ~IClient() = default;
   virtual void send(IEvent &event) = 0;
+  virtual void disconnect() = 0;
 
 private:
 };

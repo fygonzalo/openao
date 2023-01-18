@@ -9,7 +9,7 @@
 using openao::framework::IEvent;
 using namespace openao::framework::utils;
 
-namespace openao::login::account {
+namespace openao::login::account::events {
 
 struct CharacterListEvent : IEvent {
 
@@ -102,7 +102,7 @@ struct CharacterListEvent : IEvent {
   };
 
   struct Branches {
-    std::vector<uint32_t> statuses;
+    std::vector<uint32_t> statuses{};
 
     void serialize(BinaryBuffer &buffer) {
       buffer.write((uint32_t) statuses.size());
@@ -113,15 +113,15 @@ struct CharacterListEvent : IEvent {
 
   static const uint16_t error_code = 0;
   bool requires_pin{false};
-  std::array<Character, 3> characters;
-  std::array<uint8_t, 3> birthday_months;
-  std::array<uint8_t, 3> birthday_days;
-  std::array<uint8_t, 3> blood_types;
-  std::array<uint32_t, 3> total_hps;
-  std::array<uint32_t, 3> total_mps;
-  std::array<std::array<uint32_t, 9>, 3> active_skills;
-  uint32_t active_character_slots{1};
-  Branches branches;
+  std::array<Character, 3> characters{};
+  std::array<uint8_t, 3> birthday_months{};
+  std::array<uint8_t, 3> birthday_days{};
+  std::array<uint8_t, 3> blood_types{};
+  std::array<uint32_t, 3> total_hps{};
+  std::array<uint32_t, 3> total_mps{};
+  std::array<std::array<uint32_t, 9>, 3> active_skills{};
+  uint32_t slots{1};
+  Branches branches{};
 
   void serialize(BinaryBuffer &buffer) {
     buffer.write(error_code);
@@ -136,11 +136,11 @@ struct CharacterListEvent : IEvent {
     buffer.write(total_hps);
     buffer.write(total_mps);
     buffer.write(active_skills);
-    buffer.write(active_character_slots);
+    buffer.write(slots);
     buffer.write(branches);
   }
 };
 
-}// namespace openao::login::account
+}// namespace openao::login::account::events
 
 #endif// OPENAO_LOGIN_ACCOUNT_CHARACTERLISTEVENT_H

@@ -5,36 +5,38 @@
 #include <typeindex>
 #include <unordered_map>
 
+#include "di/injectable.h"
+
 namespace openao::framework::di {
 
 class DependencyInjector {
 public:
-  template<typename T>
-  T &create() {
-    auto &idx = typeid(T);
-    auto [it, ok] = injectables_.emplace(idx, T());
-    if (!ok) throw "Type T already exists";
+  template<typename I, typename S>
+  I &create(S &&s) {
+    auto &idx = typeid(I);
+    auto [it, ok] = injectables_.emplace(idx, std::make_unique<S>(s));
+    if (!ok) throw "Type I already exists";
 
-    return std::any_cast<T &>(it->second);
+    return static_cast<I &>(*it->second);
   }
 
-  template<typename T, typename... Args>
-  T &create(auto &&...args) {
-    auto &idx = typeid(T);
-    auto [it, ok] = injectables_.emplace(idx, T(args...));
-    if (!ok) throw "Type T already exists";
+  template<typename S>
+  S &create(S &&s) {
+    auto &idx = typeid(S);
+    auto [it, ok] = injectables_.emplace(idx, std::make_unique<S>(s));
+    if (!ok) throw "Type S already exists";
 
-    return std::any_cast<T &>(it->second);
+    return static_cast<S &>(*it->second);
   }
 
-  template<typename T>
-  T &get() {
-    auto &index = typeid(T);
-    return std::any_cast<T &>(injectables_.at(index));
+  template<typename I>
+  I &get() {
+    auto &index = typeid(I);
+    return static_cast<I &>(*injectables_.at(index));
   }
 
 private:
-  std::unordered_map<std::type_index, std::any> injectables_;
+  std::unordered_map<std::type_index, std::unique_ptr<Injectable>> injectables_;
 };
 
 }// namespace openao::framework::di

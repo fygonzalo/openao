@@ -31,10 +31,10 @@ public:
         deserializer_(deserializer),
         acceptor_(context_, tcp::endpoint(tcp::v4(), port)){};
 
-  void start() { co_spawn(context_.get_executor(), listen(), detached); }
+  void start() { co_spawn(context_.get_executor(), listener(), detached); }
 
 private:
-  awaitable<void> listen() {
+  awaitable<void> listener() {
     while (true) {
       auto stream = MessageStream(
               context_,
@@ -45,9 +45,12 @@ private:
 
       auto client = std::make_unique<Client>(std::move(stream), reactor_,
                                              serializer_, deserializer_);
-      auto [el, ok] = clients_.emplace(std::move(client));
-      if (ok) el->get()->start();
+      co_spawn(context_, worker(std::move(client)), detached);
     }
+  }
+
+  awaitable<void> worker(std::unique_ptr<Client> client) {
+    co_await client->start();
   }
 
 private:
@@ -57,8 +60,6 @@ private:
 
   io_context &context_;
   tcp::acceptor acceptor_;
-
-  std::unordered_set<std::unique_ptr<Client>> clients_;
 };
 
 }// namespace openao::framework::transport

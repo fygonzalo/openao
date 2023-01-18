@@ -1,4 +1,7 @@
-add_executable(openao_login_test account/characterlistevent.cpp)
+add_executable(
+  openao_login_test
+  account/events/characterlistevent.cpp account/events/autherrorevent.cpp
+  account/events/announcementevent.cpp)
 
 target_link_libraries(openao_login_test openao_login gtest_main gmock_main)
 

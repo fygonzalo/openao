@@ -19,12 +19,13 @@ target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/asio/include)
 
 # ##############################################################################
 #
-# Downloads and installs libpqxx
+# Downloads and installs sqlpp11
 
 FetchContent_Declare(
-  libpqxx URL https://github.com/jtv/libpqxx/archive/refs/tags/7.7.4.tar.gz)
-
-FetchContent_MakeAvailable(libpqxx)
+  sqlpp11
+  GIT_REPOSITORY https://github.com/rbock/sqlpp11
+  GIT_TAG origin/main)
+FetchContent_MakeAvailable(sqlpp11)
 
 # ##############################################################################
 #
@@ -43,7 +44,7 @@ if(NOT base64_POPULATED)
   FetchContent_Populate(base64)
 endif()
 
-add_library(base64 INTERFACE)
+add_library(base64 STATIC ${base64_SOURCE_DIR}/base64.cpp)
 target_include_directories(base64 INTERFACE ${base64_SOURCE_DIR})
 
 # ##############################################################################
@@ -72,7 +73,8 @@ add_library(
   utils/binarybuffer.h
   utils/bitset.h
   utils/flagset.h
-  utils/string.h)
+  utils/string.h
+  di/injectable.h)
 
 target_include_directories(openao_framework PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(openao_framework PUBLIC pqxx base64 asio)
+target_link_libraries(openao_framework PUBLIC base64 sqlpp11 pq asio)

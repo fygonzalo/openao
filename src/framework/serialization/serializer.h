@@ -30,6 +30,7 @@ public:
   template<typename T>
   BinaryBuffer serialize(T &t) {
     auto code = index_to_code_[typeid(T)];
+    if (!code) return {};
 
     BinaryBuffer buffer;
     buffer.write(code);

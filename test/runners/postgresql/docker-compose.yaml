@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=openao
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  migration:
+    image: localhost/openao_migration:latest
+    command:
+      - --username=user
+      - --password=password
+      - --url
+      - jdbc:postgresql://postgres:5432/openao
+    restart: on-failure
+  test:
+    image: localhost/openao_build:latest
+    command: ["/usr/src/openao/build/test/login/openao_login_test"]
+

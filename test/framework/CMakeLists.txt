@@ -9,7 +9,8 @@ endif(ENABLE_CODECOVERAGE)
 # ##############################################################################
 #
 # Configures test executable
-add_executable(openao_framework_test utils/bitset.cpp)
+add_executable(openao_framework_test utils/bitset.cpp test.cpp
+                                     di/dependency_injector.cpp)
 
 target_link_libraries(openao_framework_test openao_framework gtest_main
                       gmock_main)

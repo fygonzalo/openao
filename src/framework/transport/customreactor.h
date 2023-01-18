@@ -19,8 +19,9 @@ public:
   void insert(void (*handler)(IClient &client, const T &t, Services...)) {
     auto lambda = [this, handler](IClient &client, const IEvent &event) {
       auto &cevent = static_cast<const T &>(event);
-      auto args = std::make_tuple(std::ref(client), cevent,
-                                  dependency_injector_.get<Services>()...);
+      auto args = std::make_tuple(
+              std::ref(client), cevent,
+              std::ref(dependency_injector_.get<Services>())...);
       std::apply(handler, args);
     };
     handlers_[typeid(T)] = lambda;
