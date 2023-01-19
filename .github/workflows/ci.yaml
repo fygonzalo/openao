@@ -3,21 +3,26 @@ name: CI
 on:
   push:
     branches: [ "main", "experimental2" ]
-    paths-ignore:
-      - 'tools/**'
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-      - 'tools/**'
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/fygonzalo/openao-devenv:latest
     steps:
       - name: Checkout the code into workspace
         uses: actions/checkout@v3
-      - name: Build and test
-        run: make
+      - name: Prerequisites
+        run: make prerequisites
+      - name: Configure
+        run: make configure
+      - name: Build
+        run: make build
+      - name: Test
+        run: make test
+      - name: Package
+        run: make package
+      - name: Authenticate to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u fygonzalo --password-stdin
+      - name: Publish
+        run: make publish
