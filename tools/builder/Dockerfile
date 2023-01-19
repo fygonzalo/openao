@@ -15,6 +15,4 @@ RUN microdnf install -y python-pyparsing && \
     curl -LJO --output-dir /usr/local/bin https://raw.githubusercontent.com/fygonzalo/sqlpp11/extend_ddlname/scripts/ddl2cpp && \
     chmod +x /usr/local/bin/ddl2cpp
 
-RUN echo test
-
 WORKDIR /usr/src/openao
