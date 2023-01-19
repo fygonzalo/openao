@@ -1,35 +1,42 @@
 version: "3.9"
 services:
   login:
-    image: ghcr.io/fygonzalo/openao_login:latest
+    image: ghcr.io/fygonzalo/openao-server:latest
     ports:
       - 30000:30000
+    command: [ "openao-login" ]
+    restart: on-failure
   game:
-    image: ghcr.io/fygonzalo/openao_game:latest
+    image: ghcr.io/fygonzalo/openao-server:latest
     ports:
       - 30001:30001
-  postgres:
+    command: [ "openao-game" ]
+  changelog:
+    image: ghcr.io/fygonzalo/openao-migrator:latest
+    command:
+      - --username=openao
+      - --password=letmein
+      - --url=jdbc:postgresql://database:5432/openao
+      - --changelog-file=db.changelog-root.yaml
+      - --search-path=/usr/src/openao/db/changelog
+      - update
+    restart: on-failure
+  seed:
+    image: ghcr.io/fygonzalo/openao-migrator:latest
+    command:
+      - --username=openao
+      - --password=letmein
+      - --url=jdbc:postgresql://database:5432/openao
+      - --changelog-file=db.changelog-root.yaml
+      - --search-path=/usr/src/openao/db/seed
+      - update
+    restart: on-failure
+  database:
     image: postgres
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=openao
+      - POSTGRES_PASSWORD=letmein
       - POSTGRES_DB=openao
       - POSTGRES_HOST_AUTH_METHOD=trust
-  migration:
-    image: ghcr.io/fygonzalo/openao_migration:latest
-    command:
-      - --username=user
-      - --password=password
-      - --url
-      - jdbc:postgresql://postgres:5432/openao
-    restart: on-failure
-  seed:
-    image: ghcr.io/fygonzalo/openao_seed:latest
-    command:
-      - --username=user
-      - --password=password
-      - --url
-      - jdbc:postgresql://postgres:5432/openao
-    restart: on-failure

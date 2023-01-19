@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  login:
+    image: localhost/openao-server:latest
+  game:
+    image: localhost/openao-server:latest
+  changelog:
+    image: localhost/openao-migrator:latest
+  seed:
+    image: localhost/openao-migrator:latest
