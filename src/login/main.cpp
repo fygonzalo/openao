@@ -17,9 +17,9 @@ int main(int argc, char *argv[]) {
   // INITIALIZE DATABASE CONNECTION
   io_context context;
   auto config = std::make_shared<sqlpp::postgresql::connection_config>();
-  config->host = "localhost";
-  config->password = "password";
-  config->user = "user";
+  config->host = "database";
+  config->password = "letmein";
+  config->user = "openao";
   config->dbname = "openao";
   sqlpp::postgresql::connection db(config);
 
