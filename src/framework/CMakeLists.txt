@@ -6,8 +6,8 @@ include(FetchContent)
 
 FetchContent_Declare(
   asio
-  URL https://github.com/chriskohlhoff/asio/archive/refs/tags/asio-1-24-0.tar.gz
-      CONFIGURE_COMMAND "" BUILD_COMMAND "")
+  GIT_REPOSITORY https://github.com/chriskohlhoff/asio
+  GIT_TAG asio-1-24-0)
 
 FetchContent_GetProperties(asio)
 if(NOT asio_POPULATED)
@@ -24,7 +24,7 @@ target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/asio/include)
 FetchContent_Declare(
   sqlpp11
   GIT_REPOSITORY https://github.com/rbock/sqlpp11
-  GIT_TAG origin/main)
+  GIT_TAG 0.61)
 FetchContent_MakeAvailable(sqlpp11)
 
 # ##############################################################################
@@ -33,11 +33,10 @@ FetchContent_MakeAvailable(sqlpp11)
 
 FetchContent_Declare(
   base64
-  URL https://github.com/ReneNyffenegger/cpp-base64/archive/refs/tags/V2.rc.08.tar.gz
-      CONFIGURE_COMMAND
-      ""
-      BUILD_COMMAND
-      "g++ base64.cpp -o base64")
+  GIT_REPOSITORY https://github.com/ReneNyffenegger/cpp-base64
+  GIT_TAG V2.rc.08
+  BUILD_COMMAND
+  "g++ base64.cpp -o base64")
 
 FetchContent_GetProperties(base64)
 if(NOT base64_POPULATED)
@@ -50,6 +49,7 @@ target_include_directories(base64 INTERFACE ${base64_SOURCE_DIR})
 # ##############################################################################
 #
 # Configures the generation of the static library
+
 add_library(
   openao_framework STATIC
   di/dependency_injector.h
