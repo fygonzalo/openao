@@ -8,9 +8,10 @@
 #include <sqlpp11/sqlpp11.h>
 
 #include "account/repository/iaccountrepository.h"
-#include "postgresql/postgres.h"
+#include "schema.h"
 
 using namespace openao::login::account::repository;
+using namespace openao::database;
 
 namespace openao::login::postgresql {
 
@@ -24,7 +25,7 @@ public:
   get_by_username_and_password(std::string username,
                                std::string password) override {
 
-    PublicAccount table;
+    PUBLICAccount table;
 
     auto result =
             conn_(select(table.id, table.username, table.password, table.slots,

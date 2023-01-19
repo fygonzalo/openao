@@ -7,9 +7,10 @@
 #include <sqlpp11/postgresql/exception.h>
 #include <sqlpp11/sqlpp11.h>
 
-#include "postgres.h"
+#include "schema.h"
 
 using namespace openao::login::account::repository;
+using namespace openao::database;
 
 namespace openao::login::postgresql {
 
@@ -19,7 +20,7 @@ public:
 
   std::vector<Character> get_characters_by_account_id(int account_id) override {
 
-    PublicCharacter table;
+    PUBLICCharacter table;
     auto result = conn_(select(sqlpp::all_of(table))
                                 .from(table)
                                 .where(table.accountId == account_id));

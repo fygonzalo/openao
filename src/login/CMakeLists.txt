@@ -18,7 +18,7 @@ add_library(
   account/events/announcementevent.h)
 
 target_include_directories(openao_login PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(openao_login PUBLIC openao_framework)
+target_link_libraries(openao_login PUBLIC openao_database openao_framework)
 
 # ##############################################################################
 #
