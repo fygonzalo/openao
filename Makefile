@@ -48,11 +48,11 @@ publish:
 
 local:
 	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml down
-	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up
+	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up --pull
 
 remote:
 	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml down
-	docker-compose -f docker-compose.yaml up
+	docker-compose -f docker-compose.yaml up --pull
 
 down:
 	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml down
