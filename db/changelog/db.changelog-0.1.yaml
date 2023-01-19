@@ -177,11 +177,11 @@ databaseChangeLog:
                   type: int
                   defaultValue: 0
               - column:
-                  name: main_hand
+                  name: right_hand
                   type: int
                   defaultValue: 0
               - column:
-                  name: off_hand
+                  name: left_hand
                   type: int
                   defaultValue: 0
               - column:

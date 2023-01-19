@@ -40,8 +40,8 @@ public:
 
       character.equipment.head = row.head;
       character.equipment.body = row.body;
-      character.equipment.right_hand = row.mainHand;
-      character.equipment.left_hand = row.offHand;
+      character.equipment.right_hand = row.rightHand;
+      character.equipment.left_hand = row.leftHand;
       character.equipment.hand = row.hand;
       character.equipment.feet = row.feet;
       character.equipment.back = row.back;
