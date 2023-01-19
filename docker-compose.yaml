@@ -6,12 +6,14 @@ services:
       - 30000:30000
     command: [ "openao-login" ]
     depends_on: database, changelog, seed
+    restart: on-failure
   game:
     image: ghcr.io/fygonzalo/openao-server:latest
     ports:
       - 30001:30001
     command: [ "openao-game" ]
     depends_on: database, changelog, seed
+    restart: on-failure
   changelog:
     image: ghcr.io/fygonzalo/openao-migrator:latest
     command:
