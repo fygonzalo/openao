@@ -1,0 +1,22 @@
+name: tool
+
+on:
+  push:
+    paths:
+      - tools/environment/Dockerfile
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code into workspace
+        uses: actions/checkout@v3
+      - name: Build the environment image
+        run: docker build -f tools/environment/Dockerfile -t ghcr.io/fygonzalo/openao-devenv:latest .
+      - name: Authenticate to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u fygonzalo --password-stdin
+      - name: Publish image
+        run: docker push ghcr.io/fygonzalo/openao-devenv:latest
+      - name: TEst
+        run: echo test

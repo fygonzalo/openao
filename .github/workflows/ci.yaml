@@ -3,26 +3,21 @@ name: CI
 on:
   push:
     branches: [ "main", "experimental2" ]
+    paths-ignore:
+      - 'tools/**'
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - 'tools/**'
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/fygonzalo/openao-devenv:latest
     steps:
       - name: Checkout the code into workspace
         uses: actions/checkout@v3
       - name: Build and test
-        run: make build
-      - name: Authenticate to GHCR
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u fygonzalo --password-stdin
-      - name: Publish docker images
-        run: |
-          docker tag localhost/openao_login:latest ghcr.io/fygonzalo/openao_login:latest
-          docker tag localhost/openao_game:latest ghcr.io/fygonzalo/openao_game:latest
-          docker tag localhost/openao_migration:latest ghcr.io/fygonzalo/openao_migration:latest
-          docker tag localhost/openao_seed:latest ghcr.io/fygonzalo/openao_seed:latest
-          docker push ghcr.io/fygonzalo/openao_login:latest
-          docker push ghcr.io/fygonzalo/openao_game:latest
-          docker push ghcr.io/fygonzalo/openao_migration:latest
-          docker push ghcr.io/fygonzalo/openao_seed:latest
+        run: make
