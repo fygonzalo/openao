@@ -5,7 +5,7 @@
 
 #include "character/commands/authenticatecommand.h"
 #include "character/events/characterdetailevent.h"
-
+#include "character/events/loadfunctionbarevent.h"
 
 using namespace openao::framework::transport;
 using namespace openao::game::character::commands;
@@ -60,6 +60,10 @@ public:
     event.stats.weight = {10, 20};
     event.character_id = 1;
     client.send(event);
+
+    LoadFunctionBarEvent function_bar;
+    function_bar[0] = LoadFunctionBarEvent::Function(3, 19);
+    client.send(function_bar);
   }
 };
 

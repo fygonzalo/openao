@@ -7,6 +7,7 @@ add_library(
   character/charactercontroller.h
   character/commands/authenticatecommand.h
   character/events/characterdetailevent.h
+  character/events/loadfunctionbarevent.h
   inventory/commands/loadinventorycommand.h
   inventory/events/loadinventoryevent.h
   inventory/inventorycontroller.h)

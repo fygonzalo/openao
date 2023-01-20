@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
   Serializer serializer;
   serializer.insert<CharacterDetailEvent>(2);
   serializer.insert<LoadInventoryEvent>(26);
+  serializer.insert<LoadFunctionBarEvent>(91);
 
 
   // CONFIGURE SERVER
