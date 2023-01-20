@@ -47,11 +47,14 @@ _This only affects to this repository, wont mess with your other projects_.
 When making commits, write them like this:
 
 ```
-type: short description, less than 60 chararcters
+type: short description, less than 50 chararcters
 
-WHAT changed and WHY, even if it's something minor or simple, there is always
-a reason and it makes easier to understand the changes when coming from the
-future.
+A brief resume of WHAT changed and WHY, even if it's something
+minor or simple, there is always a reason and it makes easier
+to understand the changes when coming from the future.
+
+Try to wrap the lines at 72 characters, makes easier to read in the
+console.
 ```
 
 The type could be any of the following:
@@ -90,7 +93,7 @@ The best part of it is that the integration server shares the same environment. 
 
 Clone the project and execute the command `make` to build.
 
-The initial build will take some seconds, after that it should be faster.
+The initial build will take some seconds, subsequent builds should be faster.
 
 Other commands you may want to use:
 
