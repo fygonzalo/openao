@@ -1,17 +1,21 @@
 
-#include "postgresql/accountrepository.h"
-#include "postgresql/characterrepository.h"
 #include <sqlpp11/postgresql/connection.h>
 
 #include "account/accountcontroller.h"
+#include "account/repositories/impl/accountrepository.h"
+#include "account/repositories/impl/characterrepository.h"
+
 #include "serialization/serializer.h"
 #include "transport/server.h"
 
 using namespace openao;
-using namespace openao::framework::serialization;
-using namespace openao::login::account;
+
 using namespace openao::framework;
-using namespace login::postgresql;
+using namespace openao::framework::serialization;
+using namespace openao::framework::transport;
+
+using namespace openao::login::account;
+using namespace login::account::repositories::impl;
 
 int main(int argc, char *argv[]) {
   // INITIALIZE DATABASE CONNECTION

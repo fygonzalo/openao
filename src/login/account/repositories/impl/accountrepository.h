@@ -1,5 +1,5 @@
-#ifndef OPENAO_LOGIN_POSTGRESQL_ACCOUNTREPOSITORY_H
-#define OPENAO_LOGIN_POSTGRESQL_ACCOUNTREPOSITORY_H
+#ifndef OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_ACCOUNTREPOSITORY_H
+#define OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_ACCOUNTREPOSITORY_H
 
 #include <base64.h>
 
@@ -7,13 +7,13 @@
 #include <sqlpp11/postgresql/exception.h>
 #include <sqlpp11/sqlpp11.h>
 
-#include "account/repository/iaccountrepository.h"
+#include "account/repositories/iaccountrepository.h"
 #include "schema.h"
 
-using namespace openao::login::account::repository;
+using namespace openao::login::account::repositories;
 using namespace openao::database;
 
-namespace openao::login::postgresql {
+namespace openao::login::account::repositories::impl {
 
 
 class AccountRepository : public IAccountRepository {
@@ -50,6 +50,6 @@ private:
   sqlpp::postgresql::connection &conn_;
 };
 
-}// namespace openao::login::postgresql
+}// namespace openao::login::account::repositories::impl
 
-#endif// OPENAO_LOGIN_POSTGRESQL_ACCOUNTREPOSITORY_H
+#endif// OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_ACCOUNTREPOSITORY_H

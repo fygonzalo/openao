@@ -1,18 +1,17 @@
-#ifndef OPENAO_LOGIN_POSTGRESQL_CHARACTERREPOSITORY_H
-#define OPENAO_LOGIN_POSTGRESQL_CHARACTERREPOSITORY_H
+#ifndef OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_CHARACTERREPOSITORY_H
+#define OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_CHARACTERREPOSITORY_H
 
-
-#include "account/repository/icharacterrepository.h"
 #include <sqlpp11/postgresql/connection.h>
 #include <sqlpp11/postgresql/exception.h>
 #include <sqlpp11/sqlpp11.h>
 
+#include "account/repositories/icharacterrepository.h"
 #include "schema.h"
 
-using namespace openao::login::account::repository;
+using namespace openao::login::account::repositories;
 using namespace openao::database;
 
-namespace openao::login::postgresql {
+namespace openao::login::account::repositories::impl {
 
 class CharacterRepository : public ICharacterRepository {
 public:
@@ -54,6 +53,6 @@ private:
   sqlpp::postgresql::connection &conn_;
 };
 
-}// namespace openao::login::postgresql
+}// namespace openao::login::account::repositories::impl
 
-#endif// OPENAO_LOGIN_POSTGRESQL_CHARACTERREPOSITORY_H
+#endif// OPENAO_LOGIN_ACCOUNT_REPOSITORIES_IMPL_CHARACTERREPOSITORY_H

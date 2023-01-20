@@ -12,16 +12,16 @@
 #include "account/events/characterlistevent.h"
 #include "account/events/redirectserverevent.h"
 
-#include "account/repository/iaccountrepository.h"
-#include "account/repository/icharacterrepository.h"
+#include "account/repositories/iaccountrepository.h"
+#include "account/repositories/icharacterrepository.h"
 
 #include "branches/branchesservice.h"
 
-using namespace openao::framework::transport;
-using namespace openao::login::branches;
-using namespace openao::login::account::repository;
-using namespace openao::login::postgresql;
+using openao::framework::transport::IClient;
 
+using namespace openao::login::branches;
+
+using namespace openao::login::account::repositories;
 using namespace openao::login::account::commands;
 using namespace openao::login::account::events;
 

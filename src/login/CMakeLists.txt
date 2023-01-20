@@ -7,13 +7,14 @@ add_library(
   account/accountcontroller.h
   account/commands/authenticatecommand.h
   account/events/characterlistevent.h
-  account/repository/accountinfo.h
-  account/repository/iaccountrepository.h
+  account/repositories/accountinfo.h
+  account/repositories/iaccountrepository.h
+  account/repositories/impl/accountrepository.h
   branches/branchesservice.h
   account/events/autherrorevent.h
-  account/repository/icharacterrepository.h
-  account/repository/characterinfo.h
-  postgresql/characterrepository.h
+  account/repositories/icharacterrepository.h
+  account/repositories/impl/characterrepository.h
+  account/repositories/characterinfo.h
   account/events/announcementevent.h
   account/commands/entergamecommand.h
   account/events/redirectserverevent.h)

@@ -1,9 +1,9 @@
-#ifndef OPENAO_LOGIN_ACCOUNT_REPOSITORY_CHARACTERINFO_H
-#define OPENAO_LOGIN_ACCOUNT_REPOSITORY_CHARACTERINFO_H
+#ifndef OPENAO_LOGIN_ACCOUNT_REPOSITORIES_CHARACTERINFO_H
+#define OPENAO_LOGIN_ACCOUNT_REPOSITORIES_CHARACTERINFO_H
 
 #include <string>
 
-namespace openao::login::account::repository {
+namespace openao::login::account::repositories {
 
 struct Equipment {
   uint32_t head{0};
@@ -33,6 +33,6 @@ struct Character {
 };
 
 
-}// namespace openao::login::account::repository
+}// namespace openao::login::account::repositories
 
-#endif// OPENAO_LOGIN_ACCOUNT_REPOSITORY_CHARACTERINFO_H
+#endif// OPENAO_LOGIN_ACCOUNT_REPOSITORIES_CHARACTERINFO_H
