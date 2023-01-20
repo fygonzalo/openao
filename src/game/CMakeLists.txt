@@ -4,8 +4,12 @@
 
 add_library(
   openao_game STATIC
-  character/charactercontroller.h character/commands/authenticatecommand.h
-  character/events/characterdetailevent.h)
+  character/charactercontroller.h
+  character/commands/authenticatecommand.h
+  character/events/characterdetailevent.h
+  inventory/commands/loadinventorycommand.h
+  inventory/events/loadinventoryevent.h
+  inventory/inventorycontroller.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_game PUBLIC openao_framework)

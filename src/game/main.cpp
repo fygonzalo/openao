@@ -1,15 +1,15 @@
-#include <asio.hpp>
-#include <sqlpp11/postgresql/connection.h>
-
-#include "di/dependency_injector.h"
-
 #include "transport/server.h"
 
 #include "character/charactercontroller.h"
+#include "inventory/inventorycontroller.h"
 
 using namespace openao::framework::di;
 using namespace openao::framework::serialization;
 using namespace openao::framework::transport;
+
+
+using namespace openao::game::inventory;
+using namespace openao::game::inventory::commands;
 
 using namespace openao::game::character;
 using namespace openao::game::character::commands;
@@ -24,12 +24,15 @@ int main(int argc, char *argv[]) {
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(CharacterController::authenticate);
+  reactor.insert(InventoryController::load_inventory);
 
   Deserializer deserializer;
   deserializer.insert<AuthenticateCommand>(2);
+  deserializer.insert<LoadInventoryCommand>(3);
 
   Serializer serializer;
   serializer.insert<CharacterDetailEvent>(2);
+  serializer.insert<LoadInventoryEvent>(26);
 
 
   // CONFIGURE SERVER
