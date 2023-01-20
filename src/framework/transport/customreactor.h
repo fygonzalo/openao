@@ -4,6 +4,7 @@
 
 #include "di/dependency_injector.h"
 #include "iclient.h"
+#include <iostream>
 
 using namespace openao::framework::di;
 
@@ -38,7 +39,10 @@ public:
   }
 
   void react(IClient &client, IEvent &event) {
-    handlers_[typeid(event)](client, event);
+    if (handlers_.contains(typeid(event)))
+      handlers_[typeid(event)](client, event);
+    else
+      std::cout << "Received an unknown packet" << std::endl;
   }
 
 private:

@@ -36,7 +36,9 @@ public:
 
   std::unique_ptr<IEvent> deserialize(BinaryBuffer &buffer) {
     auto code = buffer.read<uint16_t>();
-    return fun_[code](buffer);
+    if (fun_.contains(code)) return fun_[code](buffer);
+    else
+      throw "unknown code";
   }
 
 private:

@@ -47,9 +47,11 @@ public:
 private:
   awaitable<void> receiver() {
     while (connected_) {
-      auto buffer = co_await stream_.read();
-      auto event = deserializer_.deserialize(buffer);
-      reactor_.react(*this, *event);
+      try {
+        auto buffer = co_await stream_.read();
+        auto event = deserializer_.deserialize(buffer);
+        reactor_.react(*this, *event);
+      } catch (std::exception &e) { std::cout << e.what() << std::endl; }
     }
   }
 
@@ -59,6 +61,7 @@ private:
       co_await send_timer_.async_wait(asio::redirect_error(use_awaitable, ec));
 
       for (auto &b: send_queue_) { co_await stream_.send(b); }
+      send_queue_.clear();
     }
   }
 
