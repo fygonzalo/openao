@@ -1,5 +1,5 @@
-#ifndef OPENAO_LOGIN_ACCOUNT_AUTHERROREVENT_H
-#define OPENAO_LOGIN_ACCOUNT_AUTHERROREVENT_H
+#ifndef OPENAO_LOGIN_ACCOUNT_EVENTS_AUTHERROREVENT_H
+#define OPENAO_LOGIN_ACCOUNT_EVENTS_AUTHERROREVENT_H
 
 #include <cstdint>
 
@@ -22,4 +22,4 @@ struct AuthErrorEvent : public framework::IEvent {
 
 }// namespace openao::login::account::events
 
-#endif// OPENAO_LOGIN_ACCOUNT_AUTHERROREVENT_H
+#endif// OPENAO_LOGIN_ACCOUNT_EVENTS_AUTHERROREVENT_H
