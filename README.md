@@ -102,6 +102,7 @@ Other commands you may want to use:
 - `make publish`: publishes the images to the public registry. This is for the CD pipeline, you should not need to run locally.
 - `make local`: runs the server with the local docker images.
 - `make remote`: runs the server with the latest published images.
+- `make style`: applies formatting and lint (requires pre-commit).
 
 I recommend you to inspect the `Makefile` in the project root folder to understand what's going on.
 

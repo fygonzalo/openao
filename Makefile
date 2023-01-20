@@ -56,3 +56,6 @@ remote:
 
 down:
 	docker-compose -f docker-compose.yaml -f docker-compose.local.yaml down
+
+style:
+	pre-commit run --hook-stage commit --all-files
