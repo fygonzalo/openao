@@ -2,7 +2,10 @@
 #
 # Configures the generation of the static library
 
-add_library(openao_game STATIC character/charactercontroller.h)
+add_library(
+  openao_game STATIC
+  character/charactercontroller.h character/commands/authenticatecommand.h
+  character/events/characterdetailevent.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_game PUBLIC openao_framework)

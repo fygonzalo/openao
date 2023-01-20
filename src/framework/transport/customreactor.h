@@ -27,6 +27,16 @@ public:
     handlers_[typeid(T)] = lambda;
   }
 
+  template<typename T>
+  void insert(void (*handler)(IClient &client, const T &t)) {
+    auto lambda = [this, handler](IClient &client, const IEvent &event) {
+      auto &cevent = static_cast<const T &>(event);
+      auto args = std::make_tuple(std::ref(client), cevent);
+      std::apply(handler, args);
+    };
+    handlers_[typeid(T)] = lambda;
+  }
+
   void react(IClient &client, IEvent &event) {
     handlers_[typeid(event)](client, event);
   }
