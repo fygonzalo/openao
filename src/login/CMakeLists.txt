@@ -10,12 +10,13 @@ add_library(
   account/repository/accountinfo.h
   account/repository/iaccountrepository.h
   branches/branchesservice.h
-  postgresql/postgres.h
   account/events/autherrorevent.h
   account/repository/icharacterrepository.h
   account/repository/characterinfo.h
   postgresql/characterrepository.h
-  account/events/announcementevent.h)
+  account/events/announcementevent.h
+  account/commands/entergamecommand.h
+  account/events/redirectserverevent.h)
 
 target_include_directories(openao_login PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_login PUBLIC openao_database openao_framework)

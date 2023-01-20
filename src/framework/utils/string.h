@@ -40,6 +40,13 @@ public:
     return *this;
   }
 
+  bool operator==(const String &string) const {
+    // TODO: Validate if its working as intended, should be a c string - like
+    // comparison. If that's the case, then this class shouldn't be used for
+    // binary values.
+    return value_ == string.value_;
+  }
+
   /*
    * Truncates the input if it's larger than the container
    */

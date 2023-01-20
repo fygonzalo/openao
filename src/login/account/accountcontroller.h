@@ -2,16 +2,20 @@
 #ifndef OPENAO_LOGIN_ACCOUNT_ACCOUNTCONTROLLER_H
 #define OPENAO_LOGIN_ACCOUNT_ACCOUNTCONTROLLER_H
 
+#include "transport/iclient.h"
+
 #include "account/commands/authenticatecommand.h"
+#include "account/commands/entergamecommand.h"
+
 #include "account/events/announcementevent.h"
 #include "account/events/autherrorevent.h"
 #include "account/events/characterlistevent.h"
-#include "branches/branchesservice.h"
-#include "transport/iclient.h"
+#include "account/events/redirectserverevent.h"
 
 #include "account/repository/iaccountrepository.h"
 #include "account/repository/icharacterrepository.h"
-#include "postgresql/accountrepository.h"
+
+#include "branches/branchesservice.h"
 
 using namespace openao::framework::transport;
 using namespace openao::login::branches;
@@ -85,6 +89,15 @@ public:
     character_list_event.branches.statuses =
             branches_service.get_branch_statuses();
     client.send(character_list_event);
+  }
+
+  static void enter_game(IClient &client, const EnterGameCommand &command) {
+    RedirectServerEvent redirect_server;
+    redirect_server.ip = "127.0.0.1";
+    redirect_server.port = 30001;
+    redirect_server.session = 1;
+
+    client.send(redirect_server);
   }
 };
 

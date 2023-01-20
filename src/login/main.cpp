@@ -32,16 +32,19 @@ int main(int argc, char *argv[]) {
   // CONFIGURE COMMANDS
   CustomReactor reactor(dependency_injector);
   reactor.insert(AccountController::authenticate);
+  reactor.insert(AccountController::enter_game);
 
   // CONFIGURE SERIALIZATION
   Serializer serializer;
   serializer.insert<CharacterListEvent>(0);
   serializer.insert<AuthErrorEvent>(0);
+  serializer.insert<RedirectServerEvent>(4);
   serializer.insert<AnnouncementEvent>(12);
 
   // CONFIGURE DESERIALIZATION
   Deserializer deserializer;
   deserializer.insert<AuthenticationCommand>(2);
+  deserializer.insert<EnterGameCommand>(6);
 
   // CONFIGURE SERVER
   transport::Server server(context, 30000, reactor, serializer, deserializer);
