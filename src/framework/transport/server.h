@@ -45,18 +45,17 @@ private:
 
       auto client = std::make_unique<Client>(std::move(stream), reactor_,
                                              serializer_, deserializer_);
-      co_spawn(context_, worker(std::move(client)), detached);
+      auto [it, ok] = clients_.emplace(std::move(client));
+      if (ok) co_spawn(context_, it->get()->start(), detached);
     }
-  }
-
-  awaitable<void> worker(std::unique_ptr<Client> client) {
-    co_await client->start();
   }
 
 private:
   Serializer &serializer_;
   Deserializer &deserializer_;
   CustomReactor &reactor_;
+
+  std::unordered_set<std::unique_ptr<Client>> clients_;
 
   io_context &context_;
   tcp::acceptor acceptor_;
