@@ -56,9 +56,7 @@ private:
           auto buffer = co_await stream_.read();
           auto event = deserializer_.deserialize(buffer);
           reactor_.react(*this, *event);
-        } catch (const char *message) {
-          std::cout << std::string(message) << std::endl;
-        }
+        } catch (std::string &m) { std::cout << m << std::endl; }
       }
     } catch (std::exception &e) { disconnect(); }
   }

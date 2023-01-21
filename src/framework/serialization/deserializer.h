@@ -38,7 +38,9 @@ public:
     auto code = buffer.read<uint16_t>();
     if (fun_.contains(code)) return fun_[code](buffer);
     else
-      throw "unknown code";
+      throw std::string(
+              "Deserialize - There is no object registered for code " +
+              std::to_string(code));
   }
 
 private:
