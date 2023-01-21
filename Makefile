@@ -48,6 +48,18 @@ database:
 		-d --force-recreate --build --remove-orphans database changelog seed &> /dev/null
 	@echo -e "\033[36mDatabase started successfully.\033[0m"
 
+login:
+	@echo -e "\033[36mInitiating login server\033[0m"
+	@docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up \
+		-d --force-recreate --build --remove-orphans login &> /dev/null
+	@echo -e "\033[36mLogin server started successfully.\033[0m"
+
+game:
+	@echo -e "\033[36mInitiating game server\033[0m"
+	@docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up \
+		-d --force-recreate --build --remove-orphans game &> /dev/null
+	@echo -e "\033[36mGame server started successfully.\033[0m"
+
 seed:
 	@echo -e "\033[36mSeeding database\033[0m"
 	@docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up \
