@@ -6,59 +6,73 @@
 #include "character/commands/authenticatecommand.h"
 #include "character/events/characterdetailevent.h"
 #include "character/events/loadfunctionbarevent.h"
+#include "character/repositories/icharacterrepository.h"
 
 using namespace openao::framework::transport;
 using namespace openao::game::character::commands;
 using namespace openao::game::character::events;
+using namespace openao::game::character::repositories;
 
 
 namespace openao::game::character {
 
 class CharacterController {
 public:
-  static void authenticate(IClient &client,
-                           const AuthenticateCommand &command) {
+  static void authenticate(IClient &client, const AuthenticateCommand &command,
+                           ICharacterRepository &character_repository) {
 
-
+    auto character = character_repository.get(command.character_id);
     CharacterDetailEvent event;
 
     event.entityid = 1;
-    event.position.x = 30;
-    event.position.y = 30;
-    event.name = "Bugs";
-    event.title = "no-bugs";
-    event.orientation = 0;
-    event.shape = 0;
-    event.attributes.gender = 1;
-    event.attributes.hair_color = 0;
-    event.attributes.hair_style = 0;
-    event.attributes.height = 0;
-    event.attributes.skin_color = 0;
-    event.faction = 5;
-    event.level = 1;
-    event.experience = 0;
-    event.rank = 1;
-    event.credits = 0;
-    event.stats.hp = {5, 20};
-    event.stats.mp = {5, 20};
-    event.stats.sp = {1000, 1000};
-    event.stats.attack_base = 10;
-    event.stats.attack_right = 10;
-    event.stats.attack_left = 10;
-    event.stats.defense = {10, 20};
-    event.stats.spell_attack = {20, 30};
-    event.stats.spell_defense = {30, 30};
-    event.stats.rigor = {10, 20};
-    event.stats.agility = {20, 30};
-    event.stats.critical = {10, 20};
-    event.stats.stamina = {10, 20};
-    event.stats.soul_defense = {10, 20};
-    event.stats.thunder = {10, 20};
-    event.stats.fire = {10, 20};
-    event.stats.ice = {10, 20};
-    event.stats.rotten = {5, 9};
-    event.stats.weight = {10, 20};
-    event.character_id = 1;
+    event.position.x = character.position.x;
+    event.position.y = character.position.y;
+    ;
+    event.name = character.name;
+    event.title = character.title;
+    event.orientation = character.position.orientation;
+    event.shape = character.shape;
+    event.attributes.gender = character.attributes.gender;
+    event.attributes.hair_color = character.attributes.hair_color;
+    event.attributes.hair_style = character.attributes.hair_style;
+    event.attributes.height = character.attributes.height;
+    event.attributes.skin_color = character.attributes.skin_color;
+    event.faction = character.faction;
+    event.level = character.level;
+    event.experience = character.experience;
+    event.rank = character.rank;
+    event.credits = character.credits;
+    event.stats.hp = {character.stats.hp.current, character.stats.hp.total};
+    event.stats.mp = {character.stats.mp.current, character.stats.mp.total};
+    event.stats.sp = {character.stats.sp.base, character.stats.sp.total};
+    event.stats.attack_base = character.stats.attack_base;
+    event.stats.attack_right = character.stats.attack_left;
+    event.stats.attack_left = character.stats.attack_right;
+    event.stats.defense = {character.stats.defense.current,
+                           character.stats.defense.total};
+    event.stats.spell_attack = {character.stats.spell_attack.current,
+                                character.stats.spell_attack.total};
+    event.stats.spell_defense = {character.stats.spell_defense.current,
+                                 character.stats.spell_defense.total};
+    event.stats.rigor = {character.stats.rigor.base,
+                         character.stats.rigor.total};
+    event.stats.agility = {character.stats.agility.base,
+                           character.stats.agility.total};
+    event.stats.critical = {character.stats.critical.base,
+                            character.stats.critical.total};
+    event.stats.stamina = {character.stats.stamina.base,
+                           character.stats.stamina.total};
+    event.stats.soul_defense = {character.stats.soul_defense.base,
+                                character.stats.soul_defense.total};
+    event.stats.thunder = {character.stats.thunder.attack,
+                           character.stats.thunder.defense};
+    event.stats.fire = {character.stats.fire.attack,
+                        character.stats.fire.defense};
+    event.stats.ice = {character.stats.ice.attack, character.stats.ice.defense};
+    event.stats.rotten = {character.stats.rotten.attack,
+                          character.stats.rotten.defense};
+    event.stats.weight = {23132, character.stats.weight.total};
+    event.character_id = character.id;
     client.send(event);
 
     LoadFunctionBarEvent function_bar;

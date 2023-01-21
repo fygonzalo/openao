@@ -8,16 +8,18 @@ add_library(
   character/commands/authenticatecommand.h
   character/events/characterdetailevent.h
   character/events/loadfunctionbarevent.h
+  character/repositories/icharacterrepository.h
+  character/repositories/impl/characterrepository.h
   inventory/commands/loadinventorycommand.h
   inventory/events/loadinventoryevent.h
   inventory/inventorycontroller.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(openao_game PUBLIC openao_framework)
+target_link_libraries(openao_game PUBLIC openao_database openao_framework)
 
 # ##############################################################################
 #
 # Configures the generation of the executable
 add_executable(openao_game_server main.cpp)
 
-target_link_libraries(openao_game_server openao_game)
+target_link_libraries(openao_game_server PUBLIC openao_game)
