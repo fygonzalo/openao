@@ -2,7 +2,7 @@ name: integration
 
 on:
   push:
-    branches: [ "main", "experimental2" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,4 +26,4 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u fygonzalo --password-stdin
-          make publish
+          make publish CR=ghcr.io/fygonzalo
