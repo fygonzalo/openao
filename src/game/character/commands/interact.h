@@ -1,5 +1,5 @@
-#ifndef OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_h
-#define OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_h
+#ifndef OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_H
+#define OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_H
 
 #include "event.h"
 #include "utils/binarybuffer.h"
@@ -23,4 +23,4 @@ struct Interact : framework::IEvent {
 }// namespace openao::game::character::commands
 
 
-#endif// OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_h
+#endif// OPENAO_GAME_CHARACTER_COMMANDS_INTERACT_H

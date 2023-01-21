@@ -1,11 +1,11 @@
 add_executable(
   openao_game_test
   character/charactercontroller.cpp
-  character/authenticatecommand.cpp
-  character/characterdetailevent.cpp
-  inventory/events/loadinventoryevent.cpp
+  character/commands/authenticate.cpp
   character/commands/interact.cpp
+  character/events/characterdetail.cpp
   character/events/showemote.cpp
+  inventory/events/loadinventory.cpp
   movement/commands/move.cpp
   movement/events/move.cpp)
 

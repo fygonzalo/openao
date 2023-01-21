@@ -4,20 +4,22 @@
 
 add_library(
   openao_game STATIC
-  character/charactercontroller.h
-  character/charactermanager.h
-  character/commands/authenticatecommand.h
+  character/controller.h
+  character/manager.h
+  character/model/detail.h
+  character/irepository.h
+  character/repository.h
+  character/commands/authenticate.h
   character/commands/interact.h
-  character/events/characterdetailevent.h
-  character/events/loadfunctionbarevent.h
+  character/events/characterdetail.h
+  character/events/loadfunctionbar.h
   character/events/showemote.h
-  character/repositories/icharacterrepository.h
-  character/repositories/impl/characterrepository.h
-  inventory/commands/loadinventorycommand.h
-  inventory/events/loadinventoryevent.h
-  inventory/inventorycontroller.h
-  inventory/repositories/iinventoryrepository.h
-  inventory/repositories/impl/inventoryrepository.h
+  inventory/commands/loadinventory.h
+  inventory/events/loadinventory.h
+  inventory/controller.h
+  inventory/model/item.h
+  inventory/irepository.h
+  inventory/repository.h
   movement/commands/move.h
   movement/events/move.h
   movement/controller.h)

@@ -4,7 +4,7 @@
 
 using namespace openao::game::character::commands;
 
-TEST(Interact, Deserialize) {
+TEST(character_commands_Interact, Deserialize) {
 
   // SETUP
   uint8_t message[] = {0x01, 0x13, 0x00, 0x00, 0x00};

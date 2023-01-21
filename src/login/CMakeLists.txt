@@ -4,20 +4,20 @@
 
 add_library(
   openao_login STATIC
-  account/accountcontroller.h
-  account/commands/authenticatecommand.h
-  account/events/characterlistevent.h
-  account/repositories/accountinfo.h
-  account/repositories/iaccountrepository.h
-  account/repositories/impl/accountrepository.h
+  account/controller.h
+  account/commands/authenticate.h
+  account/commands/entergame.h
+  account/events/characterlist.h
+  account/events/autherror.h
+  account/events/announcement.h
+  account/events/redirectserver.h
+  account/model/info.h
+  account/irepository.h
+  account/repository.h
   branches/branchesservice.h
-  account/events/autherrorevent.h
-  account/repositories/icharacterrepository.h
-  account/repositories/impl/characterrepository.h
-  account/repositories/characterinfo.h
-  account/events/announcementevent.h
-  account/commands/entergamecommand.h
-  account/events/redirectserverevent.h)
+  character/irepository.h
+  character/repository.h
+  character/model/info.h)
 
 target_include_directories(openao_login PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_login PUBLIC openao_database openao_framework)

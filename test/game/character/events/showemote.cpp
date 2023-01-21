@@ -6,7 +6,7 @@
 using namespace openao::framework::utils;
 using namespace openao::game::character::events;
 
-TEST(ShowEmote, Serialize) {
+TEST(character_events_ShowEmote, Serialize) {
 
   // SETUP
   ShowEmote event;

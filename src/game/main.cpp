@@ -1,11 +1,11 @@
 #include "transport/server.h"
 
-#include "character/charactercontroller.h"
-#include "character/charactermanager.h"
-#include "character/repositories/impl/characterrepository.h"
+#include "character/controller.h"
+#include "character/manager.h"
+#include "character/repository.h"
 
-#include "inventory/inventorycontroller.h"
-#include "inventory/repositories/impl/inventoryrepository.h"
+#include "inventory/controller.h"
+#include "inventory/repository.h"
 
 #include "movement/controller.h"
 
@@ -15,13 +15,7 @@ using namespace openao::framework::transport;
 
 
 using namespace openao::game::inventory;
-using namespace openao::game::inventory::commands;
-using namespace openao::game::inventory::repositories::impl;
-
 using namespace openao::game::character;
-using namespace openao::game::character::commands;
-using namespace openao::game::character::events;
-using namespace openao::game::character::repositories::impl;
 
 using namespace openao::game;
 
@@ -38,29 +32,29 @@ int main(int argc, char *argv[]) {
   io_context context;
 
   DependencyInjector dependency_injector;
-  dependency_injector.create<ICharacterRepository>(CharacterRepository(db));
-  dependency_injector.create(CharacterManager());
-  dependency_injector.create<IInventoryRepository>(InventoryRepository(db));
+  dependency_injector.create<character::IRepository>(character::Repository(db));
+  dependency_injector.create(character::Manager());
+  dependency_injector.create<inventory::IRepository>(inventory::Repository(db));
 
   CustomReactor reactor(dependency_injector);
-  reactor.insert(CharacterController::authenticate);
-  reactor.insert(CharacterController::interact);
-  reactor.insert(InventoryController::load_inventory);
+  reactor.insert(character::Controller::authenticate);
+  reactor.insert(character::Controller::interact);
+  reactor.insert(inventory::Controller::load);
   reactor.insert(movement::Controller::move);
 
   Deserializer deserializer;
-  deserializer.insert<AuthenticateCommand>(2);
-  deserializer.insert<LoadInventoryCommand>(3);
+  deserializer.insert<character::commands::Authenticate>(2);
+  deserializer.insert<inventory::commands::LoadInventory>(3);
   deserializer.insert<movement::commands::Move>(4);
-  deserializer.insert<Interact>(22);
+  deserializer.insert<character::commands::Interact>(22);
 
 
   Serializer serializer;
-  serializer.insert<CharacterDetailEvent>(2);
+  serializer.insert<character::events::CharacterDetail>(2);
   serializer.insert<movement::events::Move>(5);
-  serializer.insert<ShowEmote>(25);
-  serializer.insert<LoadInventoryEvent>(26);
-  serializer.insert<LoadFunctionBarEvent>(91);
+  serializer.insert<character::events::ShowEmote>(25);
+  serializer.insert<inventory::events::LoadInventory>(26);
+  serializer.insert<character::events::LoadFunctionBar>(91);
 
 
   // CONFIGURE SERVER
