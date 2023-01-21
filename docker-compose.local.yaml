@@ -2,9 +2,21 @@ version: "3.9"
 services:
   login:
     image: localhost/openao-server:latest
+    build:
+      context: .
+      dockerfile: tools/packager/Dockerfile
   game:
     image: localhost/openao-server:latest
+    build:
+      context: .
+      dockerfile: tools/packager/Dockerfile
   changelog:
     image: localhost/openao-migrator:latest
+    build:
+      context: .
+      dockerfile: tools/migrator/Dockerfile
   seed:
     image: localhost/openao-migrator:latest
+    build:
+      context: .
+      dockerfile: tools/migrator/Dockerfile
