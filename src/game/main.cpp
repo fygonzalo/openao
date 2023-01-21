@@ -40,14 +40,17 @@ int main(int argc, char *argv[]) {
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(CharacterController::authenticate);
+  reactor.insert(CharacterController::interact);
   reactor.insert(InventoryController::load_inventory);
 
   Deserializer deserializer;
   deserializer.insert<AuthenticateCommand>(2);
   deserializer.insert<LoadInventoryCommand>(3);
+  deserializer.insert<Interact>(22);
 
   Serializer serializer;
   serializer.insert<CharacterDetailEvent>(2);
+  serializer.insert<ShowEmote>(25);
   serializer.insert<LoadInventoryEvent>(26);
   serializer.insert<LoadFunctionBarEvent>(91);
 

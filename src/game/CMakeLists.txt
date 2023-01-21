@@ -7,8 +7,10 @@ add_library(
   character/charactercontroller.h
   character/charactermanager.h
   character/commands/authenticatecommand.h
+  character/commands/interact.h
   character/events/characterdetailevent.h
   character/events/loadfunctionbarevent.h
+  character/events/showemote.h
   character/repositories/icharacterrepository.h
   character/repositories/impl/characterrepository.h
   inventory/commands/loadinventorycommand.h

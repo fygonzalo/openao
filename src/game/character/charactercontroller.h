@@ -5,8 +5,10 @@
 
 #include "character/charactermanager.h"
 #include "character/commands/authenticatecommand.h"
+#include "character/commands/interact.h"
 #include "character/events/characterdetailevent.h"
 #include "character/events/loadfunctionbarevent.h"
+#include "character/events/showemote.h"
 #include "character/repositories/icharacterrepository.h"
 
 using namespace openao::framework::transport;
@@ -82,6 +84,16 @@ public:
     LoadFunctionBarEvent function_bar;
     function_bar[0] = LoadFunctionBarEvent::Function(3, 19);
     client.send(function_bar);
+  }
+
+
+  static void interact(IClient &client, const Interact &command) {
+    if (command.code == 1) {
+      ShowEmote event;
+      event.entity = 1;
+      event.emote = command.entity;
+      client.send(event);
+    }
   }
 };
 

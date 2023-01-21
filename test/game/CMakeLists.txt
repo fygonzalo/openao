@@ -1,7 +1,8 @@
 add_executable(
   openao_game_test
   character/charactercontroller.cpp character/authenticatecommand.cpp
-  character/characterdetailevent.cpp inventory/events/loadinventoryevent.cpp)
+  character/characterdetailevent.cpp inventory/events/loadinventoryevent.cpp
+  character/commands/interact.cpp character/events/showemote.cpp)
 
 target_link_libraries(openao_game_test openao_game gtest_main gmock_main)
 
