@@ -3,6 +3,7 @@
 
 #include "transport/iclient.h"
 
+#include "character/charactermanager.h"
 #include "character/commands/authenticatecommand.h"
 #include "character/events/characterdetailevent.h"
 #include "character/events/loadfunctionbarevent.h"
@@ -19,15 +20,18 @@ namespace openao::game::character {
 class CharacterController {
 public:
   static void authenticate(IClient &client, const AuthenticateCommand &command,
-                           ICharacterRepository &character_repository) {
+                           ICharacterRepository &character_repository,
+                           CharacterManager &character_manager) {
 
     auto character = character_repository.get(command.character_id);
+
+    character_manager[&client] = character.id;
+
     CharacterDetailEvent event;
 
     event.entityid = 1;
     event.position.x = character.position.x;
     event.position.y = character.position.y;
-    ;
     event.name = character.name;
     event.title = character.title;
     event.orientation = character.position.orientation;

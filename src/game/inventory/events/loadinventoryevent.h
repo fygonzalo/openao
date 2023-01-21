@@ -25,7 +25,7 @@ struct LoadInventoryEvent : framework::IEvent {
     uint8_t type;
     uint32_t entity;
     uint16_t slot;
-    uint32_t item;
+    uint32_t code;
     uint32_t quantity;
     uint32_t bind;
     uint8_t rests;
@@ -39,11 +39,12 @@ struct LoadInventoryEvent : framework::IEvent {
     void serialize(BinaryBuffer &buffer) {
       buffer.write(id);
       buffer.write(timestamp);
-      buffer.write(item);
+      buffer.write(code);
       buffer.set(0, 20);
       buffer.write(type);
       buffer.write(entity);
       buffer.write(slot);
+      buffer.write(quantity);
       buffer.set(0, 1);
       buffer.write(hardiness);
       buffer.write(timer);
@@ -56,13 +57,18 @@ struct LoadInventoryEvent : framework::IEvent {
       buffer.set(0, 1);
       buffer.write(piercings);
       buffer.write(intensifications);
-      buffer.set(0, 2);
     }
   };
 
   std::list<Item> items;
 
-  void serialize(BinaryBuffer &buffer) { buffer.write(items.size()); }
+  void serialize(BinaryBuffer &buffer) {
+    buffer.write((uint32_t) items.size());
+    for (auto &i: items) {
+      buffer.write((uint8_t) 1);
+      buffer.write(i);
+    }
+  }
 };
 
 }// namespace openao::game::inventory::events

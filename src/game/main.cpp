@@ -1,9 +1,11 @@
 #include "transport/server.h"
 
 #include "character/charactercontroller.h"
+#include "character/charactermanager.h"
 #include "character/repositories/impl/characterrepository.h"
 
 #include "inventory/inventorycontroller.h"
+#include "inventory/repositories/impl/inventoryrepository.h"
 
 using namespace openao::framework::di;
 using namespace openao::framework::serialization;
@@ -12,6 +14,7 @@ using namespace openao::framework::transport;
 
 using namespace openao::game::inventory;
 using namespace openao::game::inventory::commands;
+using namespace openao::game::inventory::repositories::impl;
 
 using namespace openao::game::character;
 using namespace openao::game::character::commands;
@@ -32,6 +35,8 @@ int main(int argc, char *argv[]) {
 
   DependencyInjector dependency_injector;
   dependency_injector.create<ICharacterRepository>(CharacterRepository(db));
+  dependency_injector.create(CharacterManager());
+  dependency_injector.create<IInventoryRepository>(InventoryRepository(db));
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(CharacterController::authenticate);
