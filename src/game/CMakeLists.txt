@@ -17,7 +17,10 @@ add_library(
   inventory/events/loadinventoryevent.h
   inventory/inventorycontroller.h
   inventory/repositories/iinventoryrepository.h
-  inventory/repositories/impl/inventoryrepository.h)
+  inventory/repositories/impl/inventoryrepository.h
+  movement/commands/move.h
+  movement/events/move.h
+  movement/controller.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_game PUBLIC openao_database openao_framework)

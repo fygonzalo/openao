@@ -7,6 +7,8 @@
 #include "inventory/inventorycontroller.h"
 #include "inventory/repositories/impl/inventoryrepository.h"
 
+#include "movement/controller.h"
+
 using namespace openao::framework::di;
 using namespace openao::framework::serialization;
 using namespace openao::framework::transport;
@@ -20,6 +22,8 @@ using namespace openao::game::character;
 using namespace openao::game::character::commands;
 using namespace openao::game::character::events;
 using namespace openao::game::character::repositories::impl;
+
+using namespace openao::game;
 
 int main(int argc, char *argv[]) {
   // INITIALIZE DATABASE CONNECTION
@@ -42,14 +46,18 @@ int main(int argc, char *argv[]) {
   reactor.insert(CharacterController::authenticate);
   reactor.insert(CharacterController::interact);
   reactor.insert(InventoryController::load_inventory);
+  reactor.insert(movement::Controller::move);
 
   Deserializer deserializer;
   deserializer.insert<AuthenticateCommand>(2);
   deserializer.insert<LoadInventoryCommand>(3);
+  deserializer.insert<movement::commands::Move>(4);
   deserializer.insert<Interact>(22);
+
 
   Serializer serializer;
   serializer.insert<CharacterDetailEvent>(2);
+  serializer.insert<movement::events::Move>(5);
   serializer.insert<ShowEmote>(25);
   serializer.insert<LoadInventoryEvent>(26);
   serializer.insert<LoadFunctionBarEvent>(91);
