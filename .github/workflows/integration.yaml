@@ -23,7 +23,7 @@ jobs:
       - name: Package
         run: make package
       - name: Publish
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u fygonzalo --password-stdin
           make publish CR=ghcr.io/fygonzalo
