@@ -5,11 +5,13 @@ services:
     build:
       context: .
       dockerfile: tools/packager/Dockerfile
+    network_mode: host
   game:
     image: localhost/openao-server:latest
     build:
       context: .
       dockerfile: tools/packager/Dockerfile
+    network_mode: host
   changelog:
     image: localhost/openao-migrator:latest
     build:
