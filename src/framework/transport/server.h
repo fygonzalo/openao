@@ -46,8 +46,13 @@ private:
       auto client = std::make_unique<Client>(std::move(stream), reactor_,
                                              serializer_, deserializer_);
       auto [it, ok] = clients_.emplace(std::move(client));
-      if (ok) co_spawn(context_, it->get()->start(), detached);
+      if (ok) co_spawn(context_, worker(it), detached);
     }
+  }
+
+  awaitable<void> worker(auto it) {
+    co_await it->get()->start();
+    clients_.erase(it);
   }
 
 private:

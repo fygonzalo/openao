@@ -39,20 +39,24 @@ public:
     send_timer_.cancel_one();
   }
 
-  awaitable<void> start() { co_await (receiver() && sender()); }
+  awaitable<void> start() {
+    co_await (receiver() && sender());
+    stream_.close();
+  }
 
 
   MessageStream &stream() { return stream_; }
 
 private:
   awaitable<void> receiver() {
-    while (connected_) {
-      try {
+    // TODO: should process already received messages after disconenct?
+    try {
+      while (connected_) {
         auto buffer = co_await stream_.read();
         auto event = deserializer_.deserialize(buffer);
         reactor_.react(*this, *event);
-      } catch (std::exception &e) { std::cout << e.what() << std::endl; }
-    }
+      }
+    } catch (std::exception &e) { disconnect(); }
   }
 
   awaitable<void> sender() {

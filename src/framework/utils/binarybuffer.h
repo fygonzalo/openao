@@ -14,6 +14,7 @@ class MessageStream;
 
 namespace openao::framework::utils {
 
+// TODO: Check for possible SIGSEGV
 class BinaryBuffer {
 public:
   BinaryBuffer(int size) { buffer_.resize(size); };
@@ -202,6 +203,7 @@ private:
 
   template<typename T>
   void read_(T &t) {
+    if (off_ + sizeof(T) > len_) throw "not enough bytes";
     t = *(T *) (buffer_.data() + off_);
     off_ += sizeof(T);
   }
