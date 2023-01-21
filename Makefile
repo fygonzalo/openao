@@ -35,7 +35,7 @@ local:
 
 remote:
 	@echo -e "\033[36mDeploying server using remote images, this may take some time.\033[0m"
-	@docker-compose -f docker-compose.yaml up --pull --force-recreate &> /dev/null
+	@docker-compose -f docker-compose.yaml up -d --pull --force-recreate &> /dev/null
 	@echo -e "\033[36mServer deployed successfully.\033[0m"
 
 down:

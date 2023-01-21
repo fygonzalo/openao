@@ -7,6 +7,7 @@ services:
     command: [ "openao-login" ]
     depends_on: database, changelog, seed
     restart: on-failure
+    network_mode: host
   game:
     image: ghcr.io/fygonzalo/openao-server:latest
     ports:
@@ -14,32 +15,36 @@ services:
     command: [ "openao-game" ]
     depends_on: database, changelog, seed
     restart: on-failure
+    network_mode: host
   changelog:
     image: ghcr.io/fygonzalo/openao-migrator:latest
     command:
       - --username=openao
       - --password=letmein
-      - --url=jdbc:postgresql://database:5432/openao
+      - --url=jdbc:postgresql://localhost:5432/openao
       - --changelog-file=db.changelog-root.yaml
       - --search-path=/usr/src/openao/db/changelog
       - update
     restart: on-failure
     depends_on: database
+    network_mode: host
   seed:
     image: ghcr.io/fygonzalo/openao-migrator:latest
     command:
       - --username=openao
       - --password=letmein
-      - --url=jdbc:postgresql://database:5432/openao
+      - --url=jdbc:postgresql://localhost:5432/openao
       - --changelog-file=db.changelog-root.yaml
       - --search-path=/usr/src/openao/db/seed
       - update
     restart: on-failure
     depends_on: database, changelog
+    network_mode: host
   database:
     image: postgres
     ports:
       - 5432:5432
+    network_mode: host
     environment:
       - POSTGRES_USER=openao
       - POSTGRES_PASSWORD=letmein
