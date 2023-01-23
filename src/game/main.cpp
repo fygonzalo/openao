@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
   reactor.insert(character::Controller::interact);
   reactor.insert(inventory::Controller::load);
   reactor.insert(movement::Controller::move);
+  reactor.insert(character::Controller::disconnect);
 
   Deserializer deserializer;
   deserializer.insert<character::commands::Authenticate>(2);

@@ -25,9 +25,15 @@ public:
                            IRepository &character_repository,
                            Manager &character_manager) {
 
+    // Validate character command
     auto character = character_repository.get(command.character_id);
+    if (auto other = character_manager.get(command.character_id)) {
+      other->disconnect();
+      client.disconnect();
+      return;
+    }
 
-    character_manager[&client] = character.id;
+    character_manager.insert(&client, character.id);
 
     events::CharacterDetail event;
 
@@ -94,6 +100,11 @@ public:
       event.emote = command.entity;
       client.send(event);
     }
+  }
+
+  static void disconnect(IClient &client, const ConnectionClosed &command,
+                         Manager &manager) {
+    manager.erase(&client);
   }
 };
 

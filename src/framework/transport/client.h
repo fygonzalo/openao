@@ -17,7 +17,6 @@ using namespace openao::framework::serialization;
 
 namespace openao::framework::transport {
 
-
 class Client : public IClient {
 public:
   Client(MessageStream stream, CustomReactor &reactor, Serializer &serializer,
@@ -39,11 +38,12 @@ public:
     send_timer_.cancel_one();
   }
 
-  awaitable<void> start() {
-    co_await (receiver() && sender());
-    stream_.close();
-  }
+  awaitable<void> start() { co_await (receiver() || sender()); }
 
+  ~Client() override {
+    auto event = ConnectionClosed();
+    reactor_.react(*this, event);
+  }
 
   MessageStream &stream() { return stream_; }
 

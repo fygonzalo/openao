@@ -23,7 +23,7 @@ public:
                    IRepository &inventory_repository,
                    character::Manager &character_manager) {
 
-    uint32_t &character_id = character_manager[&client];
+    uint32_t character_id = character_manager.get(&client);
     auto inventory = inventory_repository.get(1, character_id);
 
     events::LoadInventory event;
