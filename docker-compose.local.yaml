@@ -17,8 +17,10 @@ services:
     build:
       context: .
       dockerfile: tools/migrator/Dockerfile
+    network_mode: host
   seed:
     image: localhost/openao-migrator:latest
     build:
       context: .
       dockerfile: tools/migrator/Dockerfile
+    network_mode: host
