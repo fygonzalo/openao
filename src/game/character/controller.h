@@ -5,6 +5,7 @@
 
 #include "character/commands/authenticate.h"
 #include "character/commands/interact.h"
+#include "character/commands/logout.h"
 #include "character/events/characterdetail.h"
 #include "character/events/loadfunctionbar.h"
 #include "character/events/showemote.h"
@@ -102,7 +103,12 @@ public:
     }
   }
 
-  static void disconnect(IClient &client, const ConnectionClosed &command,
+  static void logout(IClient &client, const commands::Logout &command) {
+    client.disconnect();
+  }
+
+  static void disconnect(IClient &client,
+                         const IClient::ConnectionClosed &command,
                          Manager &manager) {
     manager.erase(&client);
   }

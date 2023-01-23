@@ -42,7 +42,8 @@ public:
     if (handlers_.contains(typeid(event)))
       handlers_[typeid(event)](client, event);
     else
-      std::cout << "Received an unknown packet" << std::endl;
+      std::cout << "Reactor - There is no handler for " << typeid(event).name()
+                << std::endl;
   }
 
 private:

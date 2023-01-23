@@ -11,6 +11,7 @@ add_library(
   character/repository.h
   character/commands/authenticate.h
   character/commands/interact.h
+  character/commands/logout.h
   character/events/characterdetail.h
   character/events/loadfunctionbar.h
   character/events/showemote.h

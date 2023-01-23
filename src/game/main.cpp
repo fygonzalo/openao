@@ -41,13 +41,16 @@ int main(int argc, char *argv[]) {
   reactor.insert(character::Controller::interact);
   reactor.insert(inventory::Controller::load);
   reactor.insert(movement::Controller::move);
+  reactor.insert(character::Controller::logout);
   reactor.insert(character::Controller::disconnect);
+
 
   Deserializer deserializer;
   deserializer.insert<character::commands::Authenticate>(2);
   deserializer.insert<inventory::commands::LoadInventory>(3);
   deserializer.insert<movement::commands::Move>(4);
   deserializer.insert<character::commands::Interact>(22);
+  deserializer.insert<character::commands::Logout>(313);
 
 
   Serializer serializer;
