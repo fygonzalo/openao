@@ -7,7 +7,9 @@
 #include "inventory/controller.h"
 #include "inventory/repository.h"
 
+#include "entity/manager.h"
 #include "movement/controller.h"
+#include "stage/manager.h"
 
 using namespace openao::framework::di;
 using namespace openao::framework::serialization;
@@ -35,6 +37,8 @@ int main(int argc, char *argv[]) {
   dependency_injector.create<character::IRepository>(character::Repository(db));
   dependency_injector.create(character::Manager());
   dependency_injector.create<inventory::IRepository>(inventory::Repository(db));
+  dependency_injector.create(stage::Manager());
+  dependency_injector.create(entity::Manager());
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(character::Controller::authenticate);
@@ -54,8 +58,10 @@ int main(int argc, char *argv[]) {
 
 
   Serializer serializer;
+  serializer.insert<entity::Character>(1);
   serializer.insert<character::events::CharacterDetail>(2);
   serializer.insert<movement::events::Move>(5);
+  serializer.insert<entity::Destroy>(7);
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);
   serializer.insert<character::events::LoadFunctionBar>(91);

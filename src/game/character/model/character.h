@@ -73,6 +73,28 @@ struct Position {
   uint8_t orientation;
 };
 
+struct Equipment {
+  uint32_t head{0};
+  uint32_t body{0};
+  uint32_t right_hand{0};
+  uint32_t left_hand{0};
+  uint32_t hand{0};
+  uint32_t feet{0};
+  uint32_t back{0};
+  uint32_t ride{0};
+
+  void serialize(BinaryBuffer &buffer) {
+    buffer.write(head);
+    buffer.write(body);
+    buffer.write(right_hand);
+    buffer.write(left_hand);
+    buffer.write(hand);
+    buffer.write(feet);
+    buffer.write(back);
+    buffer.write(ride);
+  }
+};
+
 struct Character {
 
   uint32_t id;
@@ -82,6 +104,7 @@ struct Character {
   Position position;
   uint32_t shape;
   uint8_t faction;
+  Equipment equipment;
   uint32_t level;
   uint64_t experience;
   uint8_t rank;

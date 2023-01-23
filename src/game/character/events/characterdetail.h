@@ -134,6 +134,7 @@ struct CharacterDetail : framework::IEvent {
 
   uint32_t entityid;
   Position position;
+  uint8_t status{0};
   String name{16};
   String title{12};
   uint8_t orientation;
@@ -156,7 +157,8 @@ struct CharacterDetail : framework::IEvent {
 
   void serialize(BinaryBuffer &buffer) {
     buffer.write(entityid);
-    buffer.set(0, 4);
+    buffer.set(0, 3);
+    buffer.write(status);
     buffer.write(position);
     buffer.write(name);
     buffer.write(title);
@@ -165,6 +167,8 @@ struct CharacterDetail : framework::IEvent {
     buffer.write(shape);
     buffer.write(attributes);
     buffer.write(faction);
+
+
     buffer.set(0, 4);
     buffer.write(level);
     buffer.write(experience);

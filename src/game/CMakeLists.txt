@@ -23,7 +23,11 @@ add_library(
   inventory/repository.h
   movement/commands/move.h
   movement/events/move.h
-  movement/controller.h)
+  movement/controller.h
+  stage/manager.h
+  entity/manager.h
+  entity/model/character.h
+  entity/events/destroy.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_game PUBLIC openao_database openao_framework)

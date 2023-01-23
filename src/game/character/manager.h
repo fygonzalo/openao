@@ -31,7 +31,7 @@ public:
   }
 
 
-  void erase(IClient *client) {
+  void remove(IClient *client) {
     auto r = client_to_char_.find(client);
     if (r == client_to_char_.end()) return;
 
