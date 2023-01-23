@@ -6,7 +6,7 @@ add_library(
   openao_game STATIC
   character/controller.h
   character/manager.h
-  character/model/detail.h
+  character/model/character.h
   character/irepository.h
   character/repository.h
   character/commands/authenticate.h

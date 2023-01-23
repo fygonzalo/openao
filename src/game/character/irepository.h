@@ -6,7 +6,7 @@
 
 #include "di/injectable.h"
 
-#include "character/model/detail.h"
+#include "character/model/character.h"
 
 namespace openao::game::character {
 
@@ -14,7 +14,7 @@ namespace openao::game::character {
 class IRepository : public openao::framework::di::Injectable {
 
 public:
-  virtual model::Detail get(uint32_t id) = 0;
+  virtual model::Character get(uint32_t id) = 0;
 };
 
 }// namespace openao::game::character

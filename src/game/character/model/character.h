@@ -1,5 +1,5 @@
-#ifndef OPENAO_GAME_CHRACTER_MODEL_DETAIL_H
-#define OPENAO_GAME_CHRACTER_MODEL_DETAIL_H
+#ifndef OPENAO_GAME_CHRACTER_MODEL_CHARACTER_H
+#define OPENAO_GAME_CHRACTER_MODEL_CHARACTER_H
 
 #include <cstdint>
 #include <string>
@@ -73,7 +73,7 @@ struct Position {
   uint8_t orientation;
 };
 
-struct Detail {
+struct Character {
 
   uint32_t id;
   std::string name;
@@ -91,4 +91,4 @@ struct Detail {
 
 }// namespace openao::game::character::model
 
-#endif// OPENAO_GAME_CHRACTER_MODEL_DETAIL_H
+#endif// OPENAO_GAME_CHRACTER_MODEL_CHARACTER_H

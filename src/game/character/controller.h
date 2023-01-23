@@ -89,7 +89,7 @@ public:
     client.send(event);
 
     events::LoadFunctionBar function_bar;
-    function_bar[0] = events::LoadFunctionBar::Function(3, 19);
+    function_bar[0] = events::LoadFunctionBar::Function{3, 19};
     client.send(function_bar);
   }
 

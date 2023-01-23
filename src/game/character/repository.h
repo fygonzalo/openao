@@ -17,7 +17,7 @@ class Repository : public IRepository {
 public:
   Repository(sqlpp::postgresql::connection &conn) : conn_(conn) {}
 
-  model::Detail get(uint32_t id) override {
+  model::Character get(uint32_t id) override {
     PUBLICCharacter table;
 
     auto result = conn_(
@@ -25,7 +25,7 @@ public:
 
     if (result.empty()) { throw "Couldn't find character with id"; }
 
-    model::Detail character;
+    model::Character character;
     const auto &row = result.front();
     character.id = row.id;
     character.name = row.name;
