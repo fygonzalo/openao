@@ -6,9 +6,11 @@
 #include "character/commands/authenticate.h"
 #include "character/commands/interact.h"
 #include "character/commands/logout.h"
+#include "character/commands/settitle.h"
 #include "character/events/characterdetail.h"
 #include "character/events/loadfunctionbar.h"
 #include "character/events/showemote.h"
+#include "character/events/titlechanged.h"
 
 #include "character/irepository.h"
 #include "character/manager.h"
@@ -147,6 +149,21 @@ public:
       event.emote = command.entity;
       stage_manager.broadcast(event);
     }
+  }
+
+  static void set_title(IClient &client, const commands::SetTitle &command,
+                        character::Manager &character_manager,
+                        entity::Manager &entity_manager,
+                        stage::Manager &stage_manager) {
+    auto character_id = character_manager.get(&client);
+    auto entity = entity_manager.get(character_id);
+
+    entity->title = command.title;
+
+    events::TitleChanged event;
+    event.entity = entity->entityid;
+    event.title = command.title;
+    stage_manager.broadcast(event);
   }
 
   static void logout(IClient &client, const commands::Logout &command) {

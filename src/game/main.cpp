@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
   reactor.insert(character::Controller::logout);
   reactor.insert(character::Controller::disconnect);
   reactor.insert(chat::Controller::say);
+  reactor.insert(character::Controller::set_title);
 
 
   Deserializer deserializer;
@@ -57,6 +58,7 @@ int main(int argc, char *argv[]) {
   deserializer.insert<movement::commands::Move>(4);
   deserializer.insert<chat::Say>(14);
   deserializer.insert<character::commands::Interact>(22);
+  deserializer.insert<character::commands::SetTitle>(64);
   deserializer.insert<character::commands::Logout>(313);
 
   Serializer serializer;
@@ -67,6 +69,7 @@ int main(int argc, char *argv[]) {
   serializer.insert<chat::Says>(23);
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);
+  serializer.insert<character::events::TitleChanged>(67);
   serializer.insert<character::events::LoadFunctionBar>(91);
 
 

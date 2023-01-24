@@ -12,9 +12,11 @@ add_library(
   character/commands/authenticate.h
   character/commands/interact.h
   character/commands/logout.h
+  character/commands/settitle.h
   character/events/characterdetail.h
   character/events/loadfunctionbar.h
   character/events/showemote.h
+  character/events/titlechanged.h
   inventory/commands/loadinventory.h
   inventory/events/loadinventory.h
   inventory/controller.h

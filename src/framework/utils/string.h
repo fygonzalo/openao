@@ -29,16 +29,28 @@ public:
     memcpy(value_.data(), str, N);
   }
 
-  /*
-   * Truncates the input if it's larger than the container
+  /**
+   * Truncates the input if its larger than the container.
+   * @param string
+   * @return
    */
   String &operator=(const std::string &string) {
-    int size = string.size();
-    if (size > size_) size = size_;
+    int size = size_;
+    if (string.size() < size) size = string.size();
 
     memcpy(value_.data(), string.data(), size);
     return *this;
   }
+
+  String &operator=(const String &string) {
+    int size = size_;
+    if (string.size_ < size) size = string.size();
+
+    memcpy(value_.data(), string.value_.data(), size);
+    return *this;
+  }
+
+  size_t size() const { return size_; }
 
   bool operator==(const String &string) const {
     // TODO: Validate if its working as intended, should be a c string - like
