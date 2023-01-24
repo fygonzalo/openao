@@ -15,6 +15,8 @@ class IRepository : public openao::framework::di::Injectable {
 
 public:
   virtual model::Character get(uint32_t id) = 0;
+
+  virtual void save(model::Character &) = 0;
 };
 
 }// namespace openao::game::character

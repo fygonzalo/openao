@@ -88,6 +88,17 @@ public:
     return character;
   }
 
+  void save(model::Character &character) {
+    PUBLICCharacter table;
+
+    conn_(update(table)
+                  .set(table.title = character.title,
+                       table.positionX = character.position.x,
+                       table.positionY = character.position.y,
+                       table.orientation = character.position.orientation)
+                  .where(table.id == character.id));
+  }
+
 private:
   sqlpp::postgresql::connection &conn_;
 };

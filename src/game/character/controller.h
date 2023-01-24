@@ -172,6 +172,7 @@ public:
 
   static void disconnect(IClient &client,
                          const IClient::ConnectionClosed &command,
+                         character::IRepository &character_repository,
                          character::Manager &character_manager,
                          stage::Manager &stage_manager,
                          entity::Manager &entity_manager) {
@@ -182,6 +183,14 @@ public:
     stage_manager.unsubscribe(&client);
     auto entity = entity_manager.get(character_id);
     if (!entity) return;
+
+    model::Character character;
+    character.id = character_id;
+    character.title = entity->title;
+    character.position.x = entity->position.x;
+    character.position.y = entity->position.y;
+    character.position.orientation = entity->orientation;
+    character_repository.save(character);
 
     entity_manager.remove(character_id);
     character_manager.remove(&client);
