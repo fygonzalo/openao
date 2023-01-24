@@ -14,7 +14,7 @@ namespace openao::game::entity {
 class Manager : public openao::framework::di::Injectable {
 public:
   Manager() {
-    for (auto i = 0; i < 1000; i++) entities_ids_.push(i);
+    for (auto i = 1; i < 1000; i++) entities_ids_.push(i);
   }
 
   entity::Character &create() {
