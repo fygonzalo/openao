@@ -7,6 +7,7 @@
 #include "inventory/controller.h"
 #include "inventory/repository.h"
 
+#include "chat/controller.h"
 #include "entity/manager.h"
 #include "movement/controller.h"
 #include "stage/manager.h"
@@ -47,21 +48,23 @@ int main(int argc, char *argv[]) {
   reactor.insert(movement::Controller::move);
   reactor.insert(character::Controller::logout);
   reactor.insert(character::Controller::disconnect);
+  reactor.insert(chat::Controller::say);
 
 
   Deserializer deserializer;
   deserializer.insert<character::commands::Authenticate>(2);
   deserializer.insert<inventory::commands::LoadInventory>(3);
   deserializer.insert<movement::commands::Move>(4);
+  deserializer.insert<chat::Say>(14);
   deserializer.insert<character::commands::Interact>(22);
   deserializer.insert<character::commands::Logout>(313);
-
 
   Serializer serializer;
   serializer.insert<entity::Character>(1);
   serializer.insert<character::events::CharacterDetail>(2);
   serializer.insert<movement::events::Move>(5);
   serializer.insert<entity::Destroy>(7);
+  serializer.insert<chat::Says>(23);
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);
   serializer.insert<character::events::LoadFunctionBar>(91);

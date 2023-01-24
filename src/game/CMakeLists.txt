@@ -27,7 +27,10 @@ add_library(
   stage/manager.h
   entity/manager.h
   entity/model/character.h
-  entity/events/destroy.h)
+  entity/events/destroy.h
+  chat/commands/say.h
+  chat/events/says.h
+  chat/controller.h)
 
 target_include_directories(openao_game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(openao_game PUBLIC openao_database openao_framework)
