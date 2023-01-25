@@ -4,9 +4,12 @@
 #include "transport/iclient.h"
 
 #include "inventory/commands/loadinventory.h"
+#include "inventory/commands/moveitem.h"
 #include "inventory/events/loadinventory.h"
+#include "inventory/events/updateinventory.h"
 
 #include "inventory/irepository.h"
+#include "inventory/manager.h"
 
 #include "character/manager.h"
 
@@ -21,32 +24,36 @@ class Controller {
 public:
   static void load(IClient &client, const commands::LoadInventory &command,
                    IRepository &inventory_repository,
+                   inventory::Manager &inventory_manager,
                    character::Manager &character_manager) {
 
     uint32_t character_id = character_manager.get(&client);
     auto inventory = inventory_repository.get(1, character_id);
 
-    events::LoadInventory event;
-    for (auto &i: inventory) {
-      auto &item = event.items.emplace_back();
-      item.id = i.id;
-      item.timestamp = i.timestamp;
-      item.code = i.item;
-      item.type = i.type;
-      item.entity = i.entity;
-      item.slot = i.slot;
-      item.quantity = i.quantity;
-      item.bind = i.bind;
-      item.rests = i.rests;
-      item.flags = i.flags;
-      item.hardiness = i.hardiness;
-      item.timer = i.timer;
-      item.piercings = i.piercings;
-      item.intensifications = i.intensifications;
-    }
+    InventoryKey key{1, character_id};
+    inventory_manager.insert(key, inventory);
+
+    events::LoadInventory load{};
+    load.inventory_type = 1;
+    load.owner = character_id;
+    load.slots = inventory.all();
+    client.send(load);
+  }
 
 
-    client.send(event);
+  static void move_item(IClient &client, const commands::MoveItem &command,
+                        character::Manager &character_manager,
+                        inventory::Manager &inventory_manager) {
+    auto character_id = character_manager.get(&client);
+    auto &inventory = inventory_manager.get({1, character_id});
+
+    inventory.move(command.source, command.destination);
+    events::UpdateInventory update{};
+    update.inventory_type = 1;
+    update.owner = character_id;
+    update.slots.insert(inventory[command.source]);
+    update.slots.insert(inventory[command.destination]);
+    client.send(update);
   }
 };
 

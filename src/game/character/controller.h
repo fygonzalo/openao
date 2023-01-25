@@ -16,6 +16,7 @@
 #include "character/manager.h"
 #include "entity/events/destroy.h"
 #include "entity/manager.h"
+#include "inventory/manager.h"
 #include "stage/manager.h"
 
 using namespace openao::framework::transport;

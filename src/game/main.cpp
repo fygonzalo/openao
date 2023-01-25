@@ -5,6 +5,7 @@
 #include "character/repository.h"
 
 #include "inventory/controller.h"
+#include "inventory/manager.h"
 #include "inventory/repository.h"
 
 #include "chat/controller.h"
@@ -40,6 +41,7 @@ int main(int argc, char *argv[]) {
   dependency_injector.create<inventory::IRepository>(inventory::Repository(db));
   dependency_injector.create(stage::Manager());
   dependency_injector.create(entity::Manager());
+  dependency_injector.create(inventory::Manager());
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(character::Controller::authenticate);
@@ -50,6 +52,7 @@ int main(int argc, char *argv[]) {
   reactor.insert(character::Controller::disconnect);
   reactor.insert(chat::Controller::say);
   reactor.insert(character::Controller::set_title);
+  reactor.insert(inventory::Controller::move_item);
 
 
   Deserializer deserializer;
@@ -57,6 +60,7 @@ int main(int argc, char *argv[]) {
   deserializer.insert<inventory::commands::LoadInventory>(3);
   deserializer.insert<movement::commands::Move>(4);
   deserializer.insert<chat::Say>(14);
+  deserializer.insert<inventory::commands::MoveItem>(18);
   deserializer.insert<character::commands::Interact>(22);
   deserializer.insert<character::commands::SetTitle>(64);
   deserializer.insert<character::commands::Logout>(313);
@@ -69,6 +73,7 @@ int main(int argc, char *argv[]) {
   serializer.insert<chat::Says>(23);
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);
+  serializer.insert<inventory::events::UpdateInventory>(27);
   serializer.insert<character::events::TitleChanged>(67);
   serializer.insert<character::events::LoadFunctionBar>(91);
 

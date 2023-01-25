@@ -18,11 +18,14 @@ add_library(
   character/events/showemote.h
   character/events/titlechanged.h
   inventory/commands/loadinventory.h
+  inventory/commands/moveitem.h
   inventory/events/loadinventory.h
+  inventory/events/updateinventory.h
   inventory/controller.h
-  inventory/model/item.h
+  inventory/model/inventory.h
   inventory/irepository.h
   inventory/repository.h
+  inventory/manager.h
   movement/commands/move.h
   movement/events/move.h
   movement/controller.h

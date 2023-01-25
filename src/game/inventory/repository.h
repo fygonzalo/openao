@@ -15,23 +15,19 @@ class Repository : public IRepository {
 public:
   Repository(sqlpp::postgresql::connection &conn) : conn_(conn){};
 
-  std::list<model::Item> get(uint32_t type, uint32_t entity) override {
-
+  model::Inventory get(uint32_t type, uint32_t entity) override {
     PUBLICInventoryitem table;
     auto results = conn_(select(sqlpp::all_of(table))
                                  .from(table)
                                  .where(table.inventoryType == type and
                                         table.entity == entity));
 
-    std::list<model::Item> inventory{};
+    model::Inventory inventory;
     for (const auto &row: results) {
-      auto &item = inventory.emplace_back();
+      auto [pos, item] = inventory[row.slot];
       item.id = row.id;
       item.timestamp = row.timestamp;
-      item.item = row.item;
-      item.type = row.inventoryType;
-      item.entity = row.entity;
-      item.slot = row.slot;
+      item.code = row.item;
       item.quantity = row.quantity;
       item.bind = row.bind;
       item.rests = row.restCount;
@@ -43,7 +39,7 @@ public:
     }
 
     return inventory;
-  }
+  };
 
 private:
   sqlpp::postgresql::connection &conn_;
