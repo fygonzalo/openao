@@ -74,6 +74,7 @@ int main(int argc, char *argv[]) {
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);
   serializer.insert<inventory::events::UpdateInventory>(27);
+  serializer.insert<entity::events::Update>(29);
   serializer.insert<character::events::TitleChanged>(67);
   serializer.insert<character::events::LoadFunctionBar>(91);
 

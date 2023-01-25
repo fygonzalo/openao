@@ -33,6 +33,7 @@ add_library(
   entity/manager.h
   entity/model/character.h
   entity/events/destroy.h
+  entity/events/update.h
   chat/commands/say.h
   chat/events/says.h
   chat/controller.h)
