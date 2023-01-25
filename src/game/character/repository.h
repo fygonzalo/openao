@@ -95,7 +95,15 @@ public:
                   .set(table.title = character.title,
                        table.positionX = character.position.x,
                        table.positionY = character.position.y,
-                       table.orientation = character.position.orientation)
+                       table.orientation = character.position.orientation,
+                       table.head = character.equipment.head,
+                       table.body = character.equipment.body,
+                       table.rightHand = character.equipment.right_hand,
+                       table.leftHand = character.equipment.left_hand,
+                       table.hand = character.equipment.hand,
+                       table.feet = character.equipment.feet,
+                       table.back = character.equipment.back,
+                       table.ride = character.equipment.ride)
                   .where(table.id == character.id));
   }
 

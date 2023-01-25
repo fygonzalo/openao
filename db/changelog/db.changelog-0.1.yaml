@@ -457,3 +457,5 @@ databaseChangeLog:
             columnNames: inventory_type, entity, slot
             constraintName: uq__inventoryitem__inventory_type__entity__slot
             tableName: inventoryitem
+            deferrable: true
+            initiallyDeferred: true

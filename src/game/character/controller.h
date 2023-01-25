@@ -191,6 +191,14 @@ public:
     character.position.x = entity->position.x;
     character.position.y = entity->position.y;
     character.position.orientation = entity->orientation;
+    character.equipment.head = entity->equipment.head;
+    character.equipment.body = entity->equipment.body;
+    character.equipment.right_hand = entity->equipment.right_hand;
+    character.equipment.left_hand = entity->equipment.left_hand;
+    character.equipment.hand = entity->equipment.hand;
+    character.equipment.feet = entity->equipment.feet;
+    character.equipment.back = entity->equipment.back;
+    character.equipment.ride = entity->equipment.ride;
     character_repository.save(character);
 
     entity_manager.remove(character_id);

@@ -41,6 +41,18 @@ public:
     return inventory;
   };
 
+
+  void save(uint8_t type, uint32_t owner,
+            const model::Inventory &inventory) override {
+    PUBLICInventoryitem table;
+    auto tx = start_transaction(conn_);
+    for (auto [pos, item]: inventory.all()) {
+      if (!item.id) continue;
+      conn_(update(table).set(table.slot = pos).where(table.id == item.id));
+    }
+    tx.commit();
+  }
+
 private:
   sqlpp::postgresql::connection &conn_;
 };

@@ -98,6 +98,18 @@ public:
       stage_manager.broadcast(update);
     }
   }
+
+  static void logout(IClient &client, const IClient::ConnectionClosed &command,
+                     character::Manager &character_manager,
+                     inventory::IRepository &inventory_repository,
+                     inventory::Manager &inventory_manager) {
+    auto character_id = character_manager.get(&client);
+    if (character_id == -1) return;
+
+    auto inventory = inventory_manager.get({1, character_id});
+    inventory_repository.save(1, character_id, inventory);
+    inventory_manager.remove({1, character_id});
+  }
 };
 
 }// namespace openao::game::inventory

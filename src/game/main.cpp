@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
   reactor.insert(character::Controller::interact);
   reactor.insert(inventory::Controller::load);
   reactor.insert(movement::Controller::move);
+  reactor.insert(inventory::Controller::logout);
   reactor.insert(character::Controller::logout);
   reactor.insert(character::Controller::disconnect);
   reactor.insert(chat::Controller::say);
