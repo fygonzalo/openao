@@ -5,6 +5,8 @@
 #include "di/dependency_injector.h"
 #include "iclient.h"
 #include <iostream>
+#include <list>
+#include <unordered_map>
 
 using namespace openao::framework::di;
 
@@ -13,6 +15,8 @@ namespace openao::framework::transport {
 class CustomReactor {
 
 public:
+  typedef std::function<void(IClient &, const IEvent &)> Handler;
+
   CustomReactor(DependencyInjector &dependency_injector)
       : dependency_injector_(dependency_injector){};
 
@@ -25,7 +29,7 @@ public:
               std::ref(dependency_injector_.get<Services>())...);
       std::apply(handler, args);
     };
-    handlers_[typeid(T)] = lambda;
+    handlers_[typeid(T)].emplace_back(lambda);
   }
 
   template<typename T>
@@ -35,21 +39,19 @@ public:
       auto args = std::make_tuple(std::ref(client), cevent);
       std::apply(handler, args);
     };
-    handlers_[typeid(T)] = lambda;
+    handlers_[typeid(T)].emplace_back(lambda);
   }
 
   void react(IClient &client, IEvent &event) {
-    if (handlers_.contains(typeid(event)))
-      handlers_[typeid(event)](client, event);
-    else
+    if (handlers_.contains(typeid(event))) {
+      for (auto &h: handlers_.at(typeid(event))) { h(client, event); }
+    } else
       std::cout << "Reactor - There is no handler for " << typeid(event).name()
                 << std::endl;
   }
 
 private:
-  std::unordered_map<std::type_index,
-                     std::function<void(IClient &, const IEvent &)>>
-          handlers_;
+  std::unordered_map<std::type_index, std::list<Handler>> handlers_;
   DependencyInjector &dependency_injector_;
 };
 
