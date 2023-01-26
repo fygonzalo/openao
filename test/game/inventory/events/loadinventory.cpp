@@ -8,13 +8,12 @@ TEST(inventory_events_LoadInventory, Serialization) {
 
   // SETUP
   LoadInventory event;
-  auto &item = event.items.emplace_back();
+  event.owner = 879314;
+  event.inventory_type = 1;
+  auto &item = event.slots[0];
   item.id = 1748826805;
   item.timestamp = 1342614728;
   item.code = 1;
-  item.type = 1;
-  item.entity = 879314;
-  item.slot = 0;
   item.quantity = 449406630;
   item.hardiness = 0;
   item.hardiness = 0;
