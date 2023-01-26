@@ -53,8 +53,8 @@ public:
   static void move_item(IClient &client, const commands::MoveItem &command,
                         character::Manager &character_manager,
                         inventory::Manager &inventory_manager,
-                        entity::Manager& entity_manager,
-                        stage::Manager& stage_manager) {
+                        entity::Manager &entity_manager,
+                        stage::Manager &stage_manager) {
     auto character_id = character_manager.get(&client);
     auto &inventory = inventory_manager.get({1, character_id});
 
@@ -65,7 +65,6 @@ public:
     update.slots.insert(inventory[command.source]);
     update.slots.insert(inventory[command.destination]);
     client.send(update);
-
 
 
     if (command.source >= 1 and command.source <= 10 or
