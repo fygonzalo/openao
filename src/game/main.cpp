@@ -8,8 +8,10 @@
 #include "inventory/manager.h"
 #include "inventory/repository.h"
 
-#include "chat/controller.h"
 #include "entity/manager.h"
+#include "entity/repository.h"
+
+#include "chat/controller.h"
 #include "movement/controller.h"
 #include "stage/manager.h"
 
@@ -40,8 +42,16 @@ int main(int argc, char *argv[]) {
   dependency_injector.create(character::Manager());
   dependency_injector.create<inventory::IRepository>(inventory::Repository(db));
   dependency_injector.create(stage::Manager());
-  dependency_injector.create(entity::Manager());
   dependency_injector.create(inventory::Manager());
+  auto &em = dependency_injector.create(entity::Manager());
+  auto &er = dependency_injector.create<entity::IRepository>(
+          entity::Repository(db));
+
+  auto npcs = er.get_npcs_by_stage(41);
+  for (auto &npc: npcs) {
+    auto &npc_ = em.create_npcs();
+    npc_ = npc;
+  }
 
   CustomReactor reactor(dependency_injector);
   reactor.insert(character::Controller::authenticate);
@@ -71,6 +81,7 @@ int main(int argc, char *argv[]) {
   serializer.insert<character::events::CharacterDetail>(2);
   serializer.insert<movement::events::Move>(5);
   serializer.insert<entity::Destroy>(7);
+  serializer.insert<entity::NPC>(8);
   serializer.insert<chat::Says>(23);
   serializer.insert<character::events::ShowEmote>(25);
   serializer.insert<inventory::events::LoadInventory>(26);

@@ -5,6 +5,7 @@ add_executable(
   character/commands/interact.cpp
   character/events/characterdetail.cpp
   character/events/showemote.cpp
+  entity/model/npc.cpp
   inventory/events/loadinventory.cpp
   movement/commands/move.cpp
   movement/events/move.cpp)

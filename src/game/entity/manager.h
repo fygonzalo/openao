@@ -7,6 +7,7 @@
 
 #include "di/injectable.h"
 #include "entity/model/character.h"
+#include "entity/model/npc.h"
 
 
 namespace openao::game::entity {
@@ -25,7 +26,16 @@ public:
     return entity;
   }
 
+  entity::NPC &create_npcs() {
+    auto id = entities_ids_.front();
+    entities_ids_.pop();
+    auto &entity = npcs_.emplace_back();
+    entity.id = id;
+    return entity;
+  }
+
   std::list<entity::Character> &get() { return characters_; }
+  std::list<entity::NPC> &get_npcs() { return npcs_; }
 
   entity::Character *get(uint32_t id) {
     for (auto b = characters_.begin(); b != characters_.end(); ++b) {
@@ -49,6 +59,7 @@ public:
 private:
   std::queue<uint32_t> entities_ids_;
   std::list<entity::Character> characters_;
+  std::list<entity::NPC> npcs_;
 };
 
 }// namespace openao::game::entity

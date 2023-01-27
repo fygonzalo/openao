@@ -29,3 +29,12 @@ databaseChangeLog:
             file: inventoryitem.csv
             tableName: inventoryitem
             primaryKey: id
+  - changeSet:
+      id: 4
+      author: fygonzalo
+      runOnChange: true
+      changes:
+        - loadUpdateData:
+            file: npc.csv
+            tableName: npc
+            primaryKey: id

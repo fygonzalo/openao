@@ -31,7 +31,10 @@ add_library(
   movement/controller.h
   stage/manager.h
   entity/manager.h
+  entity/irepository.h
+  entity/repository.h
   entity/model/character.h
+  entity/model/npc.h
   entity/events/destroy.h
   entity/events/update.h
   chat/commands/say.h

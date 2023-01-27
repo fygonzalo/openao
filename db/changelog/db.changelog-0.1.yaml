@@ -459,3 +459,47 @@ databaseChangeLog:
             tableName: inventoryitem
             deferrable: true
             initiallyDeferred: true
+  - changeSet:
+      id: 5
+      author: fygonzalo
+      changes:
+        - createTable:
+            tableName: npc
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stage
+                  type: int
+              - column:
+                  name: position_x
+                  type: int
+              - column:
+                  name: position_y
+                  type: int
+              - column:
+                  name: orientation
+                  type: int
+              - column:
+                  name: model
+                  type: int
+              - column:
+                  name: level
+                  type: int
+              - column:
+                  name: faction
+                  type: int
+              - column:
+                  name: type
+                  type: int

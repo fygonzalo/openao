@@ -110,6 +110,9 @@ public:
       if (e.entityid != entity.entityid) client.send(e);
     }
 
+    auto &npcs = entity_manager.get_npcs();
+    for (auto &n: npcs) { client.send(n); }
+
     // SPAWN SELF TO OTHERS
     entity.position.x = character.position.x;
     entity.position.y = character.position.y;
